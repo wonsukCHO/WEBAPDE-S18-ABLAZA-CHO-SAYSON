@@ -54,24 +54,42 @@
             img.src = src;
 
             var anchor = document.createElement("a");
-            anchor.setAttribute("data-toggle", "modal");
-            anchor.setAttribute("data-target", "post_five");
+            var toolbar = document.createElement("div");
+            toolbar.setAttribute("class", "toolbar");
+            var parent_list = document.createElement("ul");
+            var item_one = document.createElement("li");
+            $(item_one).text("Upvote");
+            var item_two = document.createElement("li");
+            $(item_two).text("Downvote");
+            var item_three = document.createElement("li");
+            $(item_three).text("Comment");
+            var item_four = document.createElement("li");
+            $(item_four).text("Share");
 
             if (caption != "" && src != "") {
+                //appending caption and image
                 $(c_caption).text(caption);
                 $(container).append(c_caption);
                 $(anchor).append(img);
                 $(container).append(anchor);
-
+                
+                //appending toolbar
+                $(parent_list).append(item_one);
+                $(parent_list).append(item_two);
+                $(parent_list).append(item_three);
+                $(parent_list).append(item_four);
+                
+                //put all together
+                $(toolbar).append(parent_list);
+                $(container).append(toolbar);
                 $(section).append(container);
-            }else{
+                
+            } else {
                 alert("Please fill up caption and put a valid image url")
             }
 
             console.log(section);
-
         }
-
     </script>
     <style>
         ul {
@@ -165,7 +183,6 @@
         .user {
             color: white;
         }
-
     </style>
 </head>
 
