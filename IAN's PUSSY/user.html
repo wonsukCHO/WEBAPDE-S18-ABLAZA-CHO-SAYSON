@@ -1,0 +1,280 @@
+<html>
+    <head>
+        <title>MemeHub</title>
+        <link rel="stylesheet" type="text/css" href="semantic/semantic.min.css">
+        <link href="https://fonts.googleapis.com/css?family=Viga" rel="stylesheet">
+        <script
+          src="https://code.jquery.com/jquery-3.1.1.min.js"
+          integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8="
+          crossorigin="anonymous"></script>
+        <script src="semantic/semantic.min.js"></script>
+        <script>
+            // LEFT-RAIL STICKY
+            $(window).scroll(function(e) {
+                // Get the position of the location where the scroller starts.
+                var scroller_anchor = $(".scroller_anchor").offset().top;
+                
+                // Check if the user has scrolled and the current position is after the scroller start location and if its not already fixed at the top
+                if ($(this).scrollTop() >= scroller_anchor && $('.left-rail').css('position') != 'fixed') {
+                    // Change the CSS of the scroller to hilight it and fix it at the top of the screen.
+                    $('.left-rail').css({
+                        'position': 'fixed',
+                        'top':'100px'
+                    });
+                    // Changing the height of the scroller anchor to that of scroller so that there is no change in the overall height of the page.
+                    /*
+                    $('.scroller_anchor').css('height', '50px');
+                    */
+                } else if ($(this).scrollTop() < scroller_anchor && $('.left-rail').css('position') != 'relative') {
+                    // If the user has scrolled back to the location above the scroller anchor place it back into the content.
+                    // Change the height of the scroller anchor to 0 and now we will be adding the scroller back to the content.
+                    $('.scroller_anchor').css('height', '0px');
+                    // Change the CSS and put it back to its original position.
+                    $('.left-rail').css({
+                        'position': 'relative',
+                        'top':'0px'
+                    });
+                }
+            });
+            
+            // MODAL FUNCTIONALITY
+            $(function(){
+                $("#logout").click(function(){
+                    $(".logout").modal('show');
+                });
+                
+                $("#cancel").click(function(){
+                    $(".logout").modal('hide');
+                });
+            
+                $(".logout").modal({
+                    closable: true
+                });
+                
+                $(".share").click(function(){
+                    $(".share_modal").modal('show');
+                });
+            
+                $(".share_modal").modal({
+                    closable: true
+                });
+                
+                $("#upload").click(function(){
+                    $(".upload_modal").modal('show');
+                });
+            
+                $(".upload_modal").modal({
+                    closable: true
+                });
+                
+                $("img").click(function(){
+                    $(".view_modal").modal('show');
+                });
+            
+                $(".view_modal").modal({
+                    closable: true
+                });
+            });
+            
+            // OTHER FUNCTIONS 
+            function logout(){
+                window.location.replace("index.html");
+            }
+            
+            function changeItem(){
+                $("a.item.active").removeClass("active")
+                $(this).addClass("active")
+            }
+            
+            $(document).ready(function(){
+                $("#logout_btn").click(logout)
+                $("a.item").click(changeItem)
+            })
+        </script>
+        
+        <link rel="stylesheet" type="text/css" href="custom.css">
+    </head>
+    <body>
+        <!-------UPPER NAV BAR------>
+        <div class="ui small menu borderless sticky">
+            <a class="active item">Top</a>
+            <a class="item">Hot</a>
+            <a class="item">Trending</a>
+            <div class="right menu">
+                <div class="item">
+                    <div class="ui button orange" id="upload"><i class="upload icon"></i>Upload Meme</div>
+                </div>
+                <div class="item">
+                    <div class="ui button" id="logout"><i class="sign out icon"></i>Logout</div>
+                </div>
+                    <div class="avatar"><img src="avatar/man-1.png"></div>
+            </div>
+        </div>
+        
+        <!-------PARALLAX EFFECT FOR THE BACKGROUND------>
+        <div class="parallax"></div>
+        
+        <!-------WRAPPER FOR LOGO AND MEME DASHBOARD------>
+        <div class="wrapper">
+            <div class="logo">Meme<span class="invert">Hub</span></div>
+            
+            <div class="scroller_anchor"></div>
+            <div class="left-rail">
+                <div class="display_photo"><img src="avatar/man-1.png"></div>
+                <div class="small_container container">
+                    <div class="header">Welcome, <span class="username">admin</span>!</div>
+                    <div class="content">Joined <span class="joined">2 years ago</span>. Uploaded <span class="meme_count">5</span> memes.</div>
+                </div>
+                <div class="small_container container">
+                    <div class="header">Popular Tags</div>
+                    <div class="content">LUCIAS TAGS HERE</div>
+                </div>
+                <div class="small_container container">
+                    <div class="header">Search by tags</div>
+                    <div class="content">
+                        <div class="ui left input" id="searchTag">
+                            <input type="text">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="container">
+                <div class="meme_container">
+                    <span class="meme_title">MEME TITLE</span>
+                    <span class="meme_details">by Admin</span>
+                    <div class="meme"><img src="https://media1.tenor.com/images/fa3003626b296c420d7dd7e37f794293/tenor.gif?itemid=8511784"/></div>
+                    <div class="meme_stats">
+                        <span><i class="chevron circle up icon"></i>72</span>
+                        <span><i class="chevron circle down icon"></i>13</span>
+                        <span><i class="share icon"></i></span>
+                    </div>
+                </div>
+                
+                <div class="meme_container">
+                    <span class="meme_title">MEME TITLE</span>
+                    <span class="meme_details">by Admin</span>
+                    <div class="meme"><img src="https://i.redd.it/pjc8fqpsql711.jpg"/></div>
+                    <div class="meme_stats">
+                        <span><i class="chevron circle up icon"></i>72</span>
+                        <span><i class="chevron circle down icon"></i>13</span>
+                        <span><i class="share icon"></i></span>
+                    </div>
+                </div>
+                
+                <div class="meme_container">
+                    <span class="meme_title">MEME TITLE</span>
+                    <span class="meme_details">by Admin</span>
+                    <div class="meme"><img src="https://i.redd.it/djobezumem711.jpg"/></div>
+                    <div class="meme_stats">
+                        <span><i class="chevron circle up icon"></i>72</span>
+                        <span><i class="chevron circle down icon"></i>13</span>
+                        <span><i class="share icon"></i></span>
+                    </div>
+                </div>
+                
+                
+            </div>
+        </div>
+        
+        <!-------FOOTER------>
+        <div class="ui container">
+            GAMUTAN | ONA | PINEDA
+        </div>
+        
+        <!-------PUT MODALS HERE------>
+        <!-------LOGOUT MODAL------>
+        <div class="ui tiny modal logout">
+            <i class="close icon"></i>
+            <div class="signup header">Logout</div>
+            <div class="content">
+                <center>
+                    <div class="logo_small">Meme<span class="invert">Hub</span></div>
+                    <div class="logout_prompt">
+                        Are you sure you want to logout?
+                        <div class="logout_buttons">
+                            <div class="ui orange button" id="logout_btn">Logout</div>
+                            <div class="ui button" id="cancel">Cancel</div>
+                        </div>
+                    </div>
+                </center>
+            </div>
+        </div>
+        
+        <!-------UPLOAD MEME MODAL------>
+        <div class="ui small modal upload_modal">
+            <i class="close icon"></i>
+            <div class="header">Upload meme</div>
+            <div class="content">
+                <span>Upload a meme: </span>
+                <input type="file" accept="image/png,image/jpg,image/tiff" id="real-file" hidden="hidden"/>
+                <button type="button" id="custom-button" class="share-buttons">CHOOSE A FILE</button>
+                <span id="custom-text">No meme chosen yet</span>
+                
+                <script type="text/javascript">
+                    const realFileBtn = document.getElementById("real-file");
+                    const customBtn = document.getElementById("custom-button");
+                    const customTxt = document.getElementById("custom-text");
+                    
+                    customBtn.addEventListener("click", function() {
+                        realFileBtn.click();
+                    });
+                    
+                    realFileBtn.addEventListener("change", function() {
+                        if(realFileBtn.value){ //if a file is chosen
+                            customTxt.innerHTML = realFileBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+                        }
+                        else
+                            customTxt.innerHTML = "No meme chosen yet";
+                    });
+                </script>
+                
+                <div>
+                    <br>
+                    Give your meme a dank title: 
+                    <span> 
+                        <input type="text" id="title"/>
+                    </span>
+                </div>
+                
+                <div>
+                    <br>
+                    Tags: 
+                    <span> 
+                        <input type="text" id="tags"/>
+                    </span>
+                </div>
+                
+                <div>
+                    <br>
+                    Privacy: 
+                    <span> 
+                        <button type="button" id="private-button" class="share-buttons">PRIVATE</button>
+                        <button type="button" id="public-button" class="share-buttons">PUBLIC</button>
+                    </span>
+                </div>
+                <div>
+                    <br>
+                    <button type="button" id="share-button" class="share-buttons">UPLOAD</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-------SHARE MEME MODAL------>
+        <div class="ui small modal share_modal">
+            <i class="close icon"></i>
+            <div class="header">Share meme</div>
+            <div class="content">
+            </div>
+        </div>
+        
+        <!-------VIEW MEME MODAL------>
+        <div class="ui small modal view_modal">
+            <i class="close icon"></i>
+            <div class="header">View meme</div>
+            <div class="content">
+                MART PUT UR STUFF HERE
+            </div>
+        </div>
+    </body>
+</html>
