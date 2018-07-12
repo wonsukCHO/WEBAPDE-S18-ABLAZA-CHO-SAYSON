@@ -56,92 +56,51 @@
             
             // MODAL FUNCTIONALITY
             $(function(){
-                $("#login").click(function(){
-                    $(".login").modal('show');
-                    $(".red.message").css("display","none");
-                    showLogin()
+                $("#logout").click(function(){
+                    $(".logout").modal('show');
                 });
                 
-                $("#login2").click(function(){
-                    $(".login").modal('show');
-                    $(".red.message").css("display","none");
-                    showLogin()
+                $("#cancel").click(function(){
+                    $(".logout").modal('hide');
                 });
             
-                $(".login").modal({
+                $(".logout").modal({
                     closable: true
                 });
+                
+                $(".share_modal").modal({
+                    closable: true
+                });
+                
+                $("#upload").click(function(){
+                    $(".upload_modal").modal('show');
+                });
+                
+                $("#share-button").click(function(){
+                    $(".uploadSuccess_modal").modal('show');
+                });
+                
+                $("span.username").click(function(){
+                    $(".view_profile1").modal('show');
+                });
             
+                $(".upload_modal").modal({
+                    closable: true
+                });
+                
                 $(".view_modal").modal({
                     closable: true
                 });
             });
             
-            // OTHER FUNCTIONS
-            function showSignup(){
-                $("#login_form").css("display","none")
-                $(".logo_small").css("display","none")
-                $("#signup_form").css("display","flex")
-                $(".header.signup").text("Sign-up")
-            }
-            
-            function showLogin(){
-                $("#signup_form").css("display","none")
-                $("#login_form").css("display","flex")
-                $(".logo_small").css("display","inline-block")
-                $(".header.signup").text("Login")  
-                $(".red.message").css("display","none")
-            }
-            
-            function isValidEmail(email){
-                return true
-            }
-            
-            function clearFields(){
-                $("input").val("")
-            }
-            
-            function signup(){
-                $(".registerSuccess").modal('show')
-                clearFields()
-                showLogin()
-            }
-            
-            function login(){
-                let username = $("#username").val()
-                let password = $("#password").val()
-                if (username == "admin" && password == "admin") {
-                    window.location.replace("user.html");
-                } else{
-                   $(".red.message").css("display","flex")
-                }
+            // OTHER FUNCTIONS 
+            function logout(){
+                window.location.replace("index.html");
             }
             
             function changeItem(){
-                $(".item.active").removeClass("active")
+                $("a.item.active").removeClass("active")
                 $(this).addClass("active")
-            }
-            
-            function changeAvatarChoice() {
-                $(".ui.avatar").removeClass("selected")
-                $(this).addClass("selected")
-            }
-            
-            function checkFields() {
-                let email = $("input[name=signup-email]").val()
-                let username = $("input[name=signup-username]").val()
-                let pass = $("input[name=signup-password]").val()
-                let day = $("input[name=signup-day]").val()
-                let year = $("input[name=signup-year]").val()
-                let terms = $("input[name=signup-check]").is(":checked")
-                
-                if (terms && !isNaN(year) && !isNaN(day) && email != "" && username != "" && pass != "" && day != "" && year != "") {
-                    if (isValidEmail(email) && parseInt(day,10) > 0 && parseInt(day,10) <= 31 && parseInt(year,10) > 0)
-                        $("#signup_btn").removeClass("disabled")
-                } else {
-                    if (!$("#signup_btn").hasClass("disabled"))
-                        $("#signup_btn").addClass("disabled")
-                }
             }
             
             function inputAppend(id_of_input, text){
@@ -193,7 +152,7 @@
             
             memes.push(new Meme("https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.0-9/36352971_612739159099211_6840377731239116800_n.jpg?_nc_cat=0&oh=7a988b127b5f92e4fafd542f793bee89&oe=5BE4EE01","its super effective","admin",81,9,"public", ["computer-science","comments","struggle"]))
             
-            function insertMeme(meme){
+            function insertMeme(meme, isUser){
                 let memeContainer = document.createElement("div")
                 memeContainer.className = "meme_container"
                 
@@ -214,6 +173,12 @@
                     });
                 }
                 
+                let privateLbl = document.createElement("div")
+                privateLbl.className = "ui label private"
+                $(privateLbl).text("Private")
+                
+                if (meme.status=="private")
+                    $(title).append(privateLbl)
                 $(memeContainer).append(title)
                 $(memeContainer).append(details)
                 
@@ -243,20 +208,24 @@
                 let span3 = document.createElement("span")
                 let icon3 = document.createElement("i")
                 icon3.className = "share icon"
+                $(icon3).click(function(){
+                    $(".share_modal").modal('show');
+                })
                 $(span3).append(icon3)
                 
                 $(memeStats).append(span1)
                 $(memeStats).append(span2)
-                // $(memeStats).append(span3)
+                if (isUser)
+                    $(memeStats).append(span3)
                 $(memeContainer).append(memeStats)
                 
                 $(".wrapper .container.right").append(memeContainer)
             }
             
-            function insertMemesIndex(){
+            function insertMemesUser(user){
                 for (let i=0;i<memes.length;i++){
-                    if (memes[i].status == "public")
-                        insertMeme(memes[i])
+                    if (memes[i].owner == user && memes[i].status == "public")
+                        insertMeme(memes[i], false)
                 }
                 
                 let more = document.createElement("div")
@@ -276,21 +245,39 @@
                 var source = memes[id].link;
                 var title = memes[id].title;
                 var content ="by " + memes[id].owner
-                
                 $("#view_meme_title").text(title);
+                
+                let editIcon = document.createElement("i")
+                editIcon.className = "edit outline icon"
+                let delIcon = document.createElement("i")
+                delIcon.className = "trash icon"
+                
+                $("div.view_modal div.header").empty()
+                $("div.view_modal div.header").text("View meme")
+                if (memes[id].owner=="admin"){
+                    $("div.view_modal div.header").append(delIcon)
+                    $("div.view_modal div.header").append(editIcon)
+                }
+                
+                let privateLbl = document.createElement("div")
+                privateLbl.className = "ui label private"
+                $(privateLbl).text("Private")
+                
+                if(memes[id].status=="private")
+                    $("#view_meme_title").append(privateLbl)
+                
                 $("div.ui.longer.modal.view_modal div.view_meme img").attr("src",source)
                 
+                $("#view_meme_info").text(content);
                 if (memes[id].owner=="admin") {
                     $("#view_meme_info").click(function(){
-                        window.location.replace("profile1b.html");
+                        window.location.replace("profile1.html");
                     })
                 } else {
                     $("#view_meme_info").click(function(){
-                        window.location.replace("profile2b.html");
+                        window.location.replace("profile2.html");
                     })
                 }
-                
-                $("#view_meme_info").text(content);
                     
                 var taglist = memes[id].tags;
                 $("div.ui.longer.modal.view_modal div.tag_holder").empty();
@@ -308,23 +295,102 @@
             }
             
             $(document).ready(function(){
-                insertMemesIndex()
-                
-                $("#goto_signup").click(showSignup)
-                $("#goto_login").click(showLogin)
-                $("#signup_btn").click(signup)
-                $("#login_btn").click(login)
+                insertMemesUser("admin2")
+                $("#logout_btn").click(logout)
                 $("a.item").click(changeItem)
-                $(".ui.avatar").click(changeAvatarChoice)
-                
-                $("input[name=signup-email]").keypress(checkFields)
-                $("input[name=signup-username]").keypress(checkFields)
-                $("input[name=signup-password]").keypress(checkFields)
-                $("input[name=signup-day]").keypress(checkFields)
-                $("input[name=signup-year]").keypress(checkFields)
-                $("input[name=signup-check]").click(checkFields)
                 
                 $(".meme_container img").click(viewMeme)
+                
+                $('#tags').keypress(function(event){
+                    var keycode = (event.keyCode ? event.keyCode : event.which);
+                    if(keycode == '13'){
+                        console.log("YOU PRESSED ENTER!");
+                        var input = $("#tags").val();
+                            input = $("#tags").val();
+                            
+                            input = input.split(' ').join('-');
+                        
+                            console.log(input);
+                            $("#tags").val("");
+                            tagArray.push(input);
+                            console.log(tagArray.length); //checking array length
+                            
+                            var inputTag = document.createElement('a');
+                            var deleteTag = document.createElement('i');
+                            inputTag.className = "ui label";
+                            deleteTag.className = "delete icon";
+                            
+                            $(inputTag).attr('id', input); //setting tag name to id 
+                            $(deleteTag).attr('data-tag-name', input);
+                            $(deleteTag).click(x);
+                            
+                            $(inputTag).text(input);
+                            $(inputTag).append(deleteTag);
+                            
+                            $("#textarea").append(inputTag);
+                           
+                    }
+                })
+                
+                $('#tags2').keypress(function(event){
+                    var keycode = (event.keyCode ? event.keyCode : event.which);
+                    if(keycode == '13'){
+                        console.log("YOU PRESSED ENTER!");
+                        var input = $("#tags2").val();
+                            input = $("#tags2").val();
+                            
+                            input = input.split(' ').join('-');
+                        
+                            console.log(input);
+                            $("#tags2").val("");
+                            tagArray.push(input);
+                            console.log(tagArray.length); //checking array length
+                            
+                            var inputTag = document.createElement('a');
+                            var deleteTag = document.createElement('i');
+                            inputTag.className = "ui label";
+                            deleteTag.className = "delete icon";
+                            
+                            $(inputTag).attr('id', input); //setting tag name to id 
+                            $(deleteTag).attr('data-tag-name', input);
+                            $(deleteTag).click(x);
+                            
+                            $(inputTag).text(input);
+                            $(inputTag).append(deleteTag);
+                            
+                            $("#textarea3").append(inputTag);
+                           
+                    }
+                })
+                
+                $('#tags3').keypress(function(event){
+                    var keycode = (event.keyCode ? event.keyCode : event.which);
+                    if(keycode == '13'){
+                        event.preventDefault();
+                        console.log("YOU PRESSED ENTER!");
+                        var input = $("#tags3").val();
+                            input = $("#tags3").val();
+                            
+                            input = input.split(' ').join('-');
+                        
+                            console.log(input);
+                            $("#tags3").val("");
+                            
+                            var inputTag = document.createElement('a');
+                            var deleteTag = document.createElement('i');
+                            inputTag.className = "ui label";
+                            deleteTag.className = "delete icon";
+                            
+                            $(inputTag).attr('id', input); //setting tag name to id 
+                            $(deleteTag).attr('data-tag-name', input);
+                            $(deleteTag).click(x);
+                            
+                            $(inputTag).text(input);
+                            $(inputTag).append(deleteTag);
+                            
+                            $("#textarea4").append(inputTag);
+                    }
+                })
                 
                 $('#search_tags').keypress(function(event){
                     var keycode = (event.keyCode ? event.keyCode : event.which);
@@ -356,20 +422,30 @@
                     }
                 })
                 
+                $("#private-button").click(function(){
+                    $(this).css('background-color', '#20b2aa');
+                    $("#public-button").css('background-color', 'darkorange')
+                });
+               
+                $("#public-button").click(function(){
+                    $(this).css('background-color', '#20b2aa');
+                    $("#private-button").css('background-color', 'darkorange')
+                });
+                
                 $(".more_memes").click(function(){
                     $(this).addClass("loading")
                 })
                 
                 $(".goto_1").click(function(){
-                    window.location.replace("profile1b.html");
+                    window.location.replace("profile1.html");
                 })
                 
                 $(".goto_2").click(function(){
-                    window.location.replace("profile2b.html");
+                    window.location.replace("profile2.html");
                 })
                 
                 $("a.item").click(function(){
-                    window.location.replace("index.html");
+                    window.location.replace("user.html");
                 })
             })
         </script>
@@ -389,8 +465,12 @@
             
             <div class="right menu">
                 <div class="item">
-                    <div class="ui orange button" id="login"><i class="user icon"></i>Login</div>
+                    <div class="ui button orange" id="upload"><i class="upload icon"></i>Upload Meme</div>
                 </div>
+                <div class="item">
+                    <div class="ui button" id="logout"><i class="sign out icon"></i>Logout</div>
+                </div>
+                    <div class="avatar"><img src="avatar/man-1.png"></div>
             </div>
         </div>
         
@@ -400,25 +480,17 @@
         <!-------WRAPPER FOR LOGO AND MEME DASHBOARD------>
         <div class="wrapper">
             <div class="scroller_anchor2"></div>
-            <div class="logo">Meme<span class="invert">Hub</span></div>
+            <div class="upper_profile">
+                <div class="display_photo"><img src="avatar/girl-1.png"></div>
+                <div class="small_container container">
+                    <div class="header">admin2</div>
+                    <div class="content">welcome to my profile</div>
+                </div>
+            </div>
+            
             
             <div class="scroller_anchor"></div>
             <div class="left-rail">
-                <div class="small_container container">
-                    <div class="header">Not logged in</div>
-                    <div class="content">Log-in <span class="hyperlink" id="login2">here</span> to upload and react to memes.</div>
-                </div>
-                <div class="small_container container">
-                    <div class="header">Popular Tags</div>
-                    <div class="content" id="popular_tags">
-                        <a class="ui label">dank</a>
-                        <a class="ui label">spicy</a>
-                        <a class="ui label">pinoy</a>
-                        <a class="ui label">loss</a>
-                        <a class="ui label">computer-science</a>
-                        <a class="ui label">cool</a>
-                    </div>
-                </div>
                 <div class="small_container container" id="search_container">
                     <div class="header">Search by tags</div>
                     <div class="content">
@@ -431,7 +503,6 @@
             </div>
             
             <div class="container right">
-                
             </div>
         </div>
         
@@ -441,106 +512,102 @@
         </div>
         
         <!-------PUT MODALS HERE------>
-        <!-------SIGN-UP MODAL------>
-        <div class="ui small modal login">
+        <!-------LOGOUT MODAL------>
+        <div class="ui tiny modal logout">
             <i class="close icon"></i>
-            <div class="signup header">Login</div>
+            <div class="signup header">Logout</div>
             <div class="content">
                 <center>
                     <div class="logo_small">Meme<span class="invert">Hub</span></div>
+                    <div class="logout_prompt">
+                        Are you sure you want to logout?
+                        <div class="logout_buttons">
+                            <div class="ui orange button" id="logout_btn">Logout</div>
+                            <div class="ui button" id="cancel">Cancel</div>
+                        </div>
+                    </div>
                 </center>
-                <form class="ui large form" id="login_form">
-                    <div class="ui left icon input">
-                        <i class="user icon"></i>
-                        <input id="username" type="text" name="username" placeholder="username">
-                    </div>
-                    
-                    <div class="ui left icon input">
-                        <i class="lock icon"></i>
-                        <input id="password" type="password" name="password" placeholder="password">
-                    </div>
-                    <span id="newUser_container">
-                    New to MemeHub? Sign up <span class="hyperlink" id="goto_signup">here</span>.
-                    </span>
-                    <div class="ui message red">
-                        <div class="header">
-                            Invalid credentials.
-                        </div>
-                    </div>
-                    <div class="ui submit button" id="login_btn">Login</div>
-                </form>
-                <form class="ui form" id="signup_form">
-                    <div class="three fields">
-                        <div class="required field">
-                            <label>Email</label>
-                            <input type="text" name="signup-email" placeholder="john_smith@memehub.com">
-                        </div>
-                        <div class="required field">
-                            <label>Username</label>
-                            <input type="text" name="signup-username" placeholder="johnsmith96">
-                        </div>
-                        <div class="required field">
-                            <label>Password</label>
-                            <input type="password" name="signup-password" placeholder="******">
-                        </div>
-                    </div>         
-                    
-                    <div class="required field">
-                        <label>Date of Birth</label>
-                        <div class="three fields">
-                            <div class="field">
-                                <select class="ui fluid search dropdown" name="signup-month">
-                                    <option value="1">January</option>
-                                    <option value="2">February</option>
-                                    <option value="3">March</option>
-                                    <option value="4">April</option>
-                                    <option value="5">May</option>
-                                    <option value="6">June</option>
-                                    <option value="7">July</option>
-                                    <option value="8">August</option>
-                                    <option value="9">September</option>
-                                    <option value="10">October</option>
-                                    <option value="11">November</option>
-                                    <option value="12">December</option>
-                                </select>
-                            </div>
-                            <div class="field">
-                                <input type="number" name="signup-day" min="1" max="31" placeholder="Day">
-                            </div>
-                            <div class="field">
-                                <input type="text" name="signup-year" maxlength="4" placeholder="Year">
-                            </div>
-                        </div>
-                    </div>
-                    <div class="two fields">
-                        <div class="field">
-                            <label>Description</label>
-                            <textarea rows="3"></textarea>
-                        </div>
-                        <div class="field">
-                            <label>Choose avatar</label>
-                            <div class="container">
-                                <img class="ui avatar" src="avatar/man-2.png">
-                                <img class="ui avatar" src="avatar/boy-1.png">
-                                <img class="ui avatar" src="avatar/boy.png">
-                                <img class="ui avatar" src="avatar/girl-1.png">
-                                <img class="ui avatar" src="avatar/girl.png">
-                                <img class="ui avatar" src="avatar/man-1.png">
-                            </div>
-                        </div>
-                    </div>
-                 
+            </div>
+        </div>
+        
+        <!-------UPLOAD MEME MODAL------>
+        <div class="ui tiny modal upload_modal">
+            <i class="close icon"></i>
+            <div class="header">Upload meme</div>
+            <div class="scrolling content">
+                <form class="ui form">
                     <div class="field">
-                        <div class="ui checkbox">
-                            <input type="checkbox" tabindex="0" name="signup-check">
-                            <label>I agree to the Terms and Conditions</label>
-                        </div>
+                        <label>Upload a meme</label>
+                        <input type="file" accept="image/png,image/jpg,image/tiff" id="real-file" hidden="hidden"/>
+                        <div class="ui button orange" id="custom-button">Choose a file</div>
+                        <span id="custom-text">No meme chosen yet</span>
+                        <script type="text/javascript">
+                            const realFileBtn = document.getElementById("real-file");
+                            const customBtn = document.getElementById("custom-button");
+                            const customTxt = document.getElementById("custom-text");
+                            
+                            customBtn.addEventListener("click", function() {
+                                realFileBtn.click();
+                            });
+
+                            realFileBtn.addEventListener("change", function() {
+                                if(realFileBtn.value){ //if a file is chosen
+                                    customTxt.innerHTML = realFileBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+                                } else
+                                    customTxt.innerHTML = "No meme chosen yet";
+                            });
+                        </script>
                     </div>
-                    <span id="newUser_container">Already have an account? Login <span class="hyperlink" id="goto_login">here</span>.</span>
-                    <div class="ui submit disabled button" id="signup_btn">Register</div>
+                    
+                    <div class="field">
+                        <label>Give your meme a dank title</label>
+                        <input type="text" id="title" placeholder="Dank Meme"/>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Tags</label>
+                        <input type="text" id="tags" placeholder="#doge, #Drake"/>
+                        <div id="textarea"></div>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Shared users</label>
+                        <input type="text" id="tags2" placeholder="admin2, admin"/>
+                        <div id="textarea3"></div>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Privacy</label>
+                        <div class="ui button orange" id="private-button">Private</div>
+                        <div class="ui button orange" id="public-button">Public</div>
+                    </div>
+                    <div class="ui inverted button orange" id="share-button">Upload</div>
                 </form>
-                
-                
+            </div>
+        </div>
+        
+        <!-------UPLOAD SUCCESS MODAL------>
+        <div class="ui tiny modal uploadSuccess_modal">
+            <i class="close icon"></i>
+            <div class="header">Upload meme</div>
+            <div class="scrolling content">
+                You have successfully uploaded a meme!
+            </div>
+        </div>
+        
+        <!-------SHARE MEME MODAL------>
+        <div class="ui small modal share_modal">
+            <i class="close icon"></i>
+            <div class="header">Share meme</div>
+            <div class="content">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Add users to share this meme with</label>
+                        <input type="text" id="tags3" placeholder="admin2, admin"/>
+                        <div id="textarea4"></div>
+                       
+                    </div>
+                </form>
             </div>
         </div>
         
@@ -555,15 +622,6 @@
                     <div class ="view_meme"><img src="" id="view_meme_img"></div>
                 </center>
                 <div class="tag_holder"></div>
-            </div>
-        </div>
-        
-        <!-------REGISTERED SUCCESFULLY MODAL------->
-        <div class="ui modal registerSuccess">
-            <i class="close icon"></i>
-            <div class="header">Success <i class="check circle"></i></div>
-            <div class="content">
-                You have successfully registered for a MemeHub account!
             </div>
         </div>
         
@@ -603,5 +661,6 @@
                 View full profile <span class="hyperlink goto_2">here</span>.
             </div>
         </div>
+        
     </body>
 </html>

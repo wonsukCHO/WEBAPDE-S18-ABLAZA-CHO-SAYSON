@@ -50,7 +50,19 @@ body{
     font-family: 'Viga', sans-serif;
 }
 
+.logo_tiny{
+    visibility:hidden;
+    color:#212121;
+    font-size: 22px;
+    margin-top:13px;
+    font-family: 'Viga', sans-serif;
+}
+
 .logo_small .invert{
+    color:white;
+}
+
+.logo_tiny .invert{
     color:white;
 }
 
@@ -120,9 +132,23 @@ body{
     background-color:#e89c23;
 }
 
-img{
+.meme_details:hover{
+    text-decoration: underline;
+}
+
+.display_photo img, .avatar img{
     width: 100%;
     height:auto;
+}
+
+.meme_container img{
+    width: 100%;
+    height:auto;
+}
+
+.view_modal .view_meme img{
+    max-width: 100%;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.5);
 }
 
 .meme_stats{
@@ -218,8 +244,12 @@ img{
     font-size:13px;
 }
 
-.small_container .meme_count, .small_container .joined, .small_container .username{
+span.meme_count, span.joined, span.username{
     color:#e89c23;
+}
+
+span.meme_count:hover, span.joined:hover,span.username:hover{
+    text-decoration: underline;
 }
 
 .display_photo{
@@ -261,28 +291,129 @@ textarea {
 }
 
 .ui.avatar.selected{
-    border:5px solid #e89c23 ;
+    border:5px solid  ;
     border-collapse: collapse;
+}
+
+a.ui.label:nth-child(2n) {
+    background-color: #e89c23;
+}
+
+.more_memes{
+    width:100px;
+}
+
+#more{
+    margin:6px;
+}
+
+.ui.label.private{
+    background-color: #212121;
+    border:1px solid white;
+    color:white;
+    padding:5px 10px;
+    margin-left:10px;
+}
+
+.trash, .edit{
+    float:right;
+    padding-right:30px;
+}
+
+.trash{
+    color: #cb1919;
+}
+
+.view_profile1 .content, .view_profile2 .content{
+    text-align: center;
+}
+
+.ui.small.images{
+    margin:10px 0px;
+}
+
+.upper_profile{
+    display: inline-block;
+    margin-top:-80px;
+    margin-bottom: 55px;
 }
 
 /* LUCIA */
 
-.share-buttons{
-    padding: 10px;
-    color: white;
-    font-size: 12px;
-    background-color: #e89c23;
-    /*border: 1px solid #212121;*/
-    border-radius: 5px;
-    cursor: pointer;
-}
-
-.share-buttons:hover{
-    background-color: #db9422;
+.upload_modal .button{
+    margin-left: 5px;
 }
 
 #custom-text{
     margin-left: 10px;
     font-family: 'Viga', sans-serif;
     color: dimgrey;
+}
+
+.header{
+    font-size: 25px;
+    font-family: 'Viga', sans-serif;
+    color: #212121;
+}
+
+#textarea, #textarea3, #textarea4 {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    margin-top:7px;
+    border: 1px solid gray;
+    overflow: auto;
+    padding: 4px 5px;
+    width: 100%;
+    height:75px;
+}
+
+#textarea2 {
+    -moz-appearance: textfield-multiline;
+    -webkit-appearance: textarea;
+    margin-top:7px;
+    border: 1px solid gray;
+    overflow: auto;
+    width: 100%;
+    height:35px;
+}
+
+#searchTag{
+    display: flex;
+    flex-direction: column;
+}
+
+#search_tags{
+    display: block;
+    width:100%;
+}
+
+.ui.label{
+    margin: 3px;
+}
+
+/* MART */
+
+#view_meme_title{
+    background-color:#212121;
+    color:white;
+    font-size:20px;
+    padding:5px 10px;
+}
+
+#view_meme_info{
+    background-color:#e89c23;
+    color:#212121;
+    font-size:15px;
+    padding:5px 10px;
+    margin-bottom:5px;
+}
+
+#view_meme_info:hover{
+    text-decoration: underline;
+}
+
+.tag_holder{
+    margin-top:5px;
+    border:1px solid #d3d3d3;
+    padding:5px;
 }

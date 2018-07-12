@@ -58,26 +58,38 @@
             $(function(){
                 $("#login").click(function(){
                     $(".login").modal('show');
-                    $(".red.message").css("display","none");
-                    showLogin()
                 });
-                
-                $("#login2").click(function(){
-                    $(".login").modal('show');
-                    $(".red.message").css("display","none");
-                    showLogin()
-                });
-            
+
                 $(".login").modal({
                     closable: true
                 });
+                
+                $(".share_modal").modal({
+                    closable: true
+                });
+                
+                $("#upload").click(function(){
+                    $(".upload_modal").modal('show');
+                });
+                
+                $("#share-button").click(function(){
+                    $(".uploadSuccess_modal").modal('show');
+                });
+                
+                $("span.username").click(function(){
+                    $(".view_profile1").modal('show');
+                });
             
+                $(".upload_modal").modal({
+                    closable: true
+                });
+                
                 $(".view_modal").modal({
                     closable: true
                 });
             });
             
-            // OTHER FUNCTIONS
+            // OTHER FUNCTIONS 
             function showSignup(){
                 $("#login_form").css("display","none")
                 $(".logo_small").css("display","none")
@@ -193,7 +205,7 @@
             
             memes.push(new Meme("https://scontent.fmnl4-3.fna.fbcdn.net/v/t1.0-9/36352971_612739159099211_6840377731239116800_n.jpg?_nc_cat=0&oh=7a988b127b5f92e4fafd542f793bee89&oe=5BE4EE01","its super effective","admin",81,9,"public", ["computer-science","comments","struggle"]))
             
-            function insertMeme(meme){
+            function insertMeme(meme, isUser){
                 let memeContainer = document.createElement("div")
                 memeContainer.className = "meme_container"
                 
@@ -214,6 +226,12 @@
                     });
                 }
                 
+                let privateLbl = document.createElement("div")
+                privateLbl.className = "ui label private"
+                $(privateLbl).text("Private")
+                
+                if (meme.status=="private")
+                    $(title).append(privateLbl)
                 $(memeContainer).append(title)
                 $(memeContainer).append(details)
                 
@@ -243,19 +261,21 @@
                 let span3 = document.createElement("span")
                 let icon3 = document.createElement("i")
                 icon3.className = "share icon"
+                $(icon3).click(function(){
+                    $(".share_modal").modal('show');
+                })
                 $(span3).append(icon3)
                 
                 $(memeStats).append(span1)
                 $(memeStats).append(span2)
-                // $(memeStats).append(span3)
                 $(memeContainer).append(memeStats)
                 
                 $(".wrapper .container.right").append(memeContainer)
             }
             
-            function insertMemesIndex(){
+            function insertMemesUser(user){
                 for (let i=0;i<memes.length;i++){
-                    if (memes[i].status == "public")
+                    if (memes[i].owner == user && memes[i].status=="public")
                         insertMeme(memes[i])
                 }
                 
@@ -276,9 +296,18 @@
                 var source = memes[id].link;
                 var title = memes[id].title;
                 var content ="by " + memes[id].owner
-                
                 $("#view_meme_title").text(title);
+
+                let privateLbl = document.createElement("div")
+                privateLbl.className = "ui label private"
+                $(privateLbl).text("Private")
+                
+                if(memes[id].status=="private")
+                    $("#view_meme_title").append(privateLbl)
+                
                 $("div.ui.longer.modal.view_modal div.view_meme img").attr("src",source)
+                
+                $("#view_meme_info").text(content);
                 
                 if (memes[id].owner=="admin") {
                     $("#view_meme_info").click(function(){
@@ -289,8 +318,6 @@
                         window.location.replace("profile2b.html");
                     })
                 }
-                
-                $("#view_meme_info").text(content);
                     
                 var taglist = memes[id].tags;
                 $("div.ui.longer.modal.view_modal div.tag_holder").empty();
@@ -308,14 +335,13 @@
             }
             
             $(document).ready(function(){
-                insertMemesIndex()
+                insertMemesUser("admin")
                 
                 $("#goto_signup").click(showSignup)
                 $("#goto_login").click(showLogin)
                 $("#signup_btn").click(signup)
                 $("#login_btn").click(login)
                 $("a.item").click(changeItem)
-                $(".ui.avatar").click(changeAvatarChoice)
                 
                 $("input[name=signup-email]").keypress(checkFields)
                 $("input[name=signup-username]").keypress(checkFields)
@@ -400,25 +426,17 @@
         <!-------WRAPPER FOR LOGO AND MEME DASHBOARD------>
         <div class="wrapper">
             <div class="scroller_anchor2"></div>
-            <div class="logo">Meme<span class="invert">Hub</span></div>
+            <div class="upper_profile">
+                <div class="display_photo"><img src="avatar/man-1.png"></div>
+                <div class="small_container container">
+                    <div class="header">admin</div>
+                    <div class="content">welcome to my profile</div>
+                </div>
+            </div>
+            
             
             <div class="scroller_anchor"></div>
             <div class="left-rail">
-                <div class="small_container container">
-                    <div class="header">Not logged in</div>
-                    <div class="content">Log-in <span class="hyperlink" id="login2">here</span> to upload and react to memes.</div>
-                </div>
-                <div class="small_container container">
-                    <div class="header">Popular Tags</div>
-                    <div class="content" id="popular_tags">
-                        <a class="ui label">dank</a>
-                        <a class="ui label">spicy</a>
-                        <a class="ui label">pinoy</a>
-                        <a class="ui label">loss</a>
-                        <a class="ui label">computer-science</a>
-                        <a class="ui label">cool</a>
-                    </div>
-                </div>
                 <div class="small_container container" id="search_container">
                     <div class="header">Search by tags</div>
                     <div class="content">
@@ -431,7 +449,6 @@
             </div>
             
             <div class="container right">
-                
             </div>
         </div>
         
@@ -544,6 +561,87 @@
             </div>
         </div>
         
+        <!-------UPLOAD MEME MODAL------>
+        <div class="ui tiny modal upload_modal">
+            <i class="close icon"></i>
+            <div class="header">Upload meme</div>
+            <div class="scrolling content">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Upload a meme</label>
+                        <input type="file" accept="image/png,image/jpg,image/tiff" id="real-file" hidden="hidden"/>
+                        <div class="ui button orange" id="custom-button">Choose a file</div>
+                        <span id="custom-text">No meme chosen yet</span>
+                        <script type="text/javascript">
+                            const realFileBtn = document.getElementById("real-file");
+                            const customBtn = document.getElementById("custom-button");
+                            const customTxt = document.getElementById("custom-text");
+                            
+                            customBtn.addEventListener("click", function() {
+                                realFileBtn.click();
+                            });
+
+                            realFileBtn.addEventListener("change", function() {
+                                if(realFileBtn.value){ //if a file is chosen
+                                    customTxt.innerHTML = realFileBtn.value.match(/[\/\\]([\w\d\s\.\-\(\)]+)$/)[1];
+                                } else
+                                    customTxt.innerHTML = "No meme chosen yet";
+                            });
+                        </script>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Give your meme a dank title</label>
+                        <input type="text" id="title" placeholder="Dank Meme"/>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Tags</label>
+                        <input type="text" id="tags" placeholder="#doge, #Drake"/>
+                        <div id="textarea"></div>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Shared users</label>
+                        <input type="text" id="tags2" placeholder="admin2, admin"/>
+                        <div id="textarea3"></div>
+                    </div>
+                    
+                    <div class="field">
+                        <label>Privacy</label>
+                        <div class="ui button orange" id="private-button">Private</div>
+                        <div class="ui button orange" id="public-button">Public</div>
+                    </div>
+                    <div class="ui inverted button orange" id="share-button">Upload</div>
+                </form>
+            </div>
+        </div>
+        
+        <!-------UPLOAD SUCCESS MODAL------>
+        <div class="ui tiny modal uploadSuccess_modal">
+            <i class="close icon"></i>
+            <div class="header">Upload meme</div>
+            <div class="scrolling content">
+                You have successfully uploaded a meme!
+            </div>
+        </div>
+        
+        <!-------SHARE MEME MODAL------>
+        <div class="ui small modal share_modal">
+            <i class="close icon"></i>
+            <div class="header">Share meme</div>
+            <div class="content">
+                <form class="ui form">
+                    <div class="field">
+                        <label>Add users to share this meme with</label>
+                        <input type="text" id="tags3" placeholder="admin2, admin"/>
+                        <div id="textarea4"></div>
+                       
+                    </div>
+                </form>
+            </div>
+        </div>
+        
         <!-------VIEW MEME MODAL------>
         <div class="ui longer modal view_modal">
             <i class="close icon"></i>
@@ -555,15 +653,6 @@
                     <div class ="view_meme"><img src="" id="view_meme_img"></div>
                 </center>
                 <div class="tag_holder"></div>
-            </div>
-        </div>
-        
-        <!-------REGISTERED SUCCESFULLY MODAL------->
-        <div class="ui modal registerSuccess">
-            <i class="close icon"></i>
-            <div class="header">Success <i class="check circle"></i></div>
-            <div class="content">
-                You have successfully registered for a MemeHub account!
             </div>
         </div>
         
@@ -603,5 +692,6 @@
                 View full profile <span class="hyperlink goto_2">here</span>.
             </div>
         </div>
+        
     </body>
 </html>
