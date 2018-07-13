@@ -1,81 +1,241 @@
 <html>
-    <head>
-        <title> Profile </title>
+
+<head>
+    <title> Memes for the WEBAPDE salesman</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            border-bottom-color: grey;
+            margin-top: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
+
+        li {
+            float: left;
+            font-family: sans-serif;
+            font-size: 110%;
+        }
+
+        .nav {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: forestgreen;
+            text-decoration: none;
+            color: white;
+        }
+
+        section {
+            background-color: #333;
+            width: 600px;
+            height: auto;
+            margin: 0 auto;
+            padding: 30px;
+            box-sizing: border-box;
+            color: rgba(0, 0, 0, 0.8);
+            font-family: Helvetica, sans-serif;
+            font-size: 1.2rem;
+            color: white;
+        }
         
-        <style>
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #333;
-                border-bottom-color: grey;
-            }
 
-            li {
-                float: left;
-                font-family: sans-serif;
-                font-size: 110%;
-            }
+        #profile {
+            float: right;
+            border-radius: 100px;
 
-            .nav {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
+        }
 
-            li a:hover {
-                background-color: forestgreen;
-            }
-            
-            section{
-                background-color: #333;
-                width: 600px;
-                height: auto;
-                margin: 0 auto;
-                padding: 30px;
-                box-sizing: border-box;
-                color: rgba(0, 0, 0, 0.8);
-                font-family: Helvetica, sans-serif;
-                font-size: 1.2rem;
-                color:white;
-            }
-            
-            section img{
-                float:right;
-                border-radius: 100px;
-            }
-            
-            
-            .new_user {
-                float: right;
-                font-family: sans-serif;
-                font-size: 0.9rem;
-            }
-            .title{
-                float:left;
-                font-size: 120%;
-                font-family: sans-serif;
-            }
 
-        </style>
-    </head>
+        .new_user {
+            float: right;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .title {
+            float: left;
+            font-size: 120%;
+            font-family: sans-serif;
+        }
+
+
+        div img {
+            margin: 0 auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
+
+        .posts {
+            margin: 30px;
+            border-bottom: 1px solid white;
+        }
+
+        .toolbar ul {
+            list-style-type: none;
+            margin: 0 auto;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            border-bottom-color: grey;
+        }
+
+        .toolbar li {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            float: left;
+            font-family: sans-serif;
+            font-size: 90%;
+        }
+
+        .user {
+            color: white;
+        }
+
+    </style>
+</head>
+
+<body>
+    <ul>
+        <li class="nav"> Dank WEBAPDE Memes</li>
+        <li> <a href="home.html" class="nav">Home</a> </li>
+        <li> <a href="about.html" class="nav">About Us </a> </li>
+        <li style="float:right; background-color:forestgreen; color:white">
+            <a data-toggle="modal" data-target="#share_meme" class="nav">Post a Meme </a>
+        </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <input type="text" placeholder="Search..">
+        </li>
+    </ul>
     
-    <body>
-        <ul>
-            <li class="nav"> Dank WEBAPDE Memes </li>
-            <li> <a href="home.html" class="nav">Home</a> </li>
-            <li> <a href="about.html" class="nav">About Us </a> </li>
-        </ul>
-        <section>
-            <img src="https://yt3.ggpht.com/-Z-QdzCImV_o/AAAAAAAAAAI/AAAAAAAAAAA/ccsR-JEuZKY/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" width=120px height=120px/>
-            <div class="info">Name: Joey Sayson</div> <br>
-            <div class="info">Username: @joey</div> <br>
-            <div class="info">Bio: I love WEBAPDE</div> <br>
-        </section>
-        <center> <a href="index.html">Logout</a> </center>
-    </body>
+<!--    <div class="new_user">-->
+        <!--        Welcome, Angelo!-->
+        <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
+<!--    </div>-->
     
+    <section>
+        <img id = "profile" src="https://yt3.ggpht.com/-Z-QdzCImV_o/AAAAAAAAAAI/AAAAAAAAAAA/ccsR-JEuZKY/s900-c-k-no-mo-rj-c0xffffff/photo.jpg" alt = "profile" width=120px height=120px/>
+        <div class="info">Name: Joey Sayson</div> <br>
+        <div class="info">Username: @joey</div> <br>
+        <div class="info">Bio: I love WEBAPDE</div> <br>
+    </section>
+        
+    <br>
+
+    <section>
+        <div class="posts">
+            <div> N..evermind
+            </div>
+            <a data-toggle="modal" data-target="#post_four">
+                <img src="https://i.redd.it/mcc4a6wjz6g01.jpg" />
+            </a>
+            <div class="toolbar">
+                <ul>
+                    <li> Upvote </li>
+                    <li> Downvote </li>
+                    <li> Comment </li>
+                    <li> Share </li>
+                </ul>
+            </div>
+        </div>
+    </section>
+    
+    <center> <a href="index.html">Logout</a> </center>
+
+    <!-- Modals -->
+    <!--Four Post-->
+    <div class="modal fade" id="post_four" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">N..evermind</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <a href="profile-joey.html" style="color:black" class="user">@joey</a>
+
+                    <img src="https://i.redd.it/mcc4a6wjz6g01.jpg" />
+                    <div>
+                        <a href="tags-dank.html" style="color:black">@dank</a>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!--Post Meme-->
+    <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Share your meme!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Caption:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Tags</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">@users</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-default"> Upload Image </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Post Settings </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item">Public</a>
+                                <a class="dropdown-item">Private</a>
+                                <!--
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="#">Separated link</a>
+-->
+                            </div>
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="post.html"> 
+                        <button type="button" class="btn btn-primary">Post</button>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+</body>
+
 </html>
