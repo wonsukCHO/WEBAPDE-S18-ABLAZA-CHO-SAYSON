@@ -1,71 +1,98 @@
 <html>
 
 <head>
-    <title> About Us</title>
+    <title> Memes for the WEBAPDE salesman</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
+    <script>
+        $(document).ready(() => {
+            $("#search_btn").click(function() {
+                search();
+            });
+        });
 
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-            border-bottom-color: grey;
+
+        function search() {
+            var result = document.getElementById("searchbar").value;
+            result = result.toLowerCase().trim();
+            console.log(result);
+
+            if (result == "normie") {
+                //go to tags-normie
+                window.location.href = "tags-normie.html"
+            } else if (result == "justright") {
+                //go to tags-justright
+                window.location.href = "tags-justright.html"
+
+            } else if (result == "dank") {
+                //go dank
+                window.location.href = "tags-dank.html"
+
+            } else {
+                alert("No matches returned");
+            }
         }
-
-        li {
-            float: left;
-            font-family: sans-serif;
-            font-size: 110%;
-        }
-
-        .nav {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover {
-            background-color: forestgreen;
-        }
-
-        section {
-            background-color: #333;
-            width: 600px;
-            height: auto;
-            margin: 0 auto;
-            padding: 30px;
-            box-sizing: border-box;
-            color: rgba(0, 0, 0, 0.8);
-            font-family: Helvetica, sans-serif;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .new_user {
-            float: right;
-            font-family: sans-serif;
-            font-size: 0.9rem;
-        }
-
-    </style>
+    </script>
 </head>
 
 <body>
     <ul>
         <li class="nav"> Dank WEBAPDE Memes</li>
-        <li> <a href="home.html" class="nav">Home </a> </li>
-        <li> <a class="nav"> About Us </a></li>
-        <!--            <li> <a href="profile.html" class="nav">Profile </a> </li>-->
-        <!--            <li> <a href="about.html" class="nav">About Us </a> </li>-->
+        <li> <a href="home.html" class="nav">Home</a> </li>
+        <li> <a href="about.html" class="nav">About Us </a> </li>
+        <!--
+        <li style="float:right; background-color:forestgreen; color:white">
+            <a data-toggle="modal" data-target="#share_meme" class="nav">Post a Meme </a>
+        </li>
+-->
+        <li class="nav" style="float:right; font-size: 90%">
+            <button id="search_btn"> Search </button>
+        </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <input type="text" placeholder="Search.." id="searchbar">
+        </li>
     </ul>
-    <!--            Don't have an account? <a href="register.html"> Register now  </a>-->
+    <div class="new_user">
+        <!--        Welcome, Angelo!-->
+        <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
+    </div>
+
     <section>
-        <p> This website was made in order to appease the WEBAPDE Gods (Ms Courtney) </p>
+        <div class="posts">
+            <center>
+                <h5> This Machine Project was done in partial fulfillment to appease the WEBAPDE God (Ms. Courtney Ngo)
+                </h5>
+            </center>
+            <a data-toggle="modal" data-target="#enlarge">
+                <img src="https://scontent.fmnl4-6.fna.fbcdn.net/v/t1.0-9/36426836_1974003572619950_5510485887361744896_n.jpg?_nc_cat=0&oh=dd7b49d60e29393a67bd31737cc10bfe&oe=5BD3C4AB"/>
+            </a>
+        </div>
     </section>
-    <center> <a href="index.html"> Logout </a> </center>
+    <center> <a href="index.html">Logout</a> </center>
+
+    <div class="modal fade" id="enlarge" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">The Creators at UHACKADEMIA (2nd Runner-up)</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://scontent.fmnl4-6.fna.fbcdn.net/v/t1.0-9/36426836_1974003572619950_5510485887361744896_n.jpg?_nc_cat=0&oh=dd7b49d60e29393a67bd31737cc10bfe&oe=5BD3C4AB" />
+                </div>
+                <center>ABLAZA | CHO | SAYSON</center>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 
 </html>

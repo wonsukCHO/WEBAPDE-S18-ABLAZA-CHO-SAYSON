@@ -6,98 +6,39 @@
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="styles.css">
 
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-            border-bottom-color: grey;
-            margin-top: 8px;
-            margin-left: 8px;
-            margin-right: 8px;
+    <script>
+        $(document).ready(() => {
+            $("#search_btn").click(function() {
+                search();
+            });
+        });
+
+
+        function search() {
+            var result = document.getElementById("searchbar").value;
+            result = result.toLowerCase().trim();
+            console.log(result);
+
+            if (result == "normie") {
+                //go to tags-normie
+                window.location.href = "tags-normie.html"
+            } else if (result == "justright") {
+                //go to tags-justright
+                window.location.href = "tags-justright.html"
+
+            } else if (result == "dank") {
+                //go dank
+                window.location.href = "tags-dank.html"
+
+            } else {
+                alert("No matches returned");
+            }
         }
 
-        li {
-            float: left;
-            font-family: sans-serif;
-            font-size: 110%;
-        }
-
-        .nav {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover {
-            background-color: forestgreen;
-            text-decoration: none;
-            color: white;
-        }
-
-        section {
-            background-color: #333;
-            width: 600px;
-            height: auto;
-            margin: 0 auto;
-            padding: 10px;
-            box-sizing: border-box;
-            color: rgba(0, 0, 0, 0.8);
-            font-family: Helvetica, sans-serif;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        .new_user {
-            float: left;
-            font-family: sans-serif;
-            font-size: 0.9rem;
-        }
-
-
-        div img {
-            margin: 0 auto;
-            display: block;
-            margin-left: auto;
-            margin-right: auto;
-            width: 80%;
-        }
-
-        .posts {
-            margin: 30px;
-            border-bottom: 1px solid white;
-        }
-
-        .toolbar ul {
-            list-style-type: none;
-            margin: 0 auto;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-            border-bottom-color: grey;
-        }
-
-        .toolbar li {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-            float: left;
-            font-family: sans-serif;
-            font-size: 90%;
-        }
-
-        .user {
-            color: white;
-        }
-
-    </style>
+    </script>
 </head>
 
 <body>
@@ -111,6 +52,12 @@
         <li class="nav" style="float:right; font-size: 90%">
             <input type="text" placeholder="Search..">
         </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <button id="search_btn"> Search </button>
+        </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <input type="text" placeholder="Search.." id="searchbar">
+        </li>
     </ul>
     <div class="new_user">
         <!--        Welcome, Angelo!-->
@@ -118,40 +65,6 @@
     </div>
 
     <section>
-        <div class="posts">
-            <div>
-                Real-talk
-            </div>
-            <a data-toggle="modal" data-target="#post_zero">
-                <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/28379025_551091945263933_2383103456528313725_n.png?_nc_cat=0&oh=4b5d1dd3fc74a97a7eec7ebf47cbb152&oe=5BD03E6A" />
-            </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
-        </div>
-        
-        <div class="posts">
-            <div>
-                Spirit Animal for School
-            </div>
-            <a data-toggle="modal" data-target="#post_one">
-                <img src="https://i.pinimg.com/736x/c3/6d/6b/c36d6bcfb2401ef6680f450cbc20e667.jpg" />
-            </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
-        </div>
-
         <div class="posts">
             <div> Wakancan't do this forever
             </div>
@@ -216,21 +129,6 @@
             </div>
         </div>
 
-        <div class="posts">
-            <div> Reaction Paper? No Problem
-            </div>
-            <a data-toggle="modal" data-target="#post_six">
-                <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/19884458_1408579362554458_8648080663675337294_n.jpg?_nc_cat=0&oh=7a11dfb413f5080197ea1fd296fd3dbc&oe=5BDCF489"/>
-            </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
-        </div>    
         
         <div class="posts">
             <div> God-Tier
@@ -253,49 +151,6 @@
     <center> <a href="index.html">Logout</a> </center>
 
     <!-- Modals -->
-    <!--'Uploaded' Post-->
-    <div class="modal fade" id="post_zero" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Real-talk</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <a href="profile.html" style="color:black" class="user">@guest</a>
-                    <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/28379025_551091945263933_2383103456528313725_n.png?_nc_cat=0&oh=4b5d1dd3fc74a97a7eec7ebf47cbb152&oe=5BD03E6A"/>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    
-    <!--First Post-->
-    <div class="modal fade" id="post_one" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Spirit Animal for School</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <a href="profile.html" style="color:black" class="user">@angelo</a>
-                    <img src="https://i.pinimg.com/736x/c3/6d/6b/c36d6bcfb2401ef6680f450cbc20e667.jpg" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
-                </div>
-            </div>
-        </div>
-    </div>
 
     <!--Second Post-->
     <div class="modal fade" id="post_two" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -308,8 +163,12 @@
         </button>
                 </div>
                 <div class="modal-body">
-                    <a href="profile-cho.html" style="color:black" class="user">@angelo</a>
+                    <a href="profile-cho.html" style="color:black" class="user">@cho</a>
                     <img src="https://i.redd.it/2b5ihbazlzt01.png" />
+                    <div>
+                        tags:
+                        <a href="tags-normie.html" style="color:black">#normie</a>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
@@ -332,6 +191,10 @@
                 <div class="modal-body">
                     <a href="profile.html" style="color:black" class="user">@angelo</a>
                     <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" />
+                    <div>
+                        tags:
+                        <a href="tags-justright.html" style="color:black">#justright</a>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
@@ -355,6 +218,10 @@
                     <a href="profile-joey.html" style="color:black" class="user">@joey</a>
 
                     <img src="https://i.redd.it/mcc4a6wjz6g01.jpg" />
+                    <div>
+                        tags:
+                        <a href="tags-dank.html" style="color:black">#dank</a>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
@@ -376,27 +243,10 @@
                 <div class="modal-body">
                     <a href="profile-joey.html" style="color:black" class="user">@joey</a>
                     <img src="https://pics.me.me/when-youre-failing-a-class-and-you-try-to-talk-29104571.png" />
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!--Six Post-->
-    <div class="modal fade" id="post_six" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Reaction Paper? No Problem</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <a href="profile-cho.html" style="color:black" class="user">@cho</a>
-                    <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/19884458_1408579362554458_8648080663675337294_n.jpg?_nc_cat=0&oh=7a11dfb413f5080197ea1fd296fd3dbc&oe=5BDCF489" />
+                    <div>
+                        tags:
+                        <a href="tags-justright.html" style="color:black">#justright</a>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
@@ -417,8 +267,12 @@
         </button>
                 </div>
                 <div class="modal-body">
-                    <a href="profile-joey.html" style="color:black" class="user">@joey</a>
+                    <a href="profile-cho.html" style="color:black" class="user">@cho</a>
                     <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/29594639_565868833786244_3657329260971008282_n.png?_nc_cat=0&oh=c411c51b9a67c41b7df65b0fc6681569&oe=5BE434FA"/>
+                    <div>
+                        tags:
+                        <a href="tags-justright.html" style="color:black">#justright</a>
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>

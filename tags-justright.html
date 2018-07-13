@@ -38,65 +38,6 @@
         }
 
         $(document).ready(() => {
-            $("#post_btn").click(function() {
-                post();
-            });
-        });
-
-        function post() {
-            var caption = document.getElementById("recipient-name").value;
-            var src = document.getElementById("image").value;
-            var section = document.getElementById("section");
-
-            var container = document.createElement("div");
-            container.setAttribute("class", "posts")
-            var c_caption = document.createElement("div");
-            var img = document.createElement("IMG");
-            img.src = src;
-
-            var anchor = document.createElement("a");
-            var toolbar = document.createElement("div");
-            toolbar.setAttribute("class", "toolbar");
-            var parent_list = document.createElement("ul");
-            var item_one = document.createElement("li");
-            $(item_one).text("Upvote");
-            var item_two = document.createElement("li");
-            $(item_two).text("Downvote");
-            var item_three = document.createElement("li");
-            $(item_three).text("Comment");
-            var item_four = document.createElement("li");
-            $(item_four).text("Share");
-
-            if (caption != "" && src != "") {
-                //appending caption and image
-                $(c_caption).text(caption);
-                $(container).append(c_caption);
-                $(anchor).append(img);
-                $(container).append(anchor);
-
-                //appending toolbar
-                $(parent_list).append(item_one);
-                $(parent_list).append(item_two);
-                $(parent_list).append(item_three);
-                $(parent_list).append(item_four);
-
-                //put all together
-                $(toolbar).append(parent_list);
-                $(container).append(toolbar);
-                $(section).append(container);
-
-            } else {
-                alert("Please fill up caption and put a valid image url")
-            }
-
-            $("#recipient-name").val("");
-            $("#message-text").val("");
-            $("#users").val("");
-            $("#image").val("");
-            console.log(section);
-        }
-
-        $(document).ready(() => {
             $("#comment_btn").click(function() {
                 comment();
             });
@@ -114,10 +55,6 @@
         }
 
     </script>
-    <style>
-
-
-    </style>
 </head>
 
 <body>
@@ -125,9 +62,11 @@
         <li class="nav"> Dank WEBAPDE Memes</li>
         <li> <a href="home.html" class="nav">Home</a> </li>
         <li> <a href="about.html" class="nav">About Us </a> </li>
+        <!--
         <li style="float:right; background-color:forestgreen; color:white">
             <a data-toggle="modal" data-target="#share_meme" class="nav">Post a Meme </a>
         </li>
+-->
         <li class="nav" style="float:right; font-size: 90%">
             <button id="search_btn"> Search </button>
         </li>
@@ -140,44 +79,15 @@
         <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
     </div>
 
-    <section id="section">
-        <div class="posts">
-            <div> Wakancan't do this forever
-            </div>
-            <a data-toggle="modal" data-target="#post_two">
-                <img src="https://i.redd.it/2b5ihbazlzt01.png"/>
-            </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
+    <section>
+        <div style="font-style: italic">
+            Tags: justright
         </div>
-
         <div class="posts">
             <div> Meanwhile during Mini-Challenges...
             </div>
             <a data-toggle="modal" data-target="#post_three">
                 <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" />
-            </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
-        </div>
-
-        <div class="posts">
-            <div> N..evermind
-            </div>
-            <a data-toggle="modal" data-target="#post_four">
-                <img src="https://i.redd.it/mcc4a6wjz6g01.jpg" />
             </a>
             <div class="toolbar">
                 <ul>
@@ -220,47 +130,12 @@
                 </ul>
             </div>
         </div>
-        <!--Duplicates start here...no need to duplicate modals :D-->
+
 
     </section>
     <center> <a href="index.html">Logout</a> </center>
 
     <!-- Modals -->
-    <!--Second Post-->
-    <div class="modal fade" id="post_two" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Wakancan't do this forever</h5>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <a href="profile-cho.html" style="color:black" class="user">@cho</a>
-                    <img src="https://i.redd.it/2b5ihbazlzt01.png" />
-                    <div>
-                        tags:
-                        <a href="tags-normie.html" style="color:black">#normie</a>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
-                    </div>
-                    <div id="comments">
-                        Comments:
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
-                    <input type="text" placeholder="Comment..." id="comment">
-                    <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
     <!--Third Post-->
     <div class="modal fade" id="post_three" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -296,41 +171,6 @@
         </div>
     </div>
 
-    <!--Four Post-->
-    <div class="modal fade" id="post_four" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">N..evermind</h5>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <a href="profile-joey.html" style="color:black" class="user">@joey</a>
-
-                    <img src="https://i.redd.it/mcc4a6wjz6g01.jpg" />
-                    <div>
-                        tags:
-                        <a href="tags-dank.html" style="color:black">#dank</a>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
-                    </div>
-                    <div id="comments">
-                        Comments:
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
-                    <input type="text" placeholder="Comment..." id="comment">
-                    <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <!--Five Post-->
     <div class="modal fade" id="post_five" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
@@ -401,16 +241,12 @@
         </div>
     </div>
 
-
-
     <!--Post Meme-->
     <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Share your meme!</h5>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -427,11 +263,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">@users</label>
-                            <textarea class="form-control" id="users"></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="message-text" class="col-form-label">Image URL</label>
-                            <textarea class="form-control" id="image"></textarea>
+                            <textarea class="form-control" id="message-text"></textarea>
                         </div>
                         <button type="button" class="btn btn-default"> Upload Image </button>
                         <div class="btn-group">
@@ -449,9 +281,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <!--                    <a href="post.html"> -->
-                    <button type="button" class="btn btn-primary" id="post_btn" data-dismiss="modal">Post</button>
-                    <!--                    </a>-->
+                    <a href="post.html"> 
+                        <button type="button" class="btn btn-primary">Post</button>
+                    </a>
                 </div>
             </div>
         </div>
