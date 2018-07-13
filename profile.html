@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="styles.css">
-    
+
     <title> Profile </title>
     <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
     <script>
@@ -39,24 +39,23 @@
                 alert("No matches returned");
             }
         }
-        
-        $(document).ready(()=>{
-           $("#comment_btn").click(function(){
-              comment(); 
-           });
+
+        $(document).ready(() => {
+            $("#comment_btn").click(function() {
+                comment();
+            });
         });
-        
-        function comment(){
-//            var comment = document.getElementById("comment").value;
-            var comment = $("comment").value;
+
+        function comment() {
+            var comment = document.getElementById("comment").value;
             var new_container = document.createElement("div");
-            document.getee
-            
+
             $(new_container).text(comment);
             $("#comments").append(new_container);
             $("#comment").val("");
+            
+            
         }
-
     </script>
     <style>
         ul {
@@ -141,7 +140,6 @@
         .toolbar li:hover {
             opacity: 0.7;
         }
-
     </style>
 </head>
 
@@ -218,14 +216,15 @@
                 </div>
                 <div class="modal-body">
                     <a href="profile.html" style="color:black" class="user">@angelo</a>
-                    <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" />
+                    <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" /> <br>
                     <div>
                         <a href="tags-justright.html" style="color:black">#justright</a>
                         <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
                         <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
                     </div>
-                </div>
-                <div id ="comments">
+                    <div id="comments">
+                        Comments:
+                    </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
