@@ -1,351 +1,394 @@
 <html>
 
 
-    <head>
-        <title> Memes for the WEBAPDE salesman</title>
-        <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
-        <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<head>
+    <title> Memes for the WEBAPDE salesman</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 
-        <style>
-            ul {
-                list-style-type: none;
-                margin: 0;
-                padding: 0;
-                overflow: hidden;
-                background-color: #333;
-                border-bottom-color: grey;
-                margin-top: 8px;
-                margin-left: 8px;
-                margin-right: 8px;
-            }
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            border-bottom-color: grey;
+            margin-top: 8px;
+            margin-left: 8px;
+            margin-right: 8px;
+        }
 
-            li {
-                float: left;
-                font-family: sans-serif;
-                font-size: 110%;
-            }
+        li {
+            float: left;
+            font-family: sans-serif;
+            font-size: 110%;
+        }
 
-            .nav {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-            }
+        .nav {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
 
-            li a:hover {
-                background-color: forestgreen;
-                text-decoration: none;
-                color: white;
-            }
+        li a:hover {
+            background-color: forestgreen;
+            text-decoration: none;
+            color: white;
+        }
 
-            section {
-                background-color: #333;
-                width: 600px;
-                height: auto;
-                margin: 0 auto;
-                padding: 30px;
-                box-sizing: border-box;
-                color: rgba(0, 0, 0, 0.8);
-                font-family: Helvetica, sans-serif;
-                font-size: 1.2rem;
-                color: white;
-            }
-
-
-            #profile {
-                float: right;
-                border-radius: 100px;
-
-            }
+        section {
+            background-color: #333;
+            width: 600px;
+            height: auto;
+            margin: 0 auto;
+            padding: 30px;
+            box-sizing: border-box;
+            color: rgba(0, 0, 0, 0.8);
+            font-family: Helvetica, sans-serif;
+            font-size: 1.2rem;
+            color: white;
+        }
 
 
-            .new_user {
-                float: right;
-                font-family: sans-serif;
-                font-size: 0.9rem;
-            }
+        #profile {
+            float: right;
+            border-radius: 100px;
 
-            .title {
-                float: left;
-                font-size: 120%;
-                font-family: sans-serif;
-            }
+        }
 
 
-            div img {
-                margin: 0 auto;
-                display: block;
-                margin-left: auto;
-                margin-right: auto;
-                width: 80%;
-            }
+        .new_user {
+            float: right;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+        }
 
-            .posts {
-                margin: 30px;
-                border-bottom: 1px solid white;
-            }
+        .title {
+            float: left;
+            font-size: 120%;
+            font-family: sans-serif;
+        }
 
-            .toolbar ul {
-                list-style-type: none;
-                margin: 0 auto;
-                padding: 0;
-                overflow: hidden;
-                background-color: #333;
-                border-bottom-color: grey;
-            }
 
-            .toolbar li {
-                display: block;
-                color: white;
-                text-align: center;
-                padding: 14px 16px;
-                text-decoration: none;
-                float: left;
-                font-family: sans-serif;
-                font-size: 90%;
-            }
+        div img {
+            margin: 0 auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+            width: 80%;
+        }
 
-            .user {
-                color: white;
-            }
+        .posts {
+            margin: 30px;
+            border-bottom: 1px solid white;
+        }
 
-        </style>
-              <title> Profile </title>
-            <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
-        <script>
-            $(document).ready(() => {
-                $("#search_btn").click(function() {
-                    search();
-                });
+        .toolbar ul {
+            list-style-type: none;
+            margin: 0 auto;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            border-bottom-color: grey;
+        }
+
+        .toolbar li {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            float: left;
+            font-family: sans-serif;
+            font-size: 90%;
+        }
+
+        .user {
+            color: white;
+        }
+
+    </style>
+    <title> Profile </title>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(() => {
+            $("#search_btn").click(function() {
+                search();
             });
+        });
 
 
-            function search() {
-                var result = document.getElementById("searchbar").value;
-                result = result.toLowerCase().trim();
-                console.log(result);
+        function search() {
+            var result = document.getElementById("searchbar").value;
+            result = result.toLowerCase().trim();
+            console.log(result);
 
-                if (result == "normie") {
-                    //go to tags-normie
-                    window.location.href = "tags-normie.html"
-                } else if (result == "justright") {
-                    //go to tags-justright
-                    window.location.href = "tags-justright.html"
+            if (result == "normie") {
+                //go to tags-normie
+                window.location.href = "tags-normie.html"
+            } else if (result == "justright") {
+                //go to tags-justright
+                window.location.href = "tags-justright.html"
 
-                } else if (result == "dank") {
-                    //go dank
-                    window.location.href = "tags-dank.html"
+            } else if (result == "dank") {
+                //go dank
+                window.location.href = "tags-dank.html"
 
-                } else {
-                    alert("No matches returned");
-                }
+            } else {
+                alert("No matches returned");
             }
+        }
+        
+        $(document).ready(()=>{
+           $("#comment_btn").click(function(){
+              comment(); 
+           });
+        });
+        
+        function comment(){
+//            var comment = document.getElementById("comment").value;
+            var comment = $("comment").value;
+            var new_container = document.createElement("div");
+            document.getee
+            
+            $(new_container).text(comment);
+            $("#comments").append(new_container);
+            $("#comment").val("");
+        }
 
-        </script>
-            <style>
-                ul {
-                    list-style-type: none;
-                    margin: 0;
-                    padding: 0;
-                    overflow: hidden;
-                    background-color: #333;
-                    border-bottom-color: grey;
-                }
+    </script>
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+            border-bottom-color: grey;
+        }
 
-                li {
-                    float: left;
-                    font-family: sans-serif;
-                    font-size: 110%;
-                }
+        li {
+            float: left;
+            font-family: sans-serif;
+            font-size: 110%;
+        }
 
-                .nav {
-                    display: block;
-                    color: white;
-                    text-align: center;
-                    padding: 14px 16px;
-                    text-decoration: none;
-                }
+        .nav {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
 
-                li a:hover {
-                    background-color: forestgreen;
-                }
+        li a:hover {
+            background-color: forestgreen;
+        }
 
-                section{
-                    background-color: #333;
-                    width: 600px;
-                    height: auto;
-                    margin: 0 auto;
-                    padding: 30px;
-                    box-sizing: border-box;
-                    color: rgba(0, 0, 0, 0.8);
-                    font-family: Helvetica, sans-serif;
-                    font-size: 1.2rem;
-                    color:white;
-                }
+        section {
+            background-color: #3b3b3b;
+            width: 600px;
+            height: auto;
+            margin: 0 auto;
+            padding: 30px;
+            box-sizing: border-box;
+            color: rgba(0, 0, 0, 0.8);
+            font-family: Helvetica, sans-serif;
+            font-size: 1.2rem;
+            color: white;
+        }
 
-    /*
+        /*
                 section img{
                     float:right;
                     border-radius: 100px;
                 }
     */
 
+        .new_user {
+            float: right;
+            font-family: sans-serif;
+            font-size: 0.9rem;
+        }
 
-                .new_user {
-                    float: right;
-                    font-family: sans-serif;
-                    font-size: 0.9rem;
-                }
-                .title{
-                    float:left;
-                    font-size: 120%;
-                    font-family: sans-serif;
-                }
+        .title {
+            float: left;
+            font-size: 120%;
+            font-family: sans-serif;
+        }
 
-            </style>
-    </head>
 
-    <body>
+        .toolbar {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+        }
+
+        .toolbar li {
+            display: flex;
+            flex-grow: 1;
+            justify-content: center;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+            float: left;
+            font-family: sans-serif;
+            font-size: 90%;
+        }
+
+        .toolbar li:hover {
+            opacity: 0.7;
+        }
+
+    </style>
+</head>
+
+<body>
 
 
     <!--    <div class="new_user">-->
-            <!--        Welcome, Angelo!-->
-            <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
+    <!--        Welcome, Angelo!-->
+    <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
     <!--    </div>-->
 
 
 
 
-            <ul>
-                <li class="nav"> Dank WEBAPDE Memes </li>
-                <li> <a href="home.html" class="nav">Home</a> </li>
-                <li> <a href="about.html" class="nav">About Us </a> </li>
-                <li class="nav" style="float:right; font-size: 90%">
-                <button id="search_btn"> Search </button>
-            </li>
-            <li class="nav" style="float:right; font-size: 90%">
-                <input type="text" placeholder="Search.." id="searchbar">
-            </li>
-            </ul>
+    <ul>
+        <li class="nav"> Dank WEBAPDE Memes </li>
+        <li> <a href="home.html" class="nav">Home</a> </li>
+        <li> <a href="about.html" class="nav">About Us </a> </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <button id="search_btn"> Search </button>
+        </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <input type="text" placeholder="Search.." id="searchbar">
+        </li>
+    </ul>
 
 
 
 
 
-        <section>
-        <img id = "profile" src="https://media1.popsugar-assets.com/files/thumbor/P0GicOenj-stT0u_s0mV0jz4I30/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2016/11/14/958/n/1922507/ec368050582a33ed5a33d2.92934530_edit_img_image_17053398_1479159330/i/What-Evil-Kermit-Meme.jpg" alt = "profile" width=120px height=120px/>
+    <section>
+        <img id="profile" src="https://media1.popsugar-assets.com/files/thumbor/P0GicOenj-stT0u_s0mV0jz4I30/fit-in/2048xorig/filters:format_auto-!!-:strip_icc-!!-/2016/11/14/958/n/1922507/ec368050582a33ed5a33d2.92934530_edit_img_image_17053398_1479159330/i/What-Evil-Kermit-Meme.jpg" alt="profile" width=120px height=120px/>
         <div class="info">Name: Angelo Ablaza</div> <br>
         <div class="info">Username: @angelo</div> <br>
         <div class="info">Bio: I love WEBAPDE</div> <br>
     </section>
-        
-        <br>
 
-        <section>
-            <div class="posts">
-                <div> Meanwhile during Mini-Challenges...
-                </div>
-                <a data-toggle="modal" data-target="#post_three">
+    <br>
+
+    <section>
+        <div class="posts">
+            <div> Meanwhile during Mini-Challenges...
+            </div>
+            <a data-toggle="modal" data-target="#post_three">
                     <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" />
                 </a>
-                <div class="toolbar">
-                    <ul>
-                        <li> Upvote </li>
-                        <li> Downvote </li>
-                        <li> Comment </li>
-                        <li> Share </li>
-                    </ul>
-                </div>
+            <div class="toolbar">
+                <ul>
+                    <li> Upvote </li>
+                    <li> Downvote </li>
+                    <li> Comment </li>
+                    <li> Share </li>
+                </ul>
             </div>
-        </section>
+        </div>
+    </section>
 
 
 
-        <center> <a href="index.html">Logout</a> </center>
+    <center> <a href="index.html">Logout</a> </center>
 
-        <!-- Modals -->
-        <!--Third Post-->
-        <div class="modal fade" id="post_three" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Meanwhile during Mini-Challenges...</h5>
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!-- Modals -->
+    <!--Third Post-->
+    <div class="modal fade" id="post_three" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Meanwhile during Mini-Challenges...</h5>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
+                </div>
+                <div class="modal-body">
+                    <a href="profile.html" style="color:black" class="user">@angelo</a>
+                    <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" />
+                    <div>
+                        <a href="tags-justright.html" style="color:black">#justright</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
                     </div>
-                    <div class="modal-body">
-                        <a href="profile.html" style="color:black" class="user">@angelo</a>
-                        <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" />
-                        <div>
-                            <a href="tags-justright.html" style="color:black">#justright</a>
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
-                        </div>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
-                        <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
-                        <input type="text" placeholder="Comment..." >
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Comment</button>
-                    </div>
+                </div>
+                <div id ="comments">
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <input type="text" placeholder="Comment..." id="comment">
+                    <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!--Post Meme-->
-        <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-            <div class="modal-dialog" role="document">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h5 class="modal-title" id="exampleModalLabel">Share your meme!</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+    <!--Post Meme-->
+    <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Share your meme!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
-                    </div>
-                    <div class="modal-body">
-                        <form>
-                            <div class="form-group">
-                                <label for="recipient-name" class="col-form-label">Caption:</label>
-                                <input type="text" class="form-control" id="recipient-name">
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">Tags</label>
-                                <textarea class="form-control" id="message-text"></textarea>
-                            </div>
-                            <div class="form-group">
-                                <label for="message-text" class="col-form-label">@users</label>
-                                <textarea class="form-control" id="message-text"></textarea>
-                            </div>
-                            <button type="button" class="btn btn-default"> Upload Image </button>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Post Settings </button>
-                                <div class="dropdown-menu">
-                                    <a class="dropdown-item">Public</a>
-                                    <a class="dropdown-item">Private</a>
-                                    <!--
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="recipient-name" class="col-form-label">Caption:</label>
+                            <input type="text" class="form-control" id="recipient-name">
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">Tags</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                        <div class="form-group">
+                            <label for="message-text" class="col-form-label">@users</label>
+                            <textarea class="form-control" id="message-text"></textarea>
+                        </div>
+                        <button type="button" class="btn btn-default"> Upload Image </button>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-danger dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> Post Settings </button>
+                            <div class="dropdown-menu">
+                                <a class="dropdown-item">Public</a>
+                                <a class="dropdown-item">Private</a>
+                                <!--
                                 <div class="dropdown-divider"></div>
                                 <a class="dropdown-item" href="#">Separated link</a>
     -->
-                                </div>
                             </div>
-                        </form>
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                        <a href="post.html"> 
+                        </div>
+                    </form>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                    <a href="post.html"> 
                             <button type="button" class="btn btn-primary">Post</button>
                         </a>
-                    </div>
                 </div>
             </div>
         </div>
+    </div>
 
-    </body>
+</body>
 
 </html>

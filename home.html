@@ -72,24 +72,40 @@
                 $(container).append(c_caption);
                 $(anchor).append(img);
                 $(container).append(anchor);
-                
+
                 //appending toolbar
                 $(parent_list).append(item_one);
                 $(parent_list).append(item_two);
                 $(parent_list).append(item_three);
                 $(parent_list).append(item_four);
-                
+
                 //put all together
                 $(toolbar).append(parent_list);
                 $(container).append(toolbar);
                 $(section).append(container);
-                
+
             } else {
                 alert("Please fill up caption and put a valid image url")
             }
 
             console.log(section);
         }
+
+        $(document).ready(() => {
+            $("#comment_btn").click(function() {
+                comment();
+            });
+        });
+
+        function comment() {
+            var comment = document.getElementById("comment").value;
+            var new_container = document.createElement("div");
+            document.getee
+
+            $(new_container).text(comment);
+            $("#comments").append(new_container);
+        }
+
     </script>
     <style>
         ul {
@@ -183,6 +199,7 @@
         .user {
             color: white;
         }
+
     </style>
 </head>
 
