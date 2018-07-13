@@ -36,6 +36,37 @@
             }
         }
 
+        $(document).ready(() => {
+            $("#post_btn").click(function() {
+                post();
+            });
+        });
+
+        function post() {
+            var caption = document.getElementById("recipient-name").value;
+            var src = document.getElementById("image").value;
+            var section = document.getElementById("section");
+
+            var container = document.createElement("div");
+            container.setAttribute("class", "posts")
+            var c_caption = document.createElement("div");
+            var img = document.createElement("IMG");
+            img.src = src;
+            
+            var anchor = document.createElement("a");
+            anchor.setAttribute("data-toggle", "modal");
+            anchor.setAttribute("data-target", "post_five");
+
+            $(c_caption).text(caption);
+            $(container).append(c_caption);
+            $(anchor).append(img);
+            $(container).append(anchor);
+            
+            $(section).append(container);
+            console.log(section);
+            
+        }
+
     </script>
     <style>
         ul {
@@ -103,17 +134,16 @@
             border-bottom: 1px solid white;
         }
 
-        .toolbar ul {
-            list-style-type: none;
-            margin: 0 auto;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-            border-bottom-color: grey;
+        .toolbar{
+           display:flex;
+            flex-grow:1;
+            justify-content: center;
         }
 
         .toolbar li {
-            display: block;
+            display:flex;
+            flex-grow:1;
+            justify-content: center;
             color: white;
             text-align: center;
             padding: 14px 16px;
@@ -121,6 +151,10 @@
             float: left;
             font-family: sans-serif;
             font-size: 90%;
+        }
+        
+        .toolbar li:hover{
+            opacity: 0.7;
         }
 
         .user {
@@ -150,7 +184,7 @@
         <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
     </div>
 
-    <section>
+    <section id="section">
         <div class="posts">
             <div> Wakancan't do this forever
             </div>
@@ -230,7 +264,7 @@
                 </ul>
             </div>
         </div>
-<!--Duplicates start here...no need to duplicate modals :D-->
+        <!--Duplicates start here...no need to duplicate modals :D-->
 
     </section>
     <center> <a href="index.html">Logout</a> </center>
@@ -389,7 +423,7 @@
                         </div>
                         <div class="form-group">
                             <label for="message-text" class="col-form-label">Image source</label>
-                            <textarea class="form-control" id="message-text"></textarea>
+                            <textarea class="form-control" id="image"></textarea>
                         </div>
                         <button type="button" class="btn btn-default"> Upload Image </button>
                         <div class="btn-group">
@@ -407,9 +441,9 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-                    <a href="post.html"> 
-                        <button type="button" class="btn btn-primary" id="post">Post</button>
-                    </a>
+                    <!--                    <a href="post.html"> -->
+                    <button type="button" class="btn btn-primary" id="post_btn" data-dismiss="modal">Post</button>
+                    <!--                    </a>-->
                 </div>
             </div>
         </div>
