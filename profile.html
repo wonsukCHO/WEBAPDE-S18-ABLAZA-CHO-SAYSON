@@ -2,7 +2,37 @@
 
 <head>
     <title> Profile </title>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(() => {
+            $("#search_btn").click(function() {
+                search();
+            });
+        });
 
+
+        function search() {
+            var result = document.getElementById("searchbar").value;
+            result = result.toLowerCase().trim();
+            console.log(result);
+
+            if (result == "normie") {
+                //go to tags-normie
+                window.location.href = "tags-normie.html"
+            } else if (result == "justright") {
+                //go to tags-justright
+                window.location.href = "tags-justright.html"
+
+            } else if (result == "dank") {
+                //go dank
+                window.location.href = "tags-dank.html"
+
+            } else {
+                alert("No matches returned");
+            }
+        }
+
+    </script>
     <style>
         ul {
             list-style-type: none;
@@ -63,17 +93,24 @@
         }
 
     </style>
+    
+    
 </head>
 
 <body>
     <ul>
         <li class="nav"> Dank WEBAPDE Memes</li>
         <li> <a href="home.html" class="nav">Home </a> </li>
-        <!--            <li> <a href="profile.html" class="nav">Profile </a> </li>-->
-        <!--            <li> <a href="about.html" class="nav">About Us </a> </li>-->
+        <li> <a href="about.html" class="nav">About Us </a> </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <button id="search_btn"> Search </button>
+        </li>
+        <li class="nav" style="float:right; font-size: 90%">
+            <input type="text" placeholder="Search.." id="searchbar">
+        </li>
     </ul>
     <div class="new_user">
-<!--        Welcome, Angelo! <a href="index.html"> Logout</a>-->
+        <!--        Welcome, Angelo! <a href="index.html"> Logout</a>-->
         <!--            Don't have an account? <a href="register.html"> Register now  </a>-->
     </div>
     <section>
