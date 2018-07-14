@@ -36,6 +36,24 @@
                 alert("No matches returned");
             }
         }
+
+        $(document).ready(() => {
+            $("#comment_btn").click(function() {
+                comment();
+            });
+        });
+
+        function comment() {
+            var comment = document.getElementById("comment").value;
+            var new_container = document.createElement("div");
+            document.getee
+
+            $(new_container).text(comment);
+            $("#comments").append(new_container);
+            $("#comment").val("");
+
+        }
+
     </script>
 </head>
 
@@ -44,7 +62,7 @@
         <li class="nav"> Dank WEBAPDE Memes</li>
         <li> <a href="home.html" class="nav">Home</a> </li>
         <li> <a href="about.html" class="nav">About Us </a> </li>
-<!--
+        <!--
         <li style="float:right; background-color:forestgreen; color:white">
             <a data-toggle="modal" data-target="#share_meme" class="nav">Post a Meme </a>
         </li>
@@ -124,6 +142,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Meanwhile during Mini-Challenges...</h5>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -134,11 +154,18 @@
                     <div>
                         tags:
                         <a href="tags-justright.html" style="color:black">#justright</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
+                    </div>
+                    <div id="comments">
+                        Comments:
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <input type="text" placeholder="Comment..." id="comment">
+                    <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
             </div>
         </div>
@@ -150,6 +177,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">Plead game strong</h5>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -160,11 +189,18 @@
                     <div>
                         tags:
                         <a href="tags-justright.html" style="color:black">#justright</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
+                    </div>
+                    <div id="comments">
+                        Comments:
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <input type="text" placeholder="Comment..." id="comment">
+                    <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
             </div>
         </div>
@@ -176,6 +212,8 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">God-Tier</h5>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -186,17 +224,22 @@
                     <div>
                         tags:
                         <a href="tags-justright.html" style="color:black">#justright</a>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Edit</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal">Delete</button>
+                    </div>
+                    <div id="comments">
+                        Comments:
                     </div>
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <input type="text" placeholder="Comment..." id="comment">
+                    <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
             </div>
         </div>
     </div>
-
-
 
     <!--Post Meme-->
     <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
