@@ -53,82 +53,51 @@
             $("#comment").val("");
 
         }
-
     </script>
 </head>
 
 <body>
-    <ul>
-        <li class="nav"> Dank WEBAPDE Memes</li>
-        <li> <a href="home.html" class="nav">Home</a> </li>
-        <li> <a href="about.html" class="nav">About Us </a> </li>
-        <!--
-        <li style="float:right; background-color:forestgreen; color:white">
-            <a data-toggle="modal" data-target="#share_meme" class="nav">Post a Meme </a>
-        </li>
--->
-        <li class="nav" style="float:right; font-size: 90%">
-            <button id="search_btn"> Search </button>
-        </li>
-        <li class="nav" style="float:right; font-size: 90%">
-            <input type="text" placeholder="Search.." id="searchbar">
-        </li>
-    </ul>
-    <div class="new_user">
-        <!--        Welcome, Angelo!-->
-        <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
-    </div>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="home.html">Dank WEBAPDE Memes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="about.html">About Us <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_btn">Search </button>
+            </form>
+        </div>
+    </nav>
 
     <section>
         <div style="font-style: italic">
             Tags: justright
         </div>
         <div class="posts">
-            <div> Meanwhile during Mini-Challenges...
-            </div>
             <a data-toggle="modal" data-target="#post_three">
+                Meanwhile during Mini-Challenges...
                 <img src="http://thumbpress.com/wp-content/uploads/2015/05/funny-Will-Smith-teacher-help.jpg" />
             </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
         </div>
 
         <div class="posts">
-            <div> Plead game strong
-            </div>
             <a data-toggle="modal" data-target="#post_five">
+                Plead game strong
                 <img src="https://pics.me.me/when-youre-failing-a-class-and-you-try-to-talk-29104571.png"/>
             </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
         </div>
 
         <div class="posts">
-            <div> God-Tier
-            </div>
             <a data-toggle="modal" data-target="#post_seven">
+                God-Tier
                 <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/29594639_565868833786244_3657329260971008282_n.png?_nc_cat=0&oh=c411c51b9a67c41b7df65b0fc6681569&oe=5BE434FA"/>
             </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
         </div>
 
 
@@ -162,7 +131,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
@@ -197,7 +166,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
@@ -232,7 +201,7 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>

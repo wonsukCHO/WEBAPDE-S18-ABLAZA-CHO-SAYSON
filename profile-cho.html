@@ -56,93 +56,26 @@
             $("#comment").val("");
         }
     </script>
-    <style>
-        ul {
-            list-style-type: none;
-            margin: 0;
-            padding: 0;
-            overflow: hidden;
-            background-color: #333;
-            border-bottom-color: grey;
-        }
-
-        li {
-            float: left;
-            font-family: sans-serif;
-            font-size: 110%;
-        }
-
-        .nav {
-            display: block;
-            color: white;
-            text-align: center;
-            padding: 14px 16px;
-            text-decoration: none;
-        }
-
-        li a:hover {
-            background-color: forestgreen;
-        }
-
-        section {
-            background-color: #333;
-            width: 600px;
-            height: auto;
-            margin: 0 auto;
-            padding: 30px;
-            box-sizing: border-box;
-            color: rgba(0, 0, 0, 0.8);
-            font-family: Helvetica, sans-serif;
-            font-size: 1.2rem;
-            color: white;
-        }
-
-        /*
-                section img{
-                    float:right;
-                    border-radius: 100px;
-                }
-    */
-
-        .new_user {
-            float: right;
-            font-family: sans-serif;
-            font-size: 0.9rem;
-        }
-
-        .title {
-            float: left;
-            font-size: 120%;
-            font-family: sans-serif;
-        }
-    </style>
 </head>
 
 <body>
-
-
-    <!--    <div class="new_user">-->
-    <!--        Welcome, Angelo!-->
-    <!--            Don't have an account? <a href="register.html"> Register now  </a><br>-->
-    <!--    </div>-->
-
-
-
-
-    <ul>
-        <li class="nav"> Dank WEBAPDE Memes </li>
-        <li> <a href="home.html" class="nav">Home</a> </li>
-        <li> <a href="about.html" class="nav">About Us </a> </li>
-        <li class="nav" style="float:right; font-size: 90%">
-            <button id="search_btn"> Search </button>
-        </li>
-        <li class="nav" style="float:right; font-size: 90%">
-            <input type="text" placeholder="Search.." id="searchbar">
-        </li>
-    </ul>
-
-
-
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="home.html">Dank WEBAPDE Memes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="about.html">About Us <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+                <button class="btn btn-outline-success my-2 my-sm-0" type="submit" id="search_btn">Search </button>
+            </form>
+        </div>
+    </nav>
     <section>
         <img id="profile" src="https://i.kym-cdn.com/photos/images/newsfeed/001/094/858/dae.jpg" alt="profile" width=120px height=120px/>
         <div class="info">Name: Won Suk Cho</div> <br>
@@ -154,39 +87,19 @@
 
     <section>
         <div class="posts">
-            <div> Wakancan't do this forever
-            </div>
             <a data-toggle="modal" data-target="#post_two">
+                Wakancan't do this forever
                     <img src="https://i.redd.it/2b5ihbazlzt01.png"/>
                 </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
         </div>
 
         <div class="posts">
-            <div> God-Tier
-            </div>
             <a data-toggle="modal" data-target="#post_seven">
+                God-Tier
                 <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/29594639_565868833786244_3657329260971008282_n.png?_nc_cat=0&oh=c411c51b9a67c41b7df65b0fc6681569&oe=5BE434FA"/>
             </a>
-            <div class="toolbar">
-                <ul>
-                    <li> Upvote </li>
-                    <li> Downvote </li>
-                    <li> Comment </li>
-                    <li> Share </li>
-                </ul>
-            </div>
         </div>
     </section>
-
-
 
     <center> <a href="index.html">Logout</a> </center>
 
@@ -218,7 +131,7 @@
                 </div>
 
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
@@ -253,7 +166,7 @@
                     Comments:
                 </div>
                 <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Dislike</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
                     <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
