@@ -22,16 +22,16 @@
             result = result.toLowerCase().trim();
             console.log(result);
 
-            if (result == "normie") {
+            if (result === "normie") {
                 //go to tags-normie
-                window.location.href = "tags-normie.html"
-            } else if (result == "justright") {
+                window.location.href = "tags-normie.html";
+            } else if (result === "justright") {
                 //go to tags-justright
-                window.location.href = "tags-justright.html"
+                window.location.href = "tags-justright.html";
 
-            } else if (result == "dank") {
+            } else if (result === "dank") {
                 //go dank
-                window.location.href = "tags-dank.html"
+                window.location.href = "tags-dank.html";
 
             } else {
                 alert("No matches returned");
@@ -114,19 +114,19 @@
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
         <a class="navbar-brand" href="home.html">Dank WEBAPDE Memes</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-    <span class="navbar-toggler-icon"></span>
-  </button>
+            <span class="navbar-toggler-icon"></span>
+        </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
                     <a class="nav-link" href="about.html">About Us <span class="sr-only">(current)</span></a>
                 </li>
             </ul>
-            <form class="form-inline my-2 my-lg-0">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
+            <ul class="form-inline my-2 my-lg-0">
+                <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar">
                 <button class="btn btn-outline-success my-2 my-sm-0" id="search_btn">Search </button>
                 <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#share_meme">Post a Meme</button>
-            </form>
+            </ul>
         </div>
     </nav>
     <section id="section">
@@ -165,7 +165,9 @@
                 God-Tier
                 <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/29594639_565868833786244_3657329260971008282_n.png?_nc_cat=0&oh=c411c51b9a67c41b7df65b0fc6681569&oe=5BE434FA"/>
             </a>
-        </div>        <div class="posts">
+        </div>
+        
+        <div class="posts">
             <a data-toggle="modal" data-target="#post_two">
                 Wakancan't do this forever
                 <img src="https://i.redd.it/2b5ihbazlzt01.png"/>
@@ -271,7 +273,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Upvote</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
@@ -306,7 +308,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Upvote</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
@@ -342,7 +344,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Upvote</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
@@ -376,7 +378,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Upvote</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
@@ -411,7 +413,7 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-secondary" data-dismiss="modal">Downvote</button>
-                    <button type="button" class="btn btn-primary" data-dismiss="modal">Like</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal">Upvote</button>
                     <input type="text" placeholder="Comment..." id="comment">
                     <button type="button" class="btn btn-secondary" id="comment_btn">Comment</button>
                 </div>
