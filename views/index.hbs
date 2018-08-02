@@ -1,0 +1,188 @@
+<html>
+
+<head>
+    <title> Memes for the WEBAPDE salesman</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
+
+    <script>
+        $(document).ready(() => {
+            $("#signup").click(function() {
+                $("#orangeForm-name").val("");
+                $("#orangeForm-email").val("");
+                $("#orangeForm-pass").val("");
+                $("#orangeForm-description").val("");
+            });
+        });
+
+    </script>
+    <style>
+
+
+    </style>
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="#">Dank WEBAPDE Memes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+
+            </ul>
+            <form class="form-inline my-2 my-lg-0">
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalLoginForm">Login</button>
+                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalRegisterForm">Register</button>
+            </form>
+        </div>
+    </nav>
+    <section id="section">
+        <div class="posts">
+            Signup now!
+            <a data-toggle="modal" data-target="#home_img">
+              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvCnSiQRA5NrvRO1Dg4w6uEtUXV-T_LHI6iCxwKJhZw0CePmOWWQ"/> 
+            </a>
+        </div>
+
+        <div class="posts">
+            Plead game strong
+            <a data-toggle="modal" data-target="#public">
+                <img src="https://pics.me.me/when-youre-failing-a-class-and-you-try-to-talk-29104571.png" />
+            </a>
+        </div>
+        <div class="posts">
+            God Tier
+            <a data-toggle="modal" data-target="#modalLoginForm">
+                <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/29594639_565868833786244_3657329260971008282_n.png?_nc_cat=0&oh=c411c51b9a67c41b7df65b0fc6681569&oe=5BE434FA" style="filter: blur(5px)"/>
+            </a>
+        </div>
+    </section>
+
+    <!--MODALS-->
+    <!--LOGIN FORM-->
+    <form action="login" method="post">
+        <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Sign in to view all the memes</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fa fa-envelope prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                            <input type="email" id="defaultForm-email" class="form-control validate" name="email">
+                        </div>
+                        <div class="md-form mb-4">
+                            <i class="fa fa-lock prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                            <input type="password" id="defaultForm-pass" class="form-control validate" name="password">
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <input class="btn btn-default" type="submit" value="Login" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--REGISTER-->
+    <form action="signup" method="post">
+        <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Sign up</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-5">
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+                            <input type="text" id="orangeForm-name" class="form-control validate" name="name">
+
+                        </div>
+                        <div class="md-form mb-5">
+                            <i class="fa fa-envelope prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+                            <input type="email" id="orangeForm-email" class="form-control validate" name="email">
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <i class="fa fa-lock prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+                            <input type="password" id="orangeForm-pass" class="form-control validate" name="password">
+                        </div>
+
+                        <div class="md-form mb-5">
+                            <i class="fa fa-user prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Short Description</label>
+                            <input type="text" id="orangeForm-description" class="form-control validate" name="description">
+                        </div>
+
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <input class="btn btn-deep-orange" type="submit" value="Sign up" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <!--Public Post-->
+    <div class="modal fade" id="public" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Plead game strong</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://pics.me.me/when-youre-failing-a-class-and-you-try-to-talk-29104571.png" />
+                    <div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade" id="home_img" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Signup now!</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+                </div>
+                <div class="modal-body">
+                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvCnSiQRA5NrvRO1Dg4w6uEtUXV-T_LHI6iCxwKJhZw0CePmOWWQ" />
+                    <div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+
+</html>
