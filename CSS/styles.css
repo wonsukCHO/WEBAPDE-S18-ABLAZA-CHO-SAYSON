@@ -1,12 +1,17 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+body {
+    background-color: #141d26;
+}
+
 section {
-    background-color: #333;
+    background-color: #141d26;
     width: 600px;
     height: auto;
     margin: 0 auto;
     padding: 10px;
     box-sizing: border-box;
     color: rgba(0, 0, 0, 0.8);
-    font-family: Helvetica, sans-serif;
+    font-family: 'Open-Sans', sans-serif;
     font-size: 1.2rem;
     color: white;
 }
@@ -17,22 +22,36 @@ div img {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
+    border-radius: 5px;
 }
 
 .posts {
-    margin: 30px;
-/*    border-bottom: 1px solid white;*/
+    background-color: #243447;
+    margin: 25px;
+    padding: 20px;
+    border-radius: 15px;
+    /*    border-bottom: 1px solid white;*/
 }
 
 .user {
     color: white;
 }
 
-#profile{
-    float:right;
-    border-radius: 80px;
+.profile {
+    background-color: #243447;
+    border-radius: 15px;
+    margin: 25px;
+    padding: 20px;
 }
 
-.modal-footer{
+#profile {
+    float: left;
+    width: 120px;
+    height: 120px;
+    padding: 10px;
+    border: 10px;
+}
+
+.modal-footer {
     width: 102.5%;
 }
