@@ -4,8 +4,8 @@ const bodyparser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose"); //ORM
 const path = require("path");
-const cookieparser = require("cookie-parser");
 const crypto = require("crypto")
+const cookieparser = require("cookie-parser");
 const User = require("./model/user").User
 const Meme = require("./model/meme").Meme
 
@@ -143,11 +143,10 @@ app.post("/signup", urlencoder, function (req, res) {
     var email = req.body.email
     var password = req.body.password
     var description = req.body.description
-    
-//    var password  = "secret password"
-    var hashedpassword = crypto.createHash("md5").update(password).digest("hex")
+	
+	var hashedpassword = crypto.createHash("md5").update(password).digest("hex")
     console.log(hashedpassword)
-    
+
     User.findOne((user) => {
         email: req.body.email
     }).then(() => {
@@ -160,7 +159,6 @@ app.post("/signup", urlencoder, function (req, res) {
                 name,
                 email,
                 password,
-//                hashedpassword,
                 description
             })
         
