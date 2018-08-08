@@ -1,4 +1,4 @@
-//Create Mongoose document ticket
+//Create Mongoose document user
 
 const mongoose = require("mongoose")
 
@@ -9,7 +9,8 @@ var UserSchema = mongoose.Schema({
     },
     email : {
         type: String,
-        required : true
+        required : true,
+        unique: true
     },
     password : {
         type: String,
@@ -18,7 +19,7 @@ var UserSchema = mongoose.Schema({
     description : {
         type: String,
         required : true
-    },
+    }
 })
 
 var User = mongoose.model("user", UserSchema)
@@ -26,3 +27,25 @@ var User = mongoose.model("user", UserSchema)
 module.exports = {
     User
 }
+
+
+//var UserSchema = mongoose.Schema({
+//    name : {
+//        type: String,
+//        required : true
+//    },
+//    email : {
+//        type: String,
+//        required : true,
+//        unique: true
+//    },
+//    password : {
+//        type: String,
+//        required : true
+//    },
+//    description : {
+//        type: String,
+//        required : true
+//    }, memes : [{type: Schema.ObjectId, ref: 'MemeSchema'}]
+//})
+

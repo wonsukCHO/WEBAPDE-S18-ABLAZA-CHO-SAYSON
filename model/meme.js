@@ -1,5 +1,3 @@
-//Create Mongoose document ticket
-
 const mongoose = require("mongoose")
 
 var MemeSchema = mongoose.Schema({
@@ -22,6 +20,12 @@ var MemeSchema = mongoose.Schema({
     type :{ ///public or private
         type: String,
         required : true
+    }, 
+    upvotes :{
+        type: Number
+    },
+    downvotes :{
+        type: Number
     }
 })
 

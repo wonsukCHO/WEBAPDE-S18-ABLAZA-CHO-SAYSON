@@ -13,36 +13,35 @@ const urlencoder = bodyparser.urlencoded({
     extended: false
 })
 
-var current_user
-/** Temporary in place of database **/
-//var users = []
-//var User = function (name, email, password, description) {
-//    this.name = name
-//    this.email = email
-//    this.password = password
-//    this.description = description
-//}
-//users.push(new User("Angelo", "angelo_ablaza@dlsu.edu.ph", "webapde", "I love cookies"))
-//users.push(new User("Joey", "jose_sayson@dlsu.edu.ph", "webapde", "I love girls"))
-//users.push(new User("Cho", "won_suk_cho@dlsu.edu.ph", "webapde", "I love webapde"))
-/** Temporary **/
+var current_user //global variable to dictate the current user in session
+
+hbs.registerHelper('ifCond', function(v1, v2, options) {
+    if(v1 === v2) {
+        return options.fn(this)
+    }
+    return options.inverse(this)
+})
+
+hbs.registerHelper('displayUser', function(block) {
+    return current_user.name; //just return global variable value
+});
 
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname))) //so we can access outside folders 
 app.use(cookieparser());
 app.use(session({
     secret: "ultra secret",
-    name: "mega secret",
+    name: "WEBAPDE secret",
     resave: "true",
     saveUninitialized: true,
     cookie: {
-        maxAge: 10000 * 60 * 60 * 24 * 7 * 3
+        maxAge: 1000 * 60 * 60 * 24 * 7 * 3
     }
 }))
 
 mongoose.Promise = global.Promise
 mongoose.connect("mongodb://localhost:27017/userdata", {
-    useNewUrlParser : true
+    useNewUrlParser: true
 })
 
 app.get("/about", function (req, res) {
@@ -54,10 +53,87 @@ app.get("/about", function (req, res) {
 
 app.get("/home", function (req, res) {
     console.log("GET /home")
-//    res.render("home.hbs", {
-//        user: req.session.username
-//    })
+    //    res.render("home.hbs", {
+    //        user: req.session.username
+    //    })
     res.redirect("/");
+})
+
+app.post("/postMeme", urlencoder, function(req, res){
+    console.log("POST /postMeme")
+    var title = req.body.title
+    var owner = req.session.username
+    var image = req.body.link //link to image
+    var tags = (req.body.tags).split(",").trim()
+    var type = req.body.type
+    var tagged = (req.body.users).split(",").trim()
+    
+    var meme = new Meme({
+        title,
+        owner,
+        image,
+        tags,
+        type,
+        upvotes: 0,
+        downvotes: 0
+    })
+    
+    console.log(meme)
+    meme.save().then(() => {
+//        res.redirect("/")
+        res.redirect("/")
+    },(err)=>{
+        console.log(err)
+    } )
+    
+})
+
+app.post("/editMeme", urlencoder, function(req, res) {
+    console.log("POST /editMeme")
+    
+    var updatedMeme = { 
+        title : req.body.title,
+        tags: (req.body.tags).split(","),
+        type : req.body.type
+    }
+    console.log(updatedMeme)
+    Meme.findOneAndUpdate({
+        _id : req.body.id
+    }, updatedMeme).then(()=>{
+        res.redirect("/")
+    })
+})
+
+app.post("/deleteMeme", urlencoder, function(req, res){
+    console.log("POST /deleteMeme")
+    
+    Meme.remove({
+        _id: req.body.id
+    }).then(()=>{
+        res.redirect("/")
+    })
+})
+
+app.post("/upvoteMeme", urlencoder, function(req, res){
+    console.log("POST /upvoteMeme")
+    
+    Meme.findOneAndUpdate({
+        _id : req.body.id
+    }, { $inc: {upvotes: 1} }).then(()=>{
+        res.redirect("/")
+    })
+    
+})
+
+app.post("/downvoteMeme", urlencoder, function(req, res){
+    console.log("POST /downvoteMeme")
+    
+    Meme.findOneAndUpdate({
+        _id : req.body.id
+    }, { $inc: {downvotes: 1} }).then(()=>{
+        res.redirect("/")
+    })
+    
 })
 
 app.post("/signup", urlencoder, function (req, res) {
@@ -66,101 +142,85 @@ app.post("/signup", urlencoder, function (req, res) {
     var email = req.body.email
     var password = req.body.password
     var description = req.body.description
-    
-    var user = new User({
-        name, email, password, description
-    
-    })
-    console.log(user)
-    req.session.username = user.name
-    current_user = user //gets the User Object
-    
-    //processing
-    user.save().then(()=>{
-        res.render("home.hbs", {
-            user: req.session.username
-        })
-    }, (err)=>{
-        res.render("index.hbs")
-    })
-    
-})
 
-//app.post("/signup", urlencoder, function (req, res) {
-//    console.log("POST /signup")
-//    var name = req.body.name
-//    var email = req.body.email
-//    var password = req.body.password
-//    var description = req.body.description
-//    users.push(new User(name, email, password, description))
-//    var user = users.find((a)=>(name == a.email))
-//    req.session.username = user.name
-//
-//    res.render("home.hbs", {
-//        user: user.name
-//    })
-//    
-//    
-//
-////    console.log(users)
-//    
-//})
+    User.findOne((user) => {
+        email: req.body.email
+    }).then(() => {
+        if(user){
+            res.render("index.hbs", {
+                register_error: true
+            })
+        } else{
+            var user = new User({
+                name,
+                email,
+                password,
+                description
+            })
+        
+            console.log(user)
+            req.session.username = user.email
+            current_user = user //gets the User Objects
+
+            //processing
+            user.save().then(() => {
+                res.redirect("/")
+            }, (err) => {
+                res.render("index.hbs")
+            })
+        }
+       
+    })
+
+})
 
 app.post("/login", urlencoder, function (req, res) {
     console.log("POST /login")
-//    var user = users.find((a)=>(req.body.email == a.email))
-//    var email = req.body.email
-//    var password = req.body.password
     User.findOne({
         email: req.body.email,
         password: req.body.password
-    }).then((user)=>{
-        current_user = user
-        req.session.username = current_user.name
-        res.render("home.hbs", {
-            user: user.name
-        })
+    }).then((user) => {
+        if(user){
+            current_user = user
+            console.log(current_user)
+            req.session.username = current_user.email
+            if(req.body.remember){
+                res.cookie("user", current_user.email, {
+                    maxAge: 1000 * 60 * 60 * 24 * 7 * 3
+                })
+            } else {
+                res.cookie("user", current_user.email, {
+                    maxAge: 1000 * 60 * 60 * 24 
+                })
+            }
+            res.redirect("/")
+        } else{
+            res.render("index.hbs", {
+                login_error: true
+            })
+        }
     })
-    
-//    console.log(email)
-//    console.log(password)
-
-//    var check = users.filter((a) => {
-//        return (email == a.email && password == a.password) //returns an array
-//    })
-//
-//    if (check.length == 1) { //if array length is 1 that means only 1 match
-//        req.session.username = user.name
-//        res.render("home.hbs", {
-//            user: req.session.username
-//        })
-//    }
-    
 })
 
-app.post("/search", urlencoder, function (req, res) {
-    console.log("POST /search")
+app.get("/search", urlencoder, function (req, res) {
+    console.log("GET /search")
 
-    var query = req.body.query
-    switch (query) {
-        case "normie":
-            res.sendFile(path.join(__dirname, "tags-normie.html"))
-            break
-        case "justright":
-            res.sendFile(path.join(__dirname, "tags-justright.html"))
-            break
-        case "dank":
-            res.sendFile(path.join(__dirname, "tags-dank.html"))
-            break
-        default:
-            console.log("No results returned")
-    }
+    var query = req.query.search_item
+    
+    Meme.find({ $or: [{tags: query}, {title: query}] }).then((memes)=>{
+        res.render("tags.hbs", {
+            user: current_user.name,
+            tags: query,
+            memes
+        })
+    })
+
 })
 
 app.get("/logout", (req, res) => {
     console.log("GET /logout")
     console.log("User " + req.session.username + " logged out")
-
+    res.clearCookie("user") //temp 
     req.session.destroy((err) => {
         if (err) {
             console.log(err)
@@ -171,26 +231,31 @@ app.get("/logout", (req, res) => {
     res.render("index.hbs")
 })
 
-app.get("/profile", urlencoder, (req, res)=>{
-    var username = req.session.username
-//    user = users.find((a)=>(username == a.name)) //if we use filter -> add [0] to user in render
-    
+app.get("/profile", urlencoder, (req, res) => {
+    //var username = req.query.username
+    //user = users.find((a)=>(username == a.name)) //if we use filter -> add [0] to user in render
+
     console.log(current_user)
-    
-    res.render("profile.hbs", {
-        name: current_user.name,
-        uname: current_user.email,
-        bio: current_user.description
+    Meme.find({owner: current_user.name}).then((memes)=>{
+        res.render("profile.hbs", {
+            user: current_user.name,
+            name: current_user.name,
+            uname: current_user.email,
+            bio: current_user.description,
+            memes
+        })
     })
-    
 })
 
 app.get("/", function (req, res) {
     console.log("GET /")
     if (req.session.username) {
-        res.render("home.hbs", {
-            user: req.session.username
-        })
+        Meme.find().then((memes)=>{
+            res.render("home.hbs", {
+                user: current_user.name,
+                memes
+            })
+        })        
     } else {
         res.render("index.hbs")
     }

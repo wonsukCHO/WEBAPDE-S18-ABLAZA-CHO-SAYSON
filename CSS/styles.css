@@ -11,8 +11,9 @@ section {
     padding: 10px;
     box-sizing: border-box;
     color: rgba(0, 0, 0, 0.8);
-    font-family: 'Open-Sans', sans-serif;
-    font-size: 1.2rem;
+    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+    font-weight: 300;
+    font-size: 1.25rem;
     color: white;
 }
 
@@ -22,7 +23,8 @@ div img {
     margin-left: auto;
     margin-right: auto;
     width: 80%;
-    border-radius: 5px;
+    padding: 5px;
+    border-radius: 12px;
 }
 
 .posts {
@@ -53,5 +55,15 @@ div img {
 }
 
 .modal-footer {
-    width: 102.5%;
+/*    width: 102.5%;*/
+    justify-content: center;
+}
+
+.info{
+    padding: 5px;
+    font-size: 1.19rem;
+}
+
+.tags{
+    border: 5px;
 }

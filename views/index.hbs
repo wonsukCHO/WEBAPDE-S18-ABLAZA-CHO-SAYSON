@@ -4,18 +4,23 @@
     <title> Memes for the WEBAPDE salesman</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
 
     <script>
         $(document).ready(() => {
-            $("#signup").click(function() {
-                $("#orangeForm-name").val("");
-                $("#orangeForm-email").val("");
-                $("#orangeForm-pass").val("");
-                $("#orangeForm-description").val("");
-            });
+            {{#if register_error}}
+                $("#modalRegisterForm").modal("show"); 
+                $("#register_error").removeAttr("hidden");
+            {{/if}}
+            
+            {{#if login_error}}
+                $("#modalLoginForm").modal("show");
+                $("#login_error").removeAttr("hidden");
+            {{/if}}
+            
         });
 
     </script>
@@ -27,13 +32,13 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="#">Dank WEBAPDE Memes</a>
+        <a class="navbar-brand" href="/">Dank WEBAPDE Memes</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-
+            
             </ul>
             <form class="form-inline my-2 my-lg-0">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalLoginForm">Login</button>
@@ -76,19 +81,26 @@
                 </button>
                     </div>
                     <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
+                        <div class="md-form mb-3">
                             <i class="fa fa-envelope prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="defaultForm-email">Your email</label>
+                            <label data-error="wrong" data-success="right" for="defaultForm-email"> Email</label>
                             <input type="email" id="defaultForm-email" class="form-control validate" name="email">
                         </div>
-                        <div class="md-form mb-4">
+                        <div class="md-form mb-2">
                             <i class="fa fa-lock prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="defaultForm-pass">Your password</label>
+                            <label data-error="wrong" data-success="right" for="defaultForm-pass"> Password</label>
                             <input type="password" id="defaultForm-pass" class="form-control validate" name="password">
+                        </div>
+                        <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                            <input type="checkbox" class="custom-control-input" id="customControlInline" name="remember">
+                            <label class="custom-control-label" for="customControlInline">Remember me </label>
+                        </div>
+                        <div class="alert alert-danger" id="login_error" hidden>
+                            Username/password does not match
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <input class="btn btn-default" type="submit" value="Login" />
+                        <input class="btn btn-primary" type="submit" value="Login" />
                     </div>
                 </div>
             </div>
@@ -107,33 +119,40 @@
                 </button>
                     </div>
                     <div class="modal-body mx-3">
-                        <div class="md-form mb-5">
+                        <div class="md-form mb-4">
                             <i class="fa fa-user prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="orangeForm-name">Your name</label>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name"> Name</label>
                             <input type="text" id="orangeForm-name" class="form-control validate" name="name">
 
                         </div>
-                        <div class="md-form mb-5">
+                        <div class="md-form mb-4">
                             <i class="fa fa-envelope prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="orangeForm-email">Your email</label>
+                            <label data-error="wrong" data-success="right" for="orangeForm-email"> Email</label>
                             <input type="email" id="orangeForm-email" class="form-control validate" name="email">
                         </div>
 
                         <div class="md-form mb-4">
                             <i class="fa fa-lock prefix grey-text"></i>
-                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Your password</label>
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass"> Password</label>
                             <input type="password" id="orangeForm-pass" class="form-control validate" name="password">
                         </div>
 
-                        <div class="md-form mb-5">
-                            <i class="fa fa-user prefix grey-text"></i>
+                        <div class="md-form mb-3">
+                            <i class="fas fa-address-card prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Short Description</label>
-                            <input type="text" id="orangeForm-description" class="form-control validate" name="description">
+                            <input type="text" id="orangeForm-description" class="form-control" name="description">
+                            <small id="tagsHelpBlock" class="form-text text-muted">
+                              Optional
+                            </small>
                         </div>
-
+                        
+                        <div class="alert alert-danger" id="register_error" hidden>
+                            Email already associated with another account
+                        </div>
+                        
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <input class="btn btn-deep-orange" type="submit" value="Sign up" />
+                        <input class="btn btn-primary" type="submit" value="Sign up" />
                     </div>
                 </div>
             </div>

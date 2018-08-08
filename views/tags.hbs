@@ -1,0 +1,259 @@
+<html>
+
+<head>
+    <title> Memes for the WEBAPDE salesman</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
+    <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
+    <!--    <link rel="stylesheet" href="css/boostrap.css">-->
+</head>
+
+<body>
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
+        <a class="navbar-brand" href="/home">Dank WEBAPDE Memes</a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item active">
+                    <a class="nav-link" href="/about">About Us <span class="sr-only">(current)</span></a>
+                </li>
+                <li class="nav-item active">
+                    <a class="nav-link" href="/profile">Welcome, {{user}} <span class="sr-only">(current)</span></a>
+                </li>
+            </ul>
+            <form class="form-inline my-2 my-lg-0" action="search" method="get">
+                <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar" name="search_item">
+                <button class="btn btn-dark" id="search_btn">Search </button>
+                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#share_meme">Post a Meme</button>
+            </form>
+        </div>
+    </nav>
+    <section id="section">
+        <div class="posts">
+            <i>Search results for: {{tags}}</i>
+        </div>
+        
+        {{#each memes}}
+        <!--array block-->
+        <div class="posts">
+            <a data-toggle="modal" data-target="#post{{_id}}">
+                {{title}}
+                <img src="/images/{{image}}"/>
+            </a>
+        </div>
+        {{/each}}
+    </section>
+    <center> <a href="/logout">Logout</a> </center>
+
+    <!-- Modals -->
+    <!--Post for Modals-->
+    {{#each memes}}
+    <div class="modal fade" id="post{{_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" name="view">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
+<!--
+                    <button type="button" class="btn btn-outline-light btn-sm" disabled></button>
+                        <a data-toggle="modal" data-target="#edit{{_id}}" data-dismiss="modal"> 
+                            <button type="button" class="btn btn-secondary btn-sm pull-right"> <span class="fas fa-edit"></span>Edit
+                            </button>
+                        </a> 
+                        <a data-toggle="modal" data-target="#delete{{_id}}">
+                            <button type="button" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span>Delete</button>
+                        </a>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+-->
+                </div>
+                <div class="modal-body">
+                    <a href="" style="color:black" class="user">@{{owner}}</a>
+                    <img src="/images/{{image}}"/>
+                        <div class="tags">
+                            tags:
+                    {{#each tags}}
+                            <a href="search?search_item={{this}}" style="color:black">#{{this}}</a>
+                        </div>
+                    {{/each}}
+<!--
+                    <div id="comments">
+                        Comments:
+                        {{#each comments}}
+                            {{comment_user}}: {{comment}}
+                        {{/each}}
+                    </div>
+-->
+                </div>
+                <div class="modal-footer">
+                    <form action="/upvoteMeme" method="post">
+                       <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-up"> </span>Upvotes: {{upvotes}}</button>
+                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
+                    </form>
+                    <form action="/downvoteMeme" method="post">
+                        <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-down"></span>Downvotes: {{downvotes}}</button>
+                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
+                    </form>
+<!--
+                    <input type="text" placeholder="Comment..." id="comment" name="comment">
+                    <button type="button" class="btn btn-primary" id="comment_btn"><span class="fas fa-comment"></span> Comment</button>
+-->
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+    
+    <!--Post Meme-->
+    <form action="postMeme" method="post">
+        <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Share your Meme</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-4">
+                            <i class="fab fa-telegram-plane prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Caption</label>
+                            <input type="text" id="orangeForm-name" class="form-control validate" name="title">
+                        </div>
+                        <div class="md-form mb-4">
+                            <i class="fas fa-tags prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-email">Tags</label>
+                            <input type="text" id="orangeForm-email" class="form-control validate" name="tags">
+                            <small id="tagsHelpBlock" class="form-text text-muted">
+                              Separate tags with a comma (,)
+                            </small>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <i class= "fas fa-user-tag prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Share to your friends</label>
+                            <input type="text" id="orangeForm-pass" class="form-control validate" name="users">
+                            <small id="tagsHelpBlock" class="form-text text-muted">
+                            Put your friend's email address associated with M.F.T.W.S.
+                            </small>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <i class="fas fa-images prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Image URL</label>
+<!--                        <input type="text" id="orangeForm-description" class="form-control         validate" name="link">-->
+                            <div class="custom-file">
+                              <input type="file" class="custom-file-input" id="customFile" name="link">
+                              <label class="custom-file-label" for="customFile">Choose file</label>
+                            </div>
+                        </div>
+                        
+                        <div class="md-form mb-2">
+                            <i class="fas fa-eye prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Privacy</label>
+                            <select class="custom-select" name="type">
+                              <option value="Public" selected>Public</option>
+                              <option value="Private">Private</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <input class="btn btn-primary" type="submit" value="Post"/>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        </form>
+        
+    <!--Edit Meme-->
+        {{#each memes}}
+        <form action="editMeme" method="post">
+        <div class="modal fade" id="edit{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <input id="editid" type="hidden" name = "id" value="{{_id}}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Edit your Meme</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-4">
+                            <i class="fab fa-telegram-plane prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Caption</label>
+                            <input type="text" id="orangeForm-name" class="form-control validate" name="title" value="{{title}}">
+                        </div>
+                        <div class="md-form mb-4">
+                            <i class="fas fa-tags prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-email">Tags</label>
+                            <input type="text" id="orangeForm-email" class="form-control validate" name="tags" value="{{tags}}">
+                            <small id="tagsHelpBlock" class="form-text text-muted">
+                              Separate tags with a comma (,)
+                            </small>
+                        </div>
+
+                        <div class="md-form mb-4">
+                            <i class= "fas fa-user-tag prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-pass">Tag your friends</label>
+                            <input type="text" id="orangeForm-pass" class="form-control validate" name="users">
+                        </div>
+                        
+                        <div class="md-form mb-2">
+                            <i class="fas fa-eye prefix grey-text"></i>
+                            <label data-error="wrong" data-success="right" for="orangeForm-name">Privacy</label>
+                            <select class="custom-select" name="type" selected="{{type}}">
+                              <option value="Public">Public</option>
+                              <option value="Private">Private</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <input class="btn btn-primary" type="submit" value="Submit Changes"/>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        </form>
+        {{/each}}
+    
+    <!--Delete Meme-->
+        {{#each memes}}
+        <form action="deleteMeme" method="post">
+        <div class="modal fade" id="delete{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+            <input id="editid" type="hidden" name = "id" value="{{_id}}">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header text-center">
+                        <h4 class="modal-title w-100 font-weight-bold">Confirm Deletion</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body mx-3">
+                        <div class="md-form mb-4">
+                            <div class="alert alert-danger" role="alert">
+                              Are you sure you want to delete "{{title}}"?
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer d-flex justify-content-center">
+                        <input class="btn btn-danger" type="submit" value="Delete"/>
+                    </div>
+                </div>
+            </div>
+        </div> 
+        </form>
+        {{/each}}
+
+
+</body>
+
+</html>
