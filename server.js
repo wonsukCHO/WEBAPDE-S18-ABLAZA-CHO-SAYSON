@@ -247,6 +247,26 @@ app.get("/profile", urlencoder, (req, res) => {
     })
 })
 
+app.get("/user", urlencoder, function (req, res){
+    console.log("GET /user")
+    console.log(req.query.other_user)
+    
+    User.findOne({
+        email: req.query.other_user
+    }).then((user)=>{
+        Meme.find({owner: user.email}).then((memes)=>{
+            res.render("profile.hbs", {
+                user: current_user.name,
+                name: user.name,
+                uname: user.email,
+                bio: user.description,
+                memes
+            })
+        })
+    })
+    
+})
+
 app.get("/", function (req, res) {
     console.log("GET /")
     if (req.session.username) {
