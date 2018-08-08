@@ -64,9 +64,9 @@ app.post("/postMeme", urlencoder, function(req, res){
     var title = req.body.title
     var owner = req.session.username
     var image = req.body.link //link to image
-    var tags = (req.body.tags).split(",").trim()
+    var tags = (req.body.tags).trim().split(",")
     var type = req.body.type
-    var tagged = (req.body.users).split(",").trim()
+    var tagged = (req.body.users).trim().split(",")
     
     var meme = new Meme({
         title,
@@ -236,7 +236,7 @@ app.get("/profile", urlencoder, (req, res) => {
     //user = users.find((a)=>(username == a.name)) //if we use filter -> add [0] to user in render
 
     console.log(current_user)
-    Meme.find({owner: current_user.name}).then((memes)=>{
+    Meme.find({owner: current_user.email}).then((memes)=>{
         res.render("profile.hbs", {
             user: current_user.name,
             name: current_user.name,
