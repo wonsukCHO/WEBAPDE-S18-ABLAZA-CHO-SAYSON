@@ -14,7 +14,10 @@ const urlencoder = bodyparser.urlencoded({
     extended: false
 })
 
+//const decipher = crypto.createDecipheriv("md5", "password", '60iP0h6vJoEa')
+
 var current_user //global variable to dictate the current user in session
+
 
 hbs.registerHelper('ifCond', function(v1, v2, options) {
     if(v1 === v2) {
@@ -146,7 +149,10 @@ app.post("/signup", urlencoder, function (req, res) {
 	
 	var hashedpassword = crypto.createHash("md5").update(password).digest("hex")
     console.log(hashedpassword)
-
+//    let decrypted = decipher.update(hashedpassword, 'hex', 'utf8')
+//    decrypted += decipher.final('utf8')
+//    console.log(decrypted);
+    
     User.findOne((user) => {
         email: req.body.email
     }).then(() => {
@@ -158,7 +164,8 @@ app.post("/signup", urlencoder, function (req, res) {
             var user = new User({
                 name,
                 email,
-                password,
+//                password,
+                password: hashedpassword,
                 description
             })
         
@@ -180,9 +187,11 @@ app.post("/signup", urlencoder, function (req, res) {
 
 app.post("/login", urlencoder, function (req, res) {
     console.log("POST /login")
+    var hashed = crypto.createHash("md5").update(req.body.password).digest("hex")
+    
     User.findOne({
         email: req.body.email,
-        password: req.body.password
+        password: hashed
     }).then((user) => {
         if(user){
             current_user = user
