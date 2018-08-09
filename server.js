@@ -4,6 +4,7 @@ const bodyparser = require("body-parser");
 const session = require("express-session");
 const mongoose = require("mongoose"); //ORM
 const path = require("path");
+const crypto = require("crypto")
 const cookieparser = require("cookie-parser");
 const User = require("./model/user").User
 const Meme = require("./model/meme").Meme
@@ -13,7 +14,10 @@ const urlencoder = bodyparser.urlencoded({
     extended: false
 })
 
+//const decipher = crypto.createDecipheriv("md5", "password", '60iP0h6vJoEa')
+
 var current_user //global variable to dictate the current user in session
+
 
 hbs.registerHelper('ifCond', function(v1, v2, options) {
     if(v1 === v2) {
@@ -64,9 +68,9 @@ app.post("/postMeme", urlencoder, function(req, res){
     var title = req.body.title
     var owner = req.session.username
     var image = req.body.link //link to image
-    var tags = (req.body.tags).split(",").trim()
+    var tags = (req.body.tags).trim().split(",")
     var type = req.body.type
-    var tagged = (req.body.users).split(",").trim()
+    var tagged = (req.body.users).trim().split(",")
     
     var meme = new Meme({
         title,
@@ -142,7 +146,13 @@ app.post("/signup", urlencoder, function (req, res) {
     var email = req.body.email
     var password = req.body.password
     var description = req.body.description
-
+	
+	var hashedpassword = crypto.createHash("md5").update(password).digest("hex")
+    console.log(hashedpassword)
+//    let decrypted = decipher.update(hashedpassword, 'hex', 'utf8')
+//    decrypted += decipher.final('utf8')
+//    console.log(decrypted);
+    
     User.findOne((user) => {
         email: req.body.email
     }).then(() => {
@@ -154,7 +164,8 @@ app.post("/signup", urlencoder, function (req, res) {
             var user = new User({
                 name,
                 email,
-                password,
+//                password,
+                password: hashedpassword,
                 description
             })
         
@@ -176,9 +187,11 @@ app.post("/signup", urlencoder, function (req, res) {
 
 app.post("/login", urlencoder, function (req, res) {
     console.log("POST /login")
+    var hashed = crypto.createHash("md5").update(req.body.password).digest("hex")
+    
     User.findOne({
         email: req.body.email,
-        password: req.body.password
+        password: hashed
     }).then((user) => {
         if(user){
             current_user = user
@@ -236,7 +249,7 @@ app.get("/profile", urlencoder, (req, res) => {
     //user = users.find((a)=>(username == a.name)) //if we use filter -> add [0] to user in render
 
     console.log(current_user)
-    Meme.find({owner: current_user.name}).then((memes)=>{
+    Meme.find({owner: current_user.email}).then((memes)=>{
         res.render("profile.hbs", {
             user: current_user.name,
             name: current_user.name,
@@ -245,6 +258,26 @@ app.get("/profile", urlencoder, (req, res) => {
             memes
         })
     })
+})
+
+app.get("/user", urlencoder, function (req, res){
+    console.log("GET /user")
+    console.log(req.query.other_user)
+    
+    User.findOne({
+        email: req.query.other_user
+    }).then((user)=>{
+        Meme.find({owner: user.email}).then((memes)=>{
+            res.render("profile.hbs", {
+                user: current_user.name,
+                name: user.name,
+                uname: user.email,
+                bio: user.description,
+                memes
+            })
+        })
+    })
+    
 })
 
 app.get("/", function (req, res) {

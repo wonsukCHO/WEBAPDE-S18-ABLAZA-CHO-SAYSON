@@ -20,7 +20,7 @@
   </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item active">
+                <li class="nav-item">
                     <a class="nav-link" href="/about">About Us <span class="sr-only">(current)</span></a>
                 </li>
                 <li class="nav-item active">
@@ -36,7 +36,7 @@
     </nav>
     <section>
         <div class="profile">
-            <img id="profile" src="https://www.shareicon.net/data/512x512/2015/09/27/107946_man_512x512.png" alt="profile" width=120px height=120px/>
+            <img id="profile" src="https://www.ultimateknowledge.com/img/testimonial/3.jpg" alt="profile" width=120px height=120px/>
             <div class="info">Name: {{name}} </div>
             <div class="info">Username: @{{uname}} </div>
             <div class="info">Bio: {{bio}} </div>
@@ -63,7 +63,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
-<!--
                     <button type="button" class="btn btn-outline-light btn-sm" disabled></button>
                         <a data-toggle="modal" data-target="#edit{{_id}}" data-dismiss="modal"> 
                             <button type="button" class="btn btn-secondary btn-sm pull-right"> <span class="fas fa-edit"></span>Edit
@@ -75,13 +74,13 @@
                     <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                       <span aria-hidden="true">&times;</span>
                     </button>
--->
                 </div>
                 <div class="modal-body">
-                    <a href="" style="color:black" class="user">@{{owner}}</a>
+                    By:
+                    <i> <a href="user?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
                     <img src="/images/{{image}}"/>
                         <div class="tags">
-                            tags:
+                            Tags:
                     {{#each tags}}
                             <a href="search?search_item={{this}}" style="color:black">#{{this}}</a>
                         </div>

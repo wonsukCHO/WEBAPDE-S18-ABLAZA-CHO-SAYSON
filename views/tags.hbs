@@ -74,10 +74,11 @@
 -->
                 </div>
                 <div class="modal-body">
-                    <a href="" style="color:black" class="user">@{{owner}}</a>
+                    By:
+                    <i> <a href="user?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
                     <img src="/images/{{image}}"/>
                         <div class="tags">
-                            tags:
+                            Tags:
                     {{#each tags}}
                             <a href="search?search_item={{this}}" style="color:black">#{{this}}</a>
                         </div>

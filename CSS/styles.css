@@ -52,6 +52,7 @@ div img {
     height: 120px;
     padding: 10px;
     border: 10px;
+    border-radius: 85px;
 }
 
 .modal-footer {
