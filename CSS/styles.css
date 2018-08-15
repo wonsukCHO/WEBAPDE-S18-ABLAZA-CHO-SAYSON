@@ -11,7 +11,8 @@ section {
     padding: 10px;
     box-sizing: border-box;
     color: rgba(0, 0, 0, 0.8);
-    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; 
+/*    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
+/*    font-family: Open-Sans, sans-serif;*/
     font-weight: 300;
     font-size: 1.25rem;
     color: white;
@@ -35,15 +36,36 @@ div img {
     /*    border-bottom: 1px solid white;*/
 }
 
+.more {
+    background-color: #182430;
+    margin: 25px;
+    padding: 7px;
+    border-radius: 15px;
+}
+
+
 .user {
     color: white;
 }
 
-.profile {
-    background-color: #243447;
+.header {
+/*    background-color: #1da1f2;*/
+/*    background-color: #218838;*/
+/*    background-color: #2B9CC2 ;*/
+    background-color: #007fbd;
     border-radius: 15px;
-    margin: 25px;
+    margin: 7px;
     padding: 20px;
+}
+
+.footer {
+    color:white;
+    justify-content: center;
+    align-content: center;
+}
+
+.footer a{
+    color:white;
 }
 
 #profile {
@@ -67,4 +89,8 @@ div img {
 
 .tags{
     border: 5px;
+}
+
+.footer{
+    display: inline-block;
 }

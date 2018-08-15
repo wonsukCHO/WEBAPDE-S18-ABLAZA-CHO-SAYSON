@@ -21,6 +21,7 @@ var MemeSchema = mongoose.Schema({
         type: String,
         required : true
     }, 
+    //Optional lel
     upvotes :{
         type: Number
     },

@@ -19,6 +19,9 @@ var UserSchema = mongoose.Schema({
     description : {
         type: String,
         required : true
+    }, 
+    memes : {
+        type: Array
     }
 })
 

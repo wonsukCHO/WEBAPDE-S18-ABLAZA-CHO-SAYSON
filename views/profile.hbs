@@ -1,6 +1,6 @@
 <html>
 <head>
-    <title> Memes for the WEBAPDE salesman</title>
+    <title> Memestagram </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.1.1/css/all.css" integrity="sha384-O8whS3fhG2OnA5Kas0Y9l3cfpmYjapjI0E4theH4iuMD+pLhbf6JI0jIMfYcK3yZ" crossorigin="anonymous">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -14,29 +14,42 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
-        <a class="navbar-brand" href="/home">Dank WEBAPDE Memes</a>
+        <a class="navbar-brand" href="/home"><i class="fab fa-instagram"></i> Memestagram </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-                <li class="nav-item">
-                    <a class="nav-link" href="/about">About Us <span class="sr-only">(current)</span></a>
-                </li>
-                <li class="nav-item active">
-                    <a class="nav-link" href="/profile">Welcome, {{user}} <span class="sr-only">(current)</span></a>
-                </li>
+             
             </ul>
             <form class="form-inline my-2 my-lg-0" action="search" method="get">
-                <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" id="searchbar">
-                <button class="btn btn-dark"  id="search_btn">Search </button>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#share_meme">Post a Meme</button>
+                <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar" name="search_item">
+                <button class="btn btn-dark" id="search_btn"> 
+                    <i class="fas fa-search"></i>
+                </button>
+                <ul class="navbar-nav mr-auto">
+                   <li class="nav-item dropdown"> 
+                        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                          <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <div class="dropdown-divider"></div>
+                            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                        </div>
+                    </li>
+                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          Welcome, {{user}}
+                    </a>
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#share_meme">
+                        <i class="far fa-image"></i>
+                        Post a Meme
+                    </button>
+                </ul>
             </form>
         </div>
     </nav>
     <section>
-        <div class="profile">
-            <img id="profile" src="https://www.ultimateknowledge.com/img/testimonial/3.jpg" alt="profile" width=120px height=120px/>
+        <div class="header">
+            <img id="profile" src="https://image.flaticon.com/icons/png/512/149/149071.png" alt="profile" width=120px height=120px/>
+<!--            <img id="profile" src="https://cdn3.iconfinder.com/data/icons/back-to-the-future/512/marty-mcfly-512.png" alt="profile" width=120px height=120px/>-->
             <div class="info">Name: {{name}} </div>
             <div class="info">Username: @{{uname}} </div>
             <div class="info">Bio: {{bio}} </div>
@@ -52,8 +65,12 @@
         </div>
         {{/each}}
     </section>
-
-    <center> <a href="/logout">Logout</a> </center>
+    
+    <center>
+        <div class="footer">
+            © 2018 Memestagram | <a href="/about">About Us</a>
+        </div>
+    </center>
 
     <!-- Modals -->
     <!--Post for Modals-->
@@ -76,7 +93,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    By:
                     <i> <a href="user?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
                     <img src="/images/{{image}}"/>
                         <div class="tags">
@@ -85,14 +101,6 @@
                             <a href="search?search_item={{this}}" style="color:black">#{{this}}</a>
                         </div>
                     {{/each}}
-<!--
-                    <div id="comments">
-                        Comments:
-                        {{#each comments}}
-                            {{comment_user}}: {{comment}}
-                        {{/each}}
-                    </div>
--->
                 </div>
                 <div class="modal-footer">
                     <form action="/upvoteMeme" method="post">
@@ -103,10 +111,6 @@
                         <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-down"></span>Downvotes: {{downvotes}}</button>
                         <input id="viewid" type="hidden" name="id" value="{{_id}}">
                     </form>
-<!--
-                    <input type="text" placeholder="Comment..." id="comment" name="comment">
-                    <button type="button" class="btn btn-primary" id="comment_btn"><span class="fas fa-comment"></span> Comment</button>
--->
                 </div>
             </div>
         </div>

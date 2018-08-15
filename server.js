@@ -8,16 +8,15 @@ const crypto = require("crypto")
 const cookieparser = require("cookie-parser");
 const User = require("./model/user").User
 const Meme = require("./model/meme").Meme
+const Tag = require("./model/tag").Tag
 
 const app = express()
 const urlencoder = bodyparser.urlencoded({
     extended: false
 })
 
-//const decipher = crypto.createDecipheriv("md5", "password", '60iP0h6vJoEa')
-
 var current_user //global variable to dictate the current user in session
-
+var limit = 1
 
 hbs.registerHelper('ifCond', function(v1, v2, options) {
     if(v1 === v2) {
@@ -28,7 +27,17 @@ hbs.registerHelper('ifCond', function(v1, v2, options) {
 
 hbs.registerHelper('displayUser', function(block) {
     return current_user.name; //just return global variable value
-});
+})
+
+hbs.registerHelper('each_upto', function(ary, max, options) {
+    if(!ary || ary.length == 0)
+        return options.inverse(this);
+
+    var result = [ ];
+    for(var i = 0; i < max && i < ary.length; ++i)
+        result.push(options.fn(ary[i]));
+    return result.join('');
+})
 
 app.set("view engine", "hbs");
 app.use(express.static(path.join(__dirname))) //so we can access outside folders 
@@ -149,9 +158,6 @@ app.post("/signup", urlencoder, function (req, res) {
 	
 	var hashedpassword = crypto.createHash("md5").update(password).digest("hex")
     console.log(hashedpassword)
-//    let decrypted = decipher.update(hashedpassword, 'hex', 'utf8')
-//    decrypted += decipher.final('utf8')
-//    console.log(decrypted);
     
     User.findOne((user) => {
         email: req.body.email
@@ -164,7 +170,6 @@ app.post("/signup", urlencoder, function (req, res) {
             var user = new User({
                 name,
                 email,
-//                password,
                 password: hashedpassword,
                 description
             })
@@ -212,7 +217,7 @@ app.post("/login", urlencoder, function (req, res) {
                 login_error: true
             })
         }
-    })
+    }) //then
 })
 
 app.get("/search", urlencoder, function (req, res) {
@@ -280,13 +285,31 @@ app.get("/user", urlencoder, function (req, res){
     
 })
 
+app.get("/more", function (req, res) {
+    console.log("GET /more")
+    limit = limit + 5
+    if (req.session.username) {
+        Meme.find().then((memes)=>{
+            res.render("home.hbs", {
+                user: current_user.name,
+                memes,
+                limit
+            })
+        })        
+    } else {
+        res.render("index.hbs")
+    }
+
+})
+
 app.get("/", function (req, res) {
     console.log("GET /")
     if (req.session.username) {
         Meme.find().then((memes)=>{
             res.render("home.hbs", {
                 user: current_user.name,
-                memes
+                memes,
+                limit
             })
         })        
     } else {
