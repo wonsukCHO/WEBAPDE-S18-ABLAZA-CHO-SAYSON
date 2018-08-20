@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="/CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
     <!--    <link rel="stylesheet" href="css/boostrap.css">-->
 </head>
     
@@ -39,7 +39,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                           <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <a class="dropdown-item" href="../user/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>
                      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -54,20 +54,20 @@
         </div>
     </nav>
     <section id="section">
-        {{#each_upto memes limit}}
+        {{#each memes}}
         <!--array block-->
         <div class="posts">
             <a data-toggle="modal" data-target="#post{{_id}}" >
                 {{title}}
-                <img src="/images/{{image}}"/> <!--/image/-->
+                <img src="/meme/photo/{{_id}}"/> <!--/image/-->
             </a>
         </div>
-        {{/each_upto}}
-        <div class="more">
-            <center>
-                <a href="/more"> View More </a>
-            </center>
-        </div>
+        {{/each}}
+        
+        <a href="/more"> 
+            <div class="more"> <center> View More </center>
+            </div>
+        </a>
     </section>
     
     <center>
@@ -84,23 +84,10 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
-<!--
-                    <button type="button" class="btn btn-outline-light btn-sm" disabled></button>
-                        <a data-toggle="modal" data-target="#edit{{_id}}" data-dismiss="modal"> 
-                            <button type="button" class="btn btn-secondary btn-sm pull-right"> <span class="fas fa-edit"></span>Edit
-                            </button>
-                        </a> 
-                        <a data-toggle="modal" data-target="#delete{{_id}}">
-                            <button type="button" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span>Delete</button>
-                        </a>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
--->
                 </div>
                 <div class="modal-body">
                     <i> <a href="user?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
-                    <img src="/images/{{image}}"/>
+                    <img src="meme/photo/{{_id}}"/>
                         <div class="tags">
                             Tags:
                     {{#each tags}}
@@ -124,7 +111,7 @@
     {{/each}}
     
     <!--Post Meme-->
-    <form action="postMeme" method="post">
+    <form action="../meme/postMeme" method="post" enctype="multipart/form-data">
         <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -163,7 +150,7 @@
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Image URL</label>
 <!--                        <input type="text" id="orangeForm-description" class="form-control         validate" name="link">-->
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile" name="link" accept="image/*">
+                              <input type="file" class="custom-file-input" id="customFile" name="img" accept="image/*">
                               <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
                         </div>
