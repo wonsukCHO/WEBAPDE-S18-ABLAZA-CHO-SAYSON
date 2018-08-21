@@ -73,6 +73,7 @@ router.post("/login", (req, res) => {
                     user: newUser.name,
                     memes
                 })
+//                res.redirect("/")
             })
         }
     }, (error) => {

@@ -13,6 +13,10 @@ var MemeSchema = mongoose.Schema({
         type: String,
         required: true
     }],
+    tagged: [{
+        type: String,
+        required: true
+    }],
     type: { ///public or private
         type: String,
         required: true
@@ -23,7 +27,7 @@ var MemeSchema = mongoose.Schema({
     originalfilename: {
         type: String
     },
-    
+
     //Optional lel
     upvotes: {
         type: Number
@@ -31,7 +35,7 @@ var MemeSchema = mongoose.Schema({
     downvotes: {
         type: Number
     }
-    
+
 }, {
     timestamps: true
 })

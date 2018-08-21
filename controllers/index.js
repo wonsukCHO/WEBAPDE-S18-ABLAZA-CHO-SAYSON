@@ -13,6 +13,7 @@ const express = require("express")
 const router = express.Router()
 const app = express()
 const Meme = require("../models/meme")
+const Tag = require("../models/tag")
 const hbs = require("hbs")
 
 hbs.registerHelper('each_upto', function (ary, max, options) {
@@ -32,9 +33,13 @@ router.use("/user", require("./user"))
 // create the route for the index/home page
 router.get("/", function (req, res) {
     console.log("GET /")
+//    var temp = {
+//        name: "normie"
+//    }
+//     Tag.create(temp)
     if (req.session.username) {
         Meme.getAll().then((memes) => {
-            console.log(memes)
+//            console.log(memes)
             res.render("home", {
                 user: req.session.username,
                 memes

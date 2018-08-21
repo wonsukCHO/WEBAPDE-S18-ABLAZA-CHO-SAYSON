@@ -7,6 +7,8 @@ Controllers should not directly access and manipulate the db, it should access t
 const express = require("express")
 const router = express.Router()
 const Meme = require("../models/meme")
+const User = require("../models/user")
+const Tag = require("../models/tag")
 const bodyparser = require("body-parser")
 const auth = require("../middlewares/auth")
 
@@ -48,7 +50,7 @@ const upload = multer({
 router.post("/postMeme", upload.single("img"), (req, res) => {
     console.log(req.body.title)
     console.log(req.file.filename)
-    
+
     // multer saves the actual image, and we save the filepath into our DB
     var meme = {
         title: req.body.title,
@@ -57,16 +59,31 @@ router.post("/postMeme", upload.single("img"), (req, res) => {
         type: req.body.type,
         tagged: (req.body.users).trim().split(","),
         filename: req.file.filename,
-        originalfilename: req.file.original
+        originalfilename: req.file.original //multer needs this
 
     }
-
+    
+    
     Meme.create(meme).then((doc) => {
+        User.pushMeme(req.session.username, doc)
+//        for(var i = 0; i < doc.tags.length; i++){
+//            if(Tag.findTag(doc.tags[i])){
+//                Tag.pushMeme(doc.tags[i], doc)
+//                console.log("found tag")
+//            } else{
+//                Tag.create(doc.tags[i]).then((newTag)=>{
+//                    Tag.pushMeme(newTag.name, doc)
+//                })
+//            }
+//        }
         res.render("home.hbs", {
             title: doc.title,
             id: doc._id
         })
     })
+
+
+
 })
 
 // this should be in controller post
