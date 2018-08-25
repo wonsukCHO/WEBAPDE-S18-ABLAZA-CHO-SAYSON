@@ -15,14 +15,14 @@ var TagSchema = mongoose.Schema({
 var Tag = mongoose.model("tags", TagSchema)
 
 
-exports.create = function (user) {
+exports.create = function (tag) {
     return new Promise(function (resolve, reject) {
-        console.log(user)
-        var u = new Tag(user)
+        console.log(tag)
+        var u = new Tag(tag)
 
-        u.save().then((newUser) => {
-            console.log(newUser)
-            resolve(newUser)
+        u.save().then((newTag) => {
+            console.log(newTag)
+            resolve(newTag)
         }, (err) => {
             reject(err)
         })
@@ -31,7 +31,7 @@ exports.create = function (user) {
 
 exports.getAll = function () {
     return new Promise(function (resolve, reject) {
-        Meme.find().then((memes) => {
+        Tag.find().then((memes) => {
             resolve(memes)
         }, (err) => {
             reject(err)

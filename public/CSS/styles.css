@@ -11,8 +11,8 @@ section {
     padding: 10px;
     box-sizing: border-box;
     color: rgba(0, 0, 0, 0.8);
-/*    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
-/*    font-family: Open-Sans, sans-serif;*/
+    /*    font-family: "HelveticaNeue-Light", "Helvetica Neue Light", "Helvetica Neue", Helvetica, Arial, "Lucida Grande", sans-serif; */
+    /*    font-family: Open-Sans, sans-serif;*/
     font-weight: 300;
     font-size: 1.25rem;
     color: white;
@@ -47,8 +47,8 @@ div img {
 
 .more:hover {
     background-color: #3f98ff;
-    color:white;
-    
+    color: white;
+
 }
 
 .user {
@@ -57,8 +57,8 @@ div img {
 
 .header {
     margin: 10px;
-    padding:25px;
-/*    border-radius: 15px;*/
+    padding: 25px;
+    /*    border-radius: 15px;*/
 }
 
 .footer {
@@ -67,7 +67,7 @@ div img {
     align-content: center;
 }
 
-.footer a{
+.footer a {
     color: white;
 }
 
@@ -76,26 +76,42 @@ div img {
     width: 150px;
     height: 150px;
     padding: 7px;
-/*    border: 10px;*/
+    /*    border: 10px;*/
     border-radius: 85px;
     border: 2px dotted #184c89;
 }
 
 .modal-footer {
-/*    width: 102.5%;*/
+    /*    width: 102.5%;*/
     justify-content: center;
 }
 
-.info{
+.info {
     padding: 5px;
     font-size: 1.19rem;
     margin: 10px;
 }
 
-.tags{
+.tags {
     border: 5px;
 }
 
-.footer{
+.footer {
     display: inline-block;
+}
+
+.about {
+    padding: 7px;
+    border-bottom: 2px solid #243447;
+}
+
+.about img {
+    width: 97%;
+}
+
+.dropdown-toggle::after {
+    display: none;
+}
+
+.navbar-nav {
 }

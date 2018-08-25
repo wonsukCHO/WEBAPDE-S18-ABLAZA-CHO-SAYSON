@@ -40,6 +40,15 @@ const upload = multer({
     }
 })
 
+hbs.registerHelper('each_upto', function (ary, max, options) {
+    if (!ary || ary.length == 0)
+        return options.inverse(this);
+
+    var result = [];
+    for (var i = 0; i < max && i < ary.length; ++i)
+        result.push(options.fn(ary[i]));
+    return result.join('');
+})
 
 // this should be in controller post
 // we use the multer middleware where
@@ -54,32 +63,41 @@ router.post("/postMeme", upload.single("img"), (req, res) => {
     // multer saves the actual image, and we save the filepath into our DB
     var meme = {
         title: req.body.title,
-        owner: req.session.username,
+        owner: req.cookies.user,
         tags: (req.body.tags).trim().split(","),
         type: req.body.type,
         tagged: (req.body.users).trim().split(","),
         filename: req.file.filename,
         originalfilename: req.file.original //multer needs this
-
     }
-    
-    
+
+
     Meme.create(meme).then((doc) => {
-        User.pushMeme(req.session.username, doc)
-//        for(var i = 0; i < doc.tags.length; i++){
-//            if(Tag.findTag(doc.tags[i])){
-//                Tag.pushMeme(doc.tags[i], doc)
-//                console.log("found tag")
-//            } else{
-//                Tag.create(doc.tags[i]).then((newTag)=>{
-//                    Tag.pushMeme(newTag.name, doc)
-//                })
-//            }
-//        }
-        res.render("home.hbs", {
-            title: doc.title,
-            id: doc._id
+        User.pushMeme(req.session.username, doc).then(() => {
+            doc.tags.forEach((tag) => { //tag is just a string
+                Tag.findTag(tag).then((resultTag) => {
+                    if (resultTag) {
+                        Tag.pushMeme(resultTag.name, doc)
+                    } else {
+                        var t = {
+                            name: tag
+                        }
+                        Tag.create(t).then((newTag) => {
+                            Tag.pushMeme(newTag.name, doc)
+                        })
+                    }
+                })
+            })
         })
+        res.redirect("/")
+        //        res.render("home", {
+        //            user: req.session.username,
+        //            memes: 
+        //        })
+        //        res.render("home.hbs", {
+        //            title: doc.title,
+        //            id: doc._id
+        //        })
     })
 
 
@@ -97,6 +115,38 @@ router.get("/photo/:id", (req, res) => {
     })
 })
 
+
+router.get("/search", function (req, res) {
+    console.log("GET meme/search")
+
+    var query = req.query.search_item
+    console.log(query)
+
+    Tag.findTag(query).then((tag) => {
+        res.render("tags", {
+            user: req.session.username,
+            tags: query,
+            memes: tag.memes
+        })
+    })
+
+})
+
+router.get("/more", function (req, res) {
+    console.log("GET meme/more")
+    if (req.session.username) {
+        Meme.getAll().then((memes) => {
+            res.render("home", {
+                user: req.session.username,
+                memes,
+                limit: req.session.limit + 5
+            })
+        })
+    } else {
+        res.render("index.hbs")
+    }
+
+})
 //
 //router.post("/edit/:id", (req, res) => {
 //    console.log("POST /post/" + req.params.id)

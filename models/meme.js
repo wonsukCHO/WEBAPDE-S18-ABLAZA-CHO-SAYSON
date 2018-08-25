@@ -15,7 +15,6 @@ var MemeSchema = mongoose.Schema({
     }],
     tagged: [{
         type: String,
-        required: true
     }],
     type: { ///public or private
         type: String,

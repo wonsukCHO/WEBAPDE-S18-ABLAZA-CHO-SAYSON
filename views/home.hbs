@@ -29,7 +29,7 @@
             <ul class="navbar-nav mr-auto" id="test">
                 
             </ul>
-            <form class="form-inline my-2 my-lg-0" action="search" method="get">
+            <form class="form-inline my-2 my-lg-0" action="../meme/search" method="get">
                 <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar" name="search_item">
                 <button class="btn btn-dark" id="search_btn"> 
                     <i class="fas fa-search"></i>
@@ -37,7 +37,7 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown"> 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
+                          <a class="dropdown-item" href="../user/profile"><i class="fas fa-user"></i> Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="../user/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
@@ -54,25 +54,25 @@
         </div>
     </nav>
     <section id="section">
-        {{#each memes}}
+        {{#each_upto memes limit}}
         <!--array block-->
         <div class="posts">
             <a data-toggle="modal" data-target="#post{{_id}}" >
                 {{title}}
-                <img src="/meme/photo/{{_id}}"/> <!--/image/-->
+                <img src="../meme/photo/{{_id}}"/> <!--/image/-->
             </a>
         </div>
-        {{/each}}
-        
-        <a href="/more"> 
-            <div class="more"> <center> View More </center>
+        {{/each_upto}}
+        <a href="../meme/more"> 
+            <div class="more"> 
+                <center> View More </center>
             </div>
         </a>
     </section>
     
     <center>
         <div class="footer">
-            © 2018 Memestagram | <a href="/about">About Us</a>
+            © 2018 Memestagram | <a href="../about">About Us</a>
         </div>
     </center>
     
@@ -86,12 +86,12 @@
                     <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
                 </div>
                 <div class="modal-body">
-                    <i> <a href="user?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
-                    <img src="meme/photo/{{_id}}"/>
+                    <i> <a href="../user/account?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
+                    <img src="../meme/photo/{{_id}}"/>
                         <div class="tags">
                             Tags:
                     {{#each tags}}
-                            <a href="search?search_item={{this}}" style="color:black">#{{this}}</a>
+                            <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
                         </div>
                     {{/each}}
                 </div>
@@ -148,7 +148,6 @@
                         <div class="md-form mb-4">
                             <i class="fas fa-images prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Image URL</label>
-<!--                        <input type="text" id="orangeForm-description" class="form-control         validate" name="link">-->
                             <div class="custom-file">
                               <input type="file" class="custom-file-input" id="customFile" name="img" accept="image/*">
                               <label class="custom-file-label" for="customFile">Choose file</label>

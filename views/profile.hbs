@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <title> Memestagram </title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
@@ -18,7 +19,7 @@
   </button>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav mr-auto">
-             
+
             </ul>
             <form class="form-inline my-2 my-lg-0" action="search" method="get">
                 <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar" name="search_item">
@@ -26,14 +27,14 @@
                     <i class="fas fa-search"></i>
                 </button>
                 <ul class="navbar-nav mr-auto">
-                   <li class="nav-item dropdown"> 
+                    <li class="nav-item dropdown">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>
-                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                           Welcome, {{user}}
                     </a>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#share_meme">
@@ -46,26 +47,26 @@
     </nav>
     <section>
         <div class="header">
-            <img id="profile" src="https://image.flaticon.com/icons/png/512/149/149071.png" alt="profile"/>
-<!--            <img id="profile" src="https://cdn3.iconfinder.com/data/icons/back-to-the-future/512/marty-mcfly-512.png" alt="profile" width=120px height=120px/>-->
-            <div class="info"> 
-                <h1> {{name}} </h1> 
+            <img id="profile" src="https://image.flaticon.com/icons/png/512/149/149071.png" alt="profile" />
+            <!--            <img id="profile" src="https://cdn3.iconfinder.com/data/icons/back-to-the-future/512/marty-mcfly-512.png" alt="profile" width=120px height=120px/>-->
+            <div class="info">
+                <h1> {{name}} </h1>
                 {{bio}} <br>
                 <i> {{uname}} </i>
             </div>
         </div>
-        <hr noshade>
-        {{#each memes}}
+        <hr noshade> {{#each memes}}
         <!--array block-->
         <div class="posts">
             <a data-toggle="modal" data-target="#post{{_id}}">
                 {{title}}
-                <img src="/images/{{image}}"/>
+                <img src="../meme/photo/{{_id}}"/>
             </a>
         </div>
         {{/each}}
+
     </section>
-    
+
     <center>
         <div class="footer">
             © 2018 Memestagram | <a href="/about">About Us</a>
@@ -80,35 +81,38 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
-                    <button type="button" class="btn btn-outline-light btn-sm" disabled></button>
-                        <a data-toggle="modal" data-target="#edit{{_id}}" data-dismiss="modal"> 
-                            <button type="button" class="btn btn-secondary btn-sm pull-right"> <span class="fas fa-edit"></span>Edit
-                            </button>
-                        </a> 
-                        <a data-toggle="modal" data-target="#delete{{_id}}">
-                            <button type="button" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span>Delete</button>
-                        </a>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
+                    <button type="button" class="btn btn-outline-light btn-lg"></button>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-outline-dark dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                        <i class="fas fa-ellipsis-h"></i>
+                      </button>
+                        <div class="dropdown-menu dropdown-menu-right" id="more">
+                            <a data-toggle="modal" data-target="#edit{{_id}}" data-dismiss="modal">
+                                <button class="dropdown-item" type="button"><span class="fas fa-edit"></span> Edit</button>
+                            </a>
+                            <div class="dropdown-divider"></div>
+                            <a data-toggle="modal" data-target="#delete{{_id}}"> 
+                                <button class="dropdown-item" type="button"><span class="fas fa-trash-alt">   </span> Delete</button>
+                            </a>
+                        </div>
+                    </div>
                 </div>
                 <div class="modal-body">
-                    <i> <a href="user?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
-                    <img src="/images/{{image}}"/>
-                        <div class="tags">
-                            Tags:
-                    {{#each tags}}
-                            <a href="search?search_item={{this}}" style="color:black">#{{this}}</a>
-                        </div>
+                    <i> <a href="../user/account?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
+                    <img src="../meme/photo/{{_id}}" />
+                    <div class="tags">
+                        Tags: {{#each tags}}
+                        <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
+                    </div>
                     {{/each}}
                 </div>
                 <div class="modal-footer">
                     <form action="/upvoteMeme" method="post">
-                       <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-up"> </span>Upvotes: {{upvotes}}</button>
+                        <button type="submit" class="btn btn-outline-dark btn-m"><span class="fas fa-chevron-circle-up"> </span> Upvotes: {{upvotes}}</button>
                         <input id="viewid" type="hidden" name="id" value="{{_id}}">
                     </form>
                     <form action="/downvoteMeme" method="post">
-                        <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-down"></span>Downvotes: {{downvotes}}</button>
+                        <button type="submit" class="btn btn-outline-dark btn-m"><span class="fas fa-chevron-circle-down"></span> Downvotes: {{downvotes}}</button>
                         <input id="viewid" type="hidden" name="id" value="{{_id}}">
                     </form>
                 </div>
@@ -116,7 +120,7 @@
         </div>
     </div>
     {{/each}}
-    
+
     <!--Post Meme-->
     <form action="postMeme" method="post">
         <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
@@ -144,7 +148,7 @@
                         </div>
 
                         <div class="md-form mb-4">
-                            <i class= "fas fa-user-tag prefix grey-text"></i>
+                            <i class="fas fa-user-tag prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-pass">Share to your friends</label>
                             <input type="text" id="orangeForm-pass" class="form-control validate" name="users">
                             <small id="tagsHelpBlock" class="form-text text-muted">
@@ -156,11 +160,11 @@
                             <i class="fas fa-images prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Image URL</label>
                             <div class="custom-file">
-                              <input type="file" class="custom-file-input" id="customFile" name="img">
-                              <label class="custom-file-label" for="customFile">Choose file</label>
+                                <input type="file" class="custom-file-input" id="customFile" name="img">
+                                <label class="custom-file-label" for="customFile">Choose file</label>
                             </div>
                         </div>
-                        
+
                         <div class="md-form mb-2">
                             <i class="fas fa-eye prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Privacy</label>
@@ -171,18 +175,18 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <input class="btn btn-primary" type="submit" value="Post"/>
+                        <input class="btn btn-primary" type="submit" value="Post" />
                     </div>
                 </div>
             </div>
-        </div> 
-        </form>
-        
+        </div>
+    </form>
+
     <!--Edit Meme-->
-        {{#each memes}}
-        <form action="editMeme" method="post">
+    {{#each memes}}
+    <form action="editMeme" method="post">
         <div class="modal fade" id="edit{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <input id="editid" type="hidden" name = "id" value="{{_id}}">
+            <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -207,11 +211,11 @@
                         </div>
 
                         <div class="md-form mb-4">
-                            <i class= "fas fa-user-tag prefix grey-text"></i>
+                            <i class="fas fa-user-tag prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-pass">Tag your friends</label>
                             <input type="text" id="orangeForm-pass" class="form-control validate" name="users">
                         </div>
-                        
+
                         <div class="md-form mb-2">
                             <i class="fas fa-eye prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-name">Privacy</label>
@@ -222,19 +226,19 @@
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <input class="btn btn-primary" type="submit" value="Submit Changes"/>
+                        <input class="btn btn-primary" type="submit" value="Submit Changes" />
                     </div>
                 </div>
             </div>
-        </div> 
-        </form>
-        {{/each}}
-    
+        </div>
+    </form>
+    {{/each}}
+
     <!--Delete Meme-->
-        {{#each memes}}
-        <form action="deleteMeme" method="post">
+    {{#each memes}}
+    <form action="deleteMeme" method="post">
         <div class="modal fade" id="delete{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <input id="editid" type="hidden" name = "id" value="{{_id}}">
+            <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">
@@ -246,22 +250,19 @@
                     <div class="modal-body mx-3">
                         <div class="md-form mb-4">
                             <div class="alert alert-danger" role="alert">
-                              Are you sure you want to delete "{{title}}"?
+                                Are you sure you want to delete "{{title}}"?
                             </div>
                         </div>
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
-                        <input class="btn btn-danger" type="submit" value="Delete"/>
+                        <input class="btn btn-danger" type="submit" value="Delete" />
                     </div>
                 </div>
             </div>
-        </div> 
-        </form>
-        {{/each}}
+        </div>
+    </form>
+    {{/each}}
     
-
-
-
 </body>
 
 </html>

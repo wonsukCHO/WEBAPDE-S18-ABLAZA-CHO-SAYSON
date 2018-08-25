@@ -31,7 +31,7 @@ router.post("/signup", (req, res) => {
 
     User.create(user).then((user) => {
         console.log("successful " + user)
-        req.session.username = user.username
+        req.session.username = user.name
         res.render("home", {
             user: user.name
         })
@@ -57,23 +57,25 @@ router.post("/login", (req, res) => {
         console.log("authenticate " + newUser)
         if (newUser) {
             req.session.username = newUser.name
+            req.session.limit = 1
             if (req.body.remember) {
                 res.cookie("user", newUser.email, {
                     maxAge: 1000 * 60 * 60 * 24 * 7 * 3
                 })
-            
+
             } else {
                 res.cookie("user", newUser.email, {
                     maxAge: 1000 * 60 * 60 * 24
                 })
             }
+
             Meme.getAll().then((memes) => {
                 res.render("home", {
-                    //          posts
                     user: newUser.name,
-                    memes
+                    memes,
+                    limit: req.session.limit
                 })
-//                res.redirect("/")
+                //                res.redirect("/")
             })
         }
     }, (error) => {
@@ -86,7 +88,7 @@ router.post("/login", (req, res) => {
 router.get("/logout", (req, res) => {
     console.log("GET user/logout")
     console.log("User " + req.session.username + " logged out")
-    //    res.clearCookie("user") //temp 
+    res.clearCookie("user") //temp 
     req.session.destroy((err) => {
         if (err) {
             console.log(err)
@@ -97,5 +99,34 @@ router.get("/logout", (req, res) => {
     res.redirect("/")
 })
 
+router.get("/profile", (req, res) => {
+    console.log("GET user/profile")
+    User.get(req.session.username).then((user) => {
+        res.render("profile", {
+            user: user.name,
+            name: user.name,
+            uname: user.email,
+            bio: user.description,
+            memes: user.memes
+        })
+    })
+})
+
+router.get("/account", (req, res) => {
+    console.log("GET user/account")
+    User.getEmail(req.query.other_user).then((user) => {
+        if (user.name == req.session.username) {
+            res.redirect("../user/profile")
+        } else {
+            res.render("sideProfile", {
+                user: req.session.username,
+                name: user.name,
+                uname: user.email,
+                bio: user.description,
+                memes: user.memes
+            })
+        }
+    })
+})
 // always remember to export the router for index.js
 module.exports = router

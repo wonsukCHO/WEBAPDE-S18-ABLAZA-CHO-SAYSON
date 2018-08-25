@@ -71,10 +71,36 @@ exports.authenticate = function (user) {
     })
 }
 
-exports.get = function (id) {
+//exports.get = function (id) {
+//    return new Promise(function (resolve, reject) {
+//        User.findOne({
+//            _id: id
+//        }).then((user) => {
+//            resolve(user)
+//        }, (err) => {
+//            reject(err)
+//        })
+//    })
+//}
+
+//finds user based on their name
+exports.get = function (name) {
     return new Promise(function (resolve, reject) {
         User.findOne({
-            _id: id
+            name: name
+        }).then((user) => {
+            resolve(user)
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
+
+//finds user based on their email
+exports.getEmail = function (email) {
+    return new Promise(function (resolve, reject) {
+        User.findOne({
+            email: email
         }).then((user) => {
             resolve(user)
         }, (err) => {

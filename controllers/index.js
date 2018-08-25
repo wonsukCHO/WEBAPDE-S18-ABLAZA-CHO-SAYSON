@@ -13,6 +13,7 @@ const express = require("express")
 const router = express.Router()
 const app = express()
 const Meme = require("../models/meme")
+const User = require("../models/user")
 const Tag = require("../models/tag")
 const hbs = require("hbs")
 
@@ -33,17 +34,20 @@ router.use("/user", require("./user"))
 // create the route for the index/home page
 router.get("/", function (req, res) {
     console.log("GET /")
-//    var temp = {
-//        name: "normie"
-//    }
-//     Tag.create(temp)
-    if (req.session.username) {
+    if (req.cookies.user) {
         Meme.getAll().then((memes) => {
-//            console.log(memes)
-            res.render("home", {
-                user: req.session.username,
-                memes
+            //            console.log(memes)
+            User.getEmail(req.cookies.user).then((user) => {
+                req.session.username = user.name
+                req.session.limit = 1
+                res.render("home", {
+                    //user: req.session.username,
+                    user: user.name,
+                    memes,
+                    limit: 1
+                })
             })
+
         })
 
     } else {

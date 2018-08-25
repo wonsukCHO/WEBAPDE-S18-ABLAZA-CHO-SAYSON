@@ -8,7 +8,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
     <script src="jquery-3.3.1.min.js" type="text/javascript"></script>
-    <link rel="stylesheet" type="text/css" href="/..CSS/styles.css">
+    <link rel="stylesheet" type="text/css" href="../CSS/styles.css">
     <!--    <link rel="stylesheet" href="css/boostrap.css">-->
 </head>
 
@@ -30,9 +30,9 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown"> 
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                          <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
+                          <a class="dropdown-item" href="../user/profile"><i class="fas fa-user"></i> Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <a class="dropdown-item" href="../user/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>
                      <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -46,9 +46,9 @@
             </form>
         </div>
     </nav>
-    <section id="section">
+    <section>
         <div class="header">
-            <i>Search results for: {{tags}}</i>
+            <h3> <i>Search results for: {{tags}}</i> </h3>
         </div>
         
         {{#each memes}}
@@ -56,15 +56,16 @@
         <div class="posts">
             <a data-toggle="modal" data-target="#post{{_id}}">
                 {{title}}
-                <img src="/images/{{image}}"/>
+                <img src="../meme/photo/{{_id}}"/>
             </a>
         </div>
         {{/each}}
+        
     </section>
     
     <center>
         <div class="footer">
-            © 2018 Memestagram | <a href="/about">About Us</a>
+            © 2018 Memestagram | <a href="../about">About Us</a>
         </div>
     </center>
     
@@ -76,19 +77,6 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
-<!--
-                    <button type="button" class="btn btn-outline-light btn-sm" disabled></button>
-                        <a data-toggle="modal" data-target="#edit{{_id}}" data-dismiss="modal"> 
-                            <button type="button" class="btn btn-secondary btn-sm pull-right"> <span class="fas fa-edit"></span>Edit
-                            </button>
-                        </a> 
-                        <a data-toggle="modal" data-target="#delete{{_id}}">
-                            <button type="button" class="btn btn-danger btn-sm"><span class="fas fa-trash-alt"></span>Delete</button>
-                        </a>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                      <span aria-hidden="true">&times;</span>
-                    </button>
--->
                 </div>
                 <div class="modal-body">
                     <i> <a href="user?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
@@ -96,7 +84,7 @@
                         <div class="tags">
                             Tags:
                     {{#each tags}}
-                            <a href="search?search_item={{this}}" style="color:black">#{{this}}</a>
+                            <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
                         </div>
                     {{/each}}
 <!--
@@ -124,7 +112,7 @@
     {{/each}}
     
     <!--Post Meme-->
-    <form action="postMeme" method="post">
+    <form action="../meme/postMeme" method="post">
         <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -186,7 +174,7 @@
         
     <!--Edit Meme-->
         {{#each memes}}
-        <form action="editMeme" method="post">
+        <form action="../meme/editMeme" method="post">
         <div class="modal fade" id="edit{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name = "id" value="{{_id}}">
             <div class="modal-dialog" role="document">
@@ -238,7 +226,7 @@
     
     <!--Delete Meme-->
         {{#each memes}}
-        <form action="deleteMeme" method="post">
+        <form action="../meme/deleteMeme" method="post">
         <div class="modal fade" id="delete{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name = "id" value="{{_id}}">
             <div class="modal-dialog" role="document">
