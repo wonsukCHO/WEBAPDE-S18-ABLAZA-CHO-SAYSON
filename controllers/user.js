@@ -32,8 +32,16 @@ router.post("/signup", (req, res) => {
     User.create(user).then((user) => {
         console.log("successful " + user)
         req.session.username = user.name
-        res.render("home", {
-            user: user.name
+        req.session.limit = 3
+        res.cookie("user", newUser.email, { //default 1 day
+            maxAge: 1000 * 60 * 60 * 24
+        })
+        Meme.getAll().then((memes) => {
+            res.render("home", {
+                user: req.session.username,
+                memes,
+                limit: req.session.limit
+            })
         })
     }, (error) => {
         res.render("index", {
@@ -57,7 +65,7 @@ router.post("/login", (req, res) => {
         console.log("authenticate " + newUser)
         if (newUser) {
             req.session.username = newUser.name
-            req.session.limit = 1
+            req.session.limit = 3
             if (req.body.remember) {
                 res.cookie("user", newUser.email, {
                     maxAge: 1000 * 60 * 60 * 24 * 7 * 3
@@ -80,7 +88,8 @@ router.post("/login", (req, res) => {
         }
     }, (error) => {
         res.render("index", {
-            login_error: true
+            login_error: true,
+            limit: 3
         })
     })
 })
@@ -118,13 +127,29 @@ router.get("/account", (req, res) => {
         if (user.name == req.session.username) {
             res.redirect("../user/profile")
         } else {
-            res.render("sideProfile", {
-                user: req.session.username,
-                name: user.name,
-                uname: user.email,
-                bio: user.description,
-                memes: user.memes
+            var posts = []
+            user.memes.forEach((a) => {
+                if (a.type === "Public" || a.tagged.includes(req.cookies.user)) {
+                    posts.push(a)
+                } 
             })
+            if (req.session.username == null) {
+                res.render("sideProfile", {
+                    user: "Guest",
+                    name: user.name,
+                    uname: user.email,
+                    bio: user.description,
+                    memes: posts
+                })
+            } else if (user.name != req.session.username) {
+                res.render("sideProfile", {
+                    user: req.session.username,
+                    name: user.name,
+                    uname: user.email,
+                    bio: user.description,
+                    memes: posts
+                })
+            }
         }
     })
 })

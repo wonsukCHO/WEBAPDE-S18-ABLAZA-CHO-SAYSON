@@ -24,7 +24,6 @@ var UserSchema = mongoose.Schema({
     },
     description: {
         type: String,
-        required: true
     },
     memes: {
         type: Array
@@ -125,8 +124,8 @@ exports.edit = function (id, update) {
 
 exports.getAll = function () {
     return new Promise(function (resolve, reject) {
-        User.find().then((memes) => {
-            resolve(memes)
+        User.find().then((users) => {
+            resolve(users)
         }, (err) => {
             reject(err)
         })
@@ -135,15 +134,31 @@ exports.getAll = function () {
 
 exports.pushMeme = function (user, meme) {
     return new Promise(function (resolve, reject) {
-        User.findOneAndUpdate({ 
+        User.findOneAndUpdate({
             name: user
         }, {
             $push: {
                 memes: meme
             }
-        }).then((updated)=>{
+        }).then((updated) => {
             resolve(updated)
-        }, (err)=>{
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
+
+//Not working
+exports.pullMeme = function (user, id) {
+    return new Promise(function (resolve, reject) {
+        User.findOneAndUpdate({
+            name: user
+        }).then((updated) => {
+            updated.update({
+                _id: id
+            }, {$pull : {"meme._id" : id}})
+            resolve(updated)
+        }, (err) => {
             reject(err)
         })
     })

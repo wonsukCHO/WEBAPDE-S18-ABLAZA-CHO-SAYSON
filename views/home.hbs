@@ -54,14 +54,16 @@
         </div>
     </nav>
     <section id="section">
-        {{#each_upto memes limit}}
         <!--array block-->
-        <div class="posts">
-            <a data-toggle="modal" data-target="#post{{_id}}" >
-                {{title}}
-                <img src="../meme/photo/{{_id}}"/> <!--/image/-->
-            </a>
-        </div>
+        {{#each_upto memes limit}}
+            {{!#ifCond this.type "Public"}}
+            <div class="posts">
+                <a data-toggle="modal" data-target="#post{{_id}}" >
+                    {{title}}
+                    <img src="../meme/photo/{{_id}}"/> <!--/image/-->
+                </a>
+            </div>
+            {{!/ifCond}}
         {{/each_upto}}
         <a href="../meme/more"> 
             <div class="more"> 
@@ -96,11 +98,12 @@
                     {{/each}}
                 </div>
                 <div class="modal-footer">
-                    <form action="/upvoteMeme" method="post">
+                    <form action="../meme/upvoteMeme" method="post">
                        <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-up"> </span>Upvotes: {{upvotes}}</button>
-                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
+                        <input id="viewid" type="hidden" name="id" value="{{_id}}"> <!--So the form has an id-->
                     </form>
-                    <form action="/downvoteMeme" method="post">
+                    
+                    <form action="../meme/downvoteMeme" method="post">
                         <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-down"></span>Downvotes: {{downvotes}}</button>
                         <input id="viewid" type="hidden" name="id" value="{{_id}}">
                     </form>
@@ -175,7 +178,7 @@
         {{#each memes}}
         <form action="editMeme" method="post">
         <div class="modal fade" id="edit{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
-            <input id="editid" type="hidden" name = "id" value="{{_id}}">
+            <input id="editid" type="hidden" name = "id" value="{{_id}}"> <!--stores the ID of the meme-->
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
                     <div class="modal-header text-center">

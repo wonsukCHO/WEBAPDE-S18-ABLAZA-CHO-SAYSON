@@ -29,9 +29,9 @@
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item dropdown">
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                            <a class="dropdown-item" href="/profile"><i class="fas fa-user"></i> Profile</a>
+                            <a class="dropdown-item" href="../user/profile"><i class="fas fa-user"></i> Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <a class="dropdown-item" href="../user/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -55,8 +55,9 @@
                 <i> {{uname}} </i>
             </div>
         </div>
-        <hr noshade> {{#each memes}}
+        <hr noshade>
         <!--array block-->
+        {{#each memes}}
         <div class="posts">
             <a data-toggle="modal" data-target="#post{{_id}}">
                 {{title}}
@@ -69,7 +70,7 @@
 
     <center>
         <div class="footer">
-            © 2018 Memestagram | <a href="/about">About Us</a>
+            © 2018 Memestagram | <a href="../about">About Us</a>
         </div>
     </center>
 
@@ -122,7 +123,7 @@
     {{/each}}
 
     <!--Post Meme-->
-    <form action="postMeme" method="post">
+    <form action="../meme/postMeme" method="post">
         <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -184,7 +185,7 @@
 
     <!--Edit Meme-->
     {{#each memes}}
-    <form action="editMeme" method="post">
+    <form action="../meme/editMeme" method="post">
         <div class="modal fade" id="edit{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">
@@ -236,7 +237,7 @@
 
     <!--Delete Meme-->
     {{#each memes}}
-    <form action="deleteMeme" method="post">
+    <form action="../meme/deleteMeme" method="post">
         <div class="modal fade" id="delete{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">

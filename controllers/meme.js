@@ -58,48 +58,53 @@ hbs.registerHelper('each_upto', function (ary, max, options) {
 // req.file.originalname = original name of the file from user's computer
 router.post("/postMeme", upload.single("img"), (req, res) => {
     console.log(req.body.title)
-    console.log(req.file.filename)
+//    console.log(req.file.filename)
 
-    // multer saves the actual image, and we save the filepath into our DB
-    var meme = {
-        title: req.body.title,
-        owner: req.cookies.user,
-        tags: (req.body.tags).trim().split(","),
-        type: req.body.type,
-        tagged: (req.body.users).trim().split(","),
-        filename: req.file.filename,
-        originalfilename: req.file.original //multer needs this
-    }
+    if (req.session.username) {
+        // multer saves the actual image, and we save the filepath into our DB
+        var meme = {
+            title: req.body.title,
+            owner: req.cookies.user,
+            tags: (req.body.tags).trim().split(","),
+            type: req.body.type,
+            tagged: (req.body.users).trim().split(","),
+            filename: req.file.filename,
+            originalfilename: req.file.original //multer needs this
+        }
 
 
-    Meme.create(meme).then((doc) => {
-        User.pushMeme(req.session.username, doc).then(() => {
-            doc.tags.forEach((tag) => { //tag is just a string
-                Tag.findTag(tag).then((resultTag) => {
-                    if (resultTag) {
-                        Tag.pushMeme(resultTag.name, doc)
-                    } else {
-                        var t = {
-                            name: tag
+        Meme.create(meme).then((doc) => {
+            User.pushMeme(req.session.username, doc).then(() => {
+                doc.tags.forEach((tag) => { //tag is just a string
+                    Tag.findTag(tag).then((resultTag) => {
+                        if (resultTag) { //if tag is already defined, push meme to the array
+                            Tag.pushMeme(resultTag.name, doc)
+                        } else { //else its a newly defined tag, create it and then push 
+                            var t = {
+                                name: tag
+                            }
+                            Tag.create(t).then((newTag) => {
+                                Tag.pushMeme(newTag.name, doc)
+                            })
                         }
-                        Tag.create(t).then((newTag) => {
-                            Tag.pushMeme(newTag.name, doc)
-                        })
-                    }
+                    })
                 })
             })
+            res.redirect("/")
+            //res.render("home", {
+            //    user: req.session.username,
+            //    memes: 
+            //})
+            //res.render("home.hbs", {
+            //    title: doc.title,
+            //    id: doc._id
+            //})
         })
-        res.redirect("/")
-        //        res.render("home", {
-        //            user: req.session.username,
-        //            memes: 
-        //        })
-        //        res.render("home.hbs", {
-        //            title: doc.title,
-        //            id: doc._id
-        //        })
-    })
-
+    } else {
+        res.render("index", {
+            signup_first: true
+        })
+    }
 
 
 })
@@ -120,31 +125,99 @@ router.get("/search", function (req, res) {
     console.log("GET meme/search")
 
     var query = req.query.search_item
-    console.log(query)
+    var posts = []
+    console.log("Search query = " + query)
 
-    Tag.findTag(query).then((tag) => {
-        res.render("tags", {
-            user: req.session.username,
-            tags: query,
-            memes: tag.memes
+    if (req.session.username) {
+        Tag.findTag(query).then((tag) => {
+            tag.memes.forEach((a) => {
+                if (a.type === "Public" || a.tagged.contains(req.cookies.user) || a.owner === req.cookies.user) {
+                    posts.push(a)
+                }
+            })
+            res.render("tags", {
+                user: req.session.username,
+                tags: query,
+                memes: posts
+            })
         })
-    })
+    } else {
+        Tag.findTag(query).then((tag) => {
+            tag.memes.forEach((a) => {
+                if (a.type === "Public") {
+                    posts.push(a)
+                }
+            })
+            res.render("tags", {
+                user: "Guest",
+                tags: query,
+                memes: posts
+            })
+        })
+    }
+
 
 })
 
 router.get("/more", function (req, res) {
     console.log("GET meme/more")
+    req.session.limit = req.session.limit + 5
+    var posts = []
     if (req.session.username) {
         Meme.getAll().then((memes) => {
+            memes.forEach((a) => {
+                if (a.type === "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
+                    posts.push(a)
+                }
+            }) //forEach
             res.render("home", {
                 user: req.session.username,
-                memes,
-                limit: req.session.limit + 5
+                memes: posts,
+                limit: req.session.limit
             })
         })
     } else {
-        res.render("index.hbs")
+        Meme.getAll().then((memes) => {
+            memes.forEach((a) => {
+                if (a.type === "Public") {
+                    posts.push(a)
+                }
+            }) //forEach
+            res.render("index", {
+                memes: posts,
+                limit: req.session.limit
+            })
+        })
     }
+
+})
+
+router.post("/editMeme", urlencoder, function (req, res) {
+    console.log("POST meme/editMeme")
+
+    var updatedMeme = {
+        title: req.body.title,
+        tags: (req.body.tags).split(","),
+        type: req.body.type
+    }
+    console.log(updatedMeme)
+
+    Meme.edit(req.body.id, updatedMeme).then((meme) => { //Update the meme objects
+        //        User.pullMeme(req.session.username, req.body.id).then(() => { //pull the users copy
+        ////            User.pushMeme(req.session.username, meme).then(() => { //push a new updated copy
+        ////            })
+        //        })
+        res.redirect("../user/profile")
+    })
+})
+
+router.post("/deleteMeme", urlencoder, function (req, res) {
+    console.log("POST meme/deleteMeme")
+
+
+    Meme.delete(req.body.id).then(() => {
+        res.redirect("../user/profile")
+    })
 
 })
 //

@@ -20,6 +20,10 @@
                 $("#modalLoginForm").modal("show");
                 $("#login_error").removeAttr("hidden");
             {{/if}}
+            
+            {{#if signup_first}}
+                $("#modalLoginForm").modal("show");
+            {{/if}}
     
         });
 
@@ -29,14 +33,20 @@
 
 <body>
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark navbar sticky-top navbar-dark bg-dark">
-        <a class="navbar-brand" href=""><i class="fab fa-instagram"></i> Memestagram </a>
+        <a class="navbar-brand" href="/"><i class="fab fa-instagram"></i> Memestagram </a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
     <span class="navbar-toggler-icon"></span>
   </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav mr-auto">
+        <ul class="navbar-nav mr-auto">
             
             </ul>
+         <form class="form-inline my-2 my-lg-0" action="../meme/search" method="get">
+                <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar" name="search_item">
+                <button class="btn btn-dark" id="search_btn"> 
+                    <i class="fas fa-search"></i>
+                </button>
+        <div class="collapse navbar-collapse" id="navbarSupportedContent">
+            
             <form class="form-inline my-2 my-lg-0">
                 <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalLoginForm">
                     <i class="fas fa-sign-in-alt"></i>
@@ -48,38 +58,70 @@
                 </button>
             </form>
         </div>
+        </form>
     </nav>
+    
     <section id="section">
-        <div class="posts">
-            <a data-toggle="modal" data-target="#home_img">
-                Signup now!
-              <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvCnSiQRA5NrvRO1Dg4w6uEtUXV-T_LHI6iCxwKJhZw0CePmOWWQ"/> 
-            </a>
-        </div>
-
-        <div class="posts">
-            <a data-toggle="modal" data-target="#public">
-                Plead game strong
-                <img src="https://pics.me.me/when-youre-failing-a-class-and-you-try-to-talk-29104571.png" />
-            </a>
-        </div>
-        <div class="posts">
-            <a data-toggle="modal" data-target="#modalLoginForm">
-                God Tier
-                <img src="https://scontent.fmnl10-1.fna.fbcdn.net/v/t1.0-9/29594639_565868833786244_3657329260971008282_n.png?_nc_cat=0&oh=c411c51b9a67c41b7df65b0fc6681569&oe=5BE434FA" style="filter: blur(5px)"/>
-            </a>
-        </div>
+        <!--array block-->
+        {{#each_upto memes limit}}
+            {{#ifCond this.type "Public"}}
+            <div class="posts">
+                <a data-toggle="modal" data-target="#post{{_id}}" >
+                    {{title}}
+                    <img src="../meme/photo/{{_id}}"/> <!--/image/-->
+                </a>
+            </div>
+            {{/ifCond}}
+        {{/each_upto}}
+        <a href="../meme/more"> 
+            <div class="more"> 
+                <center> View More </center>
+            </div>
+        </a>
     </section>
     
     <center>
         <div class="footer">
-            © 2018 Memestagram
+            © 2018 Memestagram | <a href="../about">About Us</a>
         </div>
     </center>
-
+    
     <!--MODALS-->
+    <!--Post for Modals-->
+    {{#each memes}}
+    <div class="modal fade" id="post{{_id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true" name="view">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
+                </div>
+                <div class="modal-body">
+                    <i> <a href="../user/account?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
+                    <img src="../meme/photo/{{_id}}"/>
+                        <div class="tags">
+                            Tags:
+                    {{#each tags}}
+                            <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
+                        </div>
+                    {{/each}}
+                </div>
+                <div class="modal-footer">
+                    <form action="/upvoteMeme" method="post">
+                       <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-up"> </span>Upvotes: {{upvotes}}</button>
+                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
+                    </form>
+                    <form action="/downvoteMeme" method="post">
+                        <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-down"></span>Downvotes: {{downvotes}}</button>
+                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{/each}}
+
     <!--LOGIN FORM-->
-    <form action="user/login" method="post">
+    <form action="../user/login" method="post">
         <div class="modal fade" id="modalLoginForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -117,7 +159,7 @@
     </form>
 
     <!--REGISTER-->
-    <form action="user/signup" method="post">
+    <form action="../user/signup" method="post">
         <div class="modal fade" id="modalRegisterForm" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -167,49 +209,6 @@
             </div>
         </div>
     </form>
-
-    <!--Public Post-->
-    <div class="modal fade" id="public" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Plead game strong</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://pics.me.me/when-youre-failing-a-class-and-you-try-to-talk-29104571.png" />
-                    <div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="home_img" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="exampleModalLabel">Signup now!</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-                </div>
-                <div class="modal-body">
-                    <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSvCnSiQRA5NrvRO1Dg4w6uEtUXV-T_LHI6iCxwKJhZw0CePmOWWQ" />
-                    <div>
-                    </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
 </body>
 
 

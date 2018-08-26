@@ -27,6 +27,13 @@ hbs.registerHelper('each_upto', function (ary, max, options) {
     return result.join('');
 })
 
+hbs.registerHelper('ifCond', function (v1, v2, options) {
+    if (v1 === v2) {
+        return options.fn(this)
+    }
+    return options.inverse(this)
+})
+
 // load all the controllers into router
 router.use("/meme", require("./meme"))
 router.use("/user", require("./user"))
@@ -34,24 +41,39 @@ router.use("/user", require("./user"))
 // create the route for the index/home page
 router.get("/", function (req, res) {
     console.log("GET /")
+    req.session.limit = 3 //15 in the final build
+    var posts = []
     if (req.cookies.user) {
-        Meme.getAll().then((memes) => {
-            //            console.log(memes)
-            User.getEmail(req.cookies.user).then((user) => {
-                req.session.username = user.name
-                req.session.limit = 1
+        User.getEmail(req.cookies.user).then((user) => {
+            req.session.username = user.name
+            Meme.getAll().then((memes) => {
+                memes.forEach((a) => {
+                    if (a.type == "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
+                        posts.push(a)
+                    }
+                }) //forEach
                 res.render("home", {
                     //user: req.session.username,
-                    user: user.name,
-                    memes,
-                    limit: 1
+                    user: req.session.username,
+                    memes: posts,
+                    limit: req.session.limit
                 })
-            })
-
+            }) //Memes.getAll
         })
 
     } else {
-        res.render("index")
+        Meme.getAll().then((memes) => {
+            memes.forEach((a) => {
+                if (a.type == "Public") {
+                    posts.push(a)
+                }
+            }) //forEach
+            res.render("index", {
+                //user: req.session.username,
+                memes: posts,
+                limit: req.session.limit
+            })
+        })
     }
 })
 
@@ -61,7 +83,10 @@ router.get("/about", function (req, res) {
         res.render("about", {
             user: req.session.username
         })
-
+    } else {
+        res.render("about", {
+            user: "Guest",
+        })
     }
 })
 
