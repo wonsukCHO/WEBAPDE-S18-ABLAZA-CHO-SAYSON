@@ -268,7 +268,6 @@ router.post("/editMeme", function (req, res) {
 router.post("/deleteMeme", urlencoder, function (req, res) {
     console.log("POST meme/deleteMeme")
 
-
     Meme.delete(req.body.id).then(() => {
         res.redirect("../user/profile")
     })
