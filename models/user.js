@@ -70,17 +70,17 @@ exports.authenticate = function (user) {
     })
 }
 
-//exports.get = function (id) {
-//    return new Promise(function (resolve, reject) {
-//        User.findOne({
-//            _id: id
-//        }).then((user) => {
-//            resolve(user)
-//        }, (err) => {
-//            reject(err)
-//        })
-//    })
-//}
+exports.get = function (id) {
+    return new Promise(function (resolve, reject) {
+        User.findOne({
+            _id: id
+        }).then((user) => {
+            resolve(user)
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
 
 //finds user based on their name
 exports.get = function (name) {
@@ -155,11 +155,13 @@ exports.update = function (user, id, updatedMeme) {
         }).then((foundUser) => {
             for (var i = 0; i < foundUser.memes.length; i++) {
                 if (foundUser.memes[i]._id == id) {
-                    foundUser.memes.title = updatedMeme.title
-                    foundUser.memes.tags = updatedMeme.tags
-                    foundUser.memes.tagged = updatedMeme.tagged
-                    foundUser.memes.type = updatedMeme.type
-                    foundUser.memes.owner = updatedMeme.owner
+//                    foundUser.memes.title = updatedMeme.title
+//                    foundUser.memes.tags = updatedMeme.tags
+//                    foundUser.memes.tagged = updatedMeme.tagged
+//                    foundUser.memes.type = updatedMeme.type
+//                    foundUser.memes.owner = updatedMeme.owner
+                    foundUser.memes.splice(i, 1)
+                    break
                 }
             }
 //            for(var i = 0; i < foundUser.memes.length; i++) {
@@ -168,41 +170,13 @@ exports.update = function (user, id, updatedMeme) {
 //                    break
 //                }
 //            }
-            
-            foundUser.save().then((updatedUser)=>{
-                resolve(updatedUser)
-            }, (err)=>{
-                reject(err)
-            })
+        resolve(foundUser)
+        }, (err)=>{
+            reject(err)
         })
     })
 }
 
-//exports.update = function (user, id, updatedMeme) {
-//    return new Promise(function (resolve, reject) {
-//        User.find().then(users) => {
-//            var index = -1
-//            for (j = 0; j < users.length; j++) {
-//                for (k = 0; k < users[j].memes.length; k++) {
-//                    if (users[j].memes[k]._id.toString() === id.toString()) {
-//                        users[j].memes.splice(k, 1)
-//                        users[j].meme.push(updatedMeme)
-//                        index = j
-//                        break
-//                    }
-//                }
-//            }
-//
-//
-//
-//            users[index].save().then(updatedMeme) => {
-//                resolve(updatedMeme)
-//            }, (err) => {
-//                reject(err)
-//            }
-//        }
-//    })
-//}
 
 //module.exports = {
 //    User

@@ -19,7 +19,6 @@ const hbs = require("hbs")
 const fs = require("fs")
 
 
-
 const urlencoder = bodyparser.urlencoded({
     extended: true
 })
@@ -129,30 +128,12 @@ router.get("/search", function (req, res) {
     console.log("Search query = " + query)
 
     if (req.session.username) {
-        query.forEach((doc) => {
-            Tag.findTag(doc).then((tag) => {
-                tag.memes.forEach((a) => {
-                    if (a.type === "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
-                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
-                            posts.push(a)
-                        }
-                    }
-                })
-                res.render("tags", {
-                    user: req.session.username,
-                    tags: query,
-                    memes: posts
-                })
-            })
-        })
-
-        //PLAN B
 //        query.forEach((doc) => {
-//            Meme.getTagMemes(doc).then((memes) => {
-//                memes.forEach((meme) => {
-//                    if (meme.type === "Public" || meme.tagged.includes(req.cookies.user) || meme.owner === req.cookies.user) {
-//                        if ((posts.filter((post) => post.title == meme.title)).length == 0) {
-//                            posts.push(meme)
+//            Tag.findTag(doc).then((tag) => {
+//                tag.memes.forEach((a) => {
+//                    if (a.type === "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
+//                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
+//                            posts.push(a)
 //                        }
 //                    }
 //                })
@@ -163,6 +144,24 @@ router.get("/search", function (req, res) {
 //                })
 //            })
 //        })
+
+        //PLAN B
+                query.forEach((doc) => {
+                    Meme.getTagMemes(doc).then((memes) => {
+                        memes.forEach((meme) => {
+                            if (meme.type === "Public" || meme.tagged.includes(req.cookies.user) || meme.owner === req.cookies.user) {
+                                if ((posts.filter((post) => post.title == meme.title)).length == 0) {
+                                    posts.push(meme)
+                                }
+                            }
+                        })
+                        res.render("tags", {
+                            user: req.session.username,
+                            tags: query,
+                            memes: posts
+                        })
+                    })
+                })
     } else {
         query.forEach((doc) => {
             Tag.findTag(doc).then((tag) => {
@@ -220,12 +219,22 @@ router.get("/more", function (req, res) {
 router.post("/editMeme", function (req, res) {
     console.log("POST meme/editMeme")
 
+    //    var updatedMeme = {
+    //        title: req.body.title,
+    //        owner: req.cookies.user,
+    //        tags: (req.body.tags).replace(" ", "").split(","),
+    //        type: req.body.type,
+    //        tagged: (req.body.users).replace(" ", "").split(","),
+    //    }
+
     var updatedMeme = {
         title: req.body.title,
         owner: req.cookies.user,
         tags: (req.body.tags).replace(" ", "").split(","),
         type: req.body.type,
         tagged: (req.body.users).replace(" ", "").split(","),
+        filename: req.body.filename,
+        originalfilename: req.body.original //multer needs this
     }
 
     console.log(updatedMeme)

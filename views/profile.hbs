@@ -185,7 +185,7 @@
 
     <!--Edit Meme-->
     {{#each memes}}
-    <form action="../meme/editMeme" method="post">
+    <form action="../meme/editMeme" method="post" >
         <div class="modal fade" id="edit{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">
@@ -225,6 +225,8 @@
                               <option value="Private">Private</option>
                             </select>
                         </div>
+                        <input type="hidden" value="{{filename}}" name="filename">
+                        <input type="hidden" value="{{originalfilename}}" name="originalfilename">
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <input class="btn btn-primary" type="submit" value="Submit Changes" />
@@ -237,7 +239,7 @@
 
     <!--Delete Meme-->
     {{#each memes}}
-    <form action="../meme/deleteMeme" method="post" enctype="multipart/form-data">
+    <form action="../meme/deleteMeme" method="post">
         <div class="modal fade" id="delete{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">
