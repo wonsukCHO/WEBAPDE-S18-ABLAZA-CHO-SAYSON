@@ -110,15 +110,35 @@ router.get("/logout", (req, res) => {
 
 router.get("/profile", (req, res) => {
     console.log("GET user/profile")
-    User.get(req.session.username).then((user) => {
-        res.render("profile", {
-            user: user.name,
-            name: user.name,
-            uname: user.email,
-            bio: user.description,
-            memes: user.memes
+    if (req.session.username) {
+        User.get(req.session.username).then((user) => {
+            res.render("profile", {
+                user: user.name,
+                name: user.name,
+                uname: user.email,
+                bio: user.description,
+                memes: user.memes
+            })
         })
-    })
+
+        //Plan B
+//        User.get(req.session.username).then((user) => {
+//            Meme.getUserMemes(req.cookies.user).then((memes) => {
+//                res.render("profile", {
+//                    user: user.name,
+//                    name: user.name,
+//                    uname: user.email,
+//                    bio: user.description,
+//                    memes: memes
+//                })
+//            })
+//
+//        })
+    } else {
+        res.render("index", {
+            signup_first: true
+        })
+    }
 })
 
 router.get("/account", (req, res) => {

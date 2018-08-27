@@ -31,7 +31,7 @@
                         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
                             <a class="dropdown-item" href="../user/profile"><i class="fas fa-user"></i> Profile</a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="../logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
+                            <a class="dropdown-item" href="../user/logout"><i class="fas fa-sign-out-alt"></i> Logout</a>
                         </div>
                     </li>
                     <a class="nav-link dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -108,7 +108,7 @@
     {{/each}}
 
     <!--Post Meme-->
-    <form action="../meme/postMeme" method="post">
+    <form action="../meme/postMeme" method="post" enctype="multipart/form-data">
         <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">

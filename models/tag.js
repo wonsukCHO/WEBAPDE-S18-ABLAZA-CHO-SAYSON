@@ -29,16 +29,6 @@ exports.create = function (tag) {
     })
 }
 
-exports.getAll = function () {
-    return new Promise(function (resolve, reject) {
-        Tag.find().then((memes) => {
-            resolve(memes)
-        }, (err) => {
-            reject(err)
-        })
-    })
-}
-
 exports.pushMeme = function (tag, meme) {
     return new Promise(function (resolve, reject) {
         Tag.findOneAndUpdate({
@@ -56,10 +46,11 @@ exports.pushMeme = function (tag, meme) {
 
 }
 
+//Find tag object
 exports.findTag = function (name) {
     return new Promise(function (resolve, reject) {
         Tag.findOne({
-            name: name,
+            name: name
         }).then((tag) => {
             resolve(tag)
         }, (err) => {

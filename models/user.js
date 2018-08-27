@@ -148,25 +148,61 @@ exports.pushMeme = function (user, meme) {
     })
 }
 
-//Not working
-exports.pullMeme = function (user, id) {
+exports.update = function (user, id, updatedMeme) {
     return new Promise(function (resolve, reject) {
-        User.findOneAndUpdate({
+        User.findOne({
             name: user
-        }).then((updated) => {
-            updated.update({
-                _id: id
-            }, {
-                $pull: {
-                    "meme._id": id
+        }).then((foundUser) => {
+            for (var i = 0; i < foundUser.memes.length; i++) {
+                if (foundUser.memes[i]._id == id) {
+                    foundUser.memes.title = updatedMeme.title
+                    foundUser.memes.tags = updatedMeme.tags
+                    foundUser.memes.tagged = updatedMeme.tagged
+                    foundUser.memes.type = updatedMeme.type
+                    foundUser.memes.owner = updatedMeme.owner
                 }
+            }
+//            for(var i = 0; i < foundUser.memes.length; i++) {
+//                if(foundUser.memes[i].title === updatedMeme.title){
+//                    updatedMeme._id =  ObjectId(id.toString())
+//                    break
+//                }
+//            }
+            
+            foundUser.save().then((updatedUser)=>{
+                resolve(updatedUser)
+            }, (err)=>{
+                reject(err)
             })
-            resolve(updated)
-        }, (err) => {
-            reject(err)
         })
     })
 }
+
+//exports.update = function (user, id, updatedMeme) {
+//    return new Promise(function (resolve, reject) {
+//        User.find().then(users) => {
+//            var index = -1
+//            for (j = 0; j < users.length; j++) {
+//                for (k = 0; k < users[j].memes.length; k++) {
+//                    if (users[j].memes[k]._id.toString() === id.toString()) {
+//                        users[j].memes.splice(k, 1)
+//                        users[j].meme.push(updatedMeme)
+//                        index = j
+//                        break
+//                    }
+//                }
+//            }
+//
+//
+//
+//            users[index].save().then(updatedMeme) => {
+//                resolve(updatedMeme)
+//            }, (err) => {
+//                reject(err)
+//            }
+//        }
+//    })
+//}
 
 //module.exports = {
 //    User

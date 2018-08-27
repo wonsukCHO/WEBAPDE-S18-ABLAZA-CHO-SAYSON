@@ -45,33 +45,35 @@ router.get("/", function (req, res) {
     var posts = []
 
     User.getEmail(req.cookies.user).then((user) => {
-        req.session.username = user.name
-        Meme.getAll().then((memes) => {
-            memes.forEach((a) => {
-                if (a.type == "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
-                    posts.push(a)
-                }
-            }) //forEach
-            res.render("home", {
-                //user: req.session.username,
-                user: req.session.username,
-                memes: posts,
-                limit: req.session.limit
+        if (user) {
+            req.session.username = user.name
+            Meme.getAll().then((memes) => {
+                memes.forEach((a) => {
+                    if (a.type == "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user){
+                        posts.push(a)
+                    }
+                }) //forEach
+                res.render("home", {
+                    //user: req.session.username,
+                    user: req.session.username,
+                    memes: posts,
+                    limit: req.session.limit
+                })
+            }) //Memes.getAll
+        } else { //if cookie saved was deleted from database 
+            Meme.getAll().then((memes) => {
+                memes.forEach((a) => {
+                    if (a.type == "Public") {
+                        posts.push(a)
+                    }
+                }) //forEach
+                res.render("index", {
+                    //user: req.session.username,
+                    memes: posts,
+                    limit: req.session.limit
+                })
             })
-        }) //Memes.getAll
-    }, (err) => {
-        Meme.getAll().then((memes) => {
-            memes.forEach((a) => {
-                if (a.type == "Public") {
-                    posts.push(a)
-                }
-            }) //forEach
-            res.render("index", {
-                //user: req.session.username,
-                memes: posts,
-                limit: req.session.limit
-            })
-        })
+        }
     })
 })
 

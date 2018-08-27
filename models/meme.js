@@ -76,6 +76,32 @@ exports.getAll = function () {
     })
 }
 
+exports.getUserMemes = function (email) {
+    return new Promise(function (resolve, reject) {
+        Meme.find({
+            owner: email
+        }).sort({_id : -1}).then((memes) => {
+            resolve(memes)
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
+
+exports.getTagMemes = function (tag) {
+    return new Promise(function (resolve, reject) {
+        Meme.find({
+            tags: tag
+        }).sort({_id : -1}).then((memes) => {
+            resolve(memes)
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
+
+
+
 exports.edit = function (id, update) {
     return new Promise(function (resolve, reject) {
         Meme.findOneAndUpdate({

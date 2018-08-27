@@ -101,7 +101,7 @@ router.post("/postMeme", upload.single("img"), (req, res) => {
             //})
         })
     } else {
-        res.render("index", {
+        res.render("/", {
             signup_first: true
         })
     }
@@ -124,7 +124,7 @@ router.get("/photo/:id", (req, res) => {
 router.get("/search", function (req, res) {
     console.log("GET meme/search")
 
-    var query = req.query.search_item.trim().split(" ")
+    var query = (req.query.search_item).trim().split(" ")
     var posts = []
     console.log("Search query = " + query)
 
@@ -133,37 +133,54 @@ router.get("/search", function (req, res) {
             Tag.findTag(doc).then((tag) => {
                 tag.memes.forEach((a) => {
                     if (a.type === "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
-                        var result = posts.filter((post) => {
-                            return (post.title == a.title)
-                        })
-                        if (result.length == 0) { //no duplicates
+                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
                             posts.push(a)
                         }
-//                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
-//                            posts.push(a)
-//                        }
                     }
+                })
+                res.render("tags", {
+                    user: req.session.username,
+                    tags: query,
+                    memes: posts
                 })
             })
         })
-        res.render("tags", {
-            user: req.session.username,
-            tags: query,
-            memes: posts
-        })
+
+        //PLAN B
+//        query.forEach((doc) => {
+//            Meme.getTagMemes(doc).then((memes) => {
+//                memes.forEach((meme) => {
+//                    if (meme.type === "Public" || meme.tagged.includes(req.cookies.user) || meme.owner === req.cookies.user) {
+//                        if ((posts.filter((post) => post.title == meme.title)).length == 0) {
+//                            posts.push(meme)
+//                        }
+//                    }
+//                })
+//                res.render("tags", {
+//                    user: req.session.username,
+//                    tags: query,
+//                    memes: posts
+//                })
+//            })
+//        })
     } else {
-        Tag.findTag(query).then((tag) => {
-            tag.memes.forEach((a) => {
-                if (a.type === "Public") {
-                    posts.push(a)
-                }
-            })
-            res.render("tags", {
-                user: "Guest",
-                tags: query,
-                memes: posts
+        query.forEach((doc) => {
+            Tag.findTag(doc).then((tag) => {
+                tag.memes.forEach((a) => {
+                    if (a.type === "Public") {
+                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
+                            posts.push(a)
+                        }
+                    }
+                })
+                res.render("tags", {
+                    user: "Guest",
+                    tags: query,
+                    memes: posts
+                })
             })
         })
+
     }
 })
 
@@ -200,21 +217,23 @@ router.get("/more", function (req, res) {
 
 })
 
-router.post("/editMeme", urlencoder, function (req, res) {
+router.post("/editMeme", function (req, res) {
     console.log("POST meme/editMeme")
 
     var updatedMeme = {
         title: req.body.title,
-        tags: (req.body.tags).split(","),
-        type: req.body.type
+        owner: req.cookies.user,
+        tags: (req.body.tags).replace(" ", "").split(","),
+        type: req.body.type,
+        tagged: (req.body.users).replace(" ", "").split(","),
     }
+
     console.log(updatedMeme)
 
     Meme.edit(req.body.id, updatedMeme).then((meme) => { //Update the meme objects
-        //        User.pullMeme(req.session.username, req.body.id).then(() => { //pull the users copy
-        ////            User.pushMeme(req.session.username, meme).then(() => { //push a new updated copy
-        ////            })
-        //        })
+        User.update(req.session.username, req.body.id, updatedMeme).then(() => {
+            console.log("updated")
+        })
         res.redirect("../user/profile")
     })
 })

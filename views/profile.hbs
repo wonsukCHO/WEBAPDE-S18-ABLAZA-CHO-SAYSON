@@ -123,7 +123,7 @@
     {{/each}}
 
     <!--Post Meme-->
-    <form action="../meme/postMeme" method="post">
+    <form action="../meme/postMeme" method="post" enctype="multipart/form-data">
         <div class="modal fade" id="share_meme" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
                 <div class="modal-content">
@@ -214,7 +214,7 @@
                         <div class="md-form mb-4">
                             <i class="fas fa-user-tag prefix grey-text"></i>
                             <label data-error="wrong" data-success="right" for="orangeForm-pass">Tag your friends</label>
-                            <input type="text" id="orangeForm-pass" class="form-control validate" name="users">
+                            <input type="text" id="orangeForm-pass" class="form-control validate" name="users" value="{{tagged}}">
                         </div>
 
                         <div class="md-form mb-2">
@@ -237,7 +237,7 @@
 
     <!--Delete Meme-->
     {{#each memes}}
-    <form action="../meme/deleteMeme" method="post">
+    <form action="../meme/deleteMeme" method="post" enctype="multipart/form-data">
         <div class="modal fade" id="delete{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">
