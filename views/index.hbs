@@ -11,36 +11,21 @@
 
     <script>
         $(document).ready(() => {
-                    {
-                        {#
-                            if register_error
-                        }
-                    }
-                    $("#modalRegisterForm").modal("show");
-                    $("#register_error").removeAttr("hidden"); {
-                        {
-                            /if}}
+            {{#if register_error}}
+                $("#modalRegisterForm").modal("show");
+                $("#register_error").removeAttr("hidden"); 
+            {{/if}}
 
-                            {
-                                {#
-                                    if login_error
-                                }
-                            }
-                            $("#modalLoginForm").modal("show");
-                            $("#login_error").removeAttr("hidden"); {
-                                {
-                                    /if}}
+            {{#if login_error}}
+                $("#modalLoginForm").modal("show");
+                $("#login_error").removeAttr("hidden"); 
+            {{/if}}
 
-                                    {
-                                        {#
-                                            if signup_first
-                                        }
-                                    }
-                                    $("#modalLoginForm").modal("show"); {
-                                    {
-                                        /if}}
+            {{#if signup_first}}
+                $("#modalLoginForm").modal("show"); 
+            {{/if}}
 
-                                    });
+        });
 
     </script>
 
