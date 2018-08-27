@@ -41,7 +41,7 @@ router.use("/user", require("./user"))
 // create the route for the index/home page
 router.get("/", function (req, res) {
     console.log("GET /")
-    req.session.limit = 3 //15 in the final build
+    req.session.limit = 15 //15 in the final build
     var posts = []
 
     User.getEmail(req.cookies.user).then((user) => {
