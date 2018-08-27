@@ -15,30 +15,10 @@ const urlencoder = bodyparser.urlencoded({
     extended: false
 })
 
-var current_user //global variable to dictate the current user in session
-var limit = 1
-
 app.set("view engine", "hbs");
-
-hbs.registerHelper('ifCond', function(v1, v2, options) {
-    if(v1 === v2) {
-        return options.fn(this)
-    }
-    return options.inverse(this)
-})
 
 hbs.registerHelper('displayUser', function(block) {
     return current_user.name; //just return global variable value
-})
-
-hbs.registerHelper('each_upto', function(ary, max, options) {
-    if(!ary || ary.length == 0)
-        return options.inverse(this);
-
-    var result = [ ];
-    for(var i = 0; i < max && i < ary.length; ++i)
-        result.push(options.fn(ary[i]));
-    return result.join('');
 })
 
 app.use(express.static(path.join(__dirname, "public"))) //so we can access outside folders 
@@ -64,8 +44,7 @@ mongoose.connect("mongodb://localhost:27017/userdata", {
 
 app.use(require("./controllers"))
 
-
-app.listen(3000, function () {
+app.listen(process.env.PORT || 3000, function () {
     console.log("Hello! Now listening at port 3000")
 })
 

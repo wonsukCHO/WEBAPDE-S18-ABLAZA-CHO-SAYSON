@@ -58,16 +58,16 @@ hbs.registerHelper('each_upto', function (ary, max, options) {
 // req.file.originalname = original name of the file from user's computer
 router.post("/postMeme", upload.single("img"), (req, res) => {
     console.log(req.body.title)
-//    console.log(req.file.filename)
+    //    console.log(req.file.filename)
 
     if (req.session.username) {
         // multer saves the actual image, and we save the filepath into our DB
         var meme = {
             title: req.body.title,
             owner: req.cookies.user,
-            tags: (req.body.tags).trim().split(","),
+            tags: (req.body.tags).replace(" ", "").split(","),
             type: req.body.type,
-            tagged: (req.body.users).trim().split(","),
+            tagged: (req.body.users).replace(" ", "").split(","),
             filename: req.file.filename,
             originalfilename: req.file.original //multer needs this
         }
@@ -124,22 +124,32 @@ router.get("/photo/:id", (req, res) => {
 router.get("/search", function (req, res) {
     console.log("GET meme/search")
 
-    var query = req.query.search_item
+    var query = req.query.search_item.trim().split(" ")
     var posts = []
     console.log("Search query = " + query)
 
     if (req.session.username) {
-        Tag.findTag(query).then((tag) => {
-            tag.memes.forEach((a) => {
-                if (a.type === "Public" || a.tagged.contains(req.cookies.user) || a.owner === req.cookies.user) {
-                    posts.push(a)
-                }
+        query.forEach((doc) => {
+            Tag.findTag(doc).then((tag) => {
+                tag.memes.forEach((a) => {
+                    if (a.type === "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
+                        var result = posts.filter((post) => {
+                            return (post.title == a.title)
+                        })
+                        if (result.length == 0) { //no duplicates
+                            posts.push(a)
+                        }
+//                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
+//                            posts.push(a)
+//                        }
+                    }
+                })
             })
-            res.render("tags", {
-                user: req.session.username,
-                tags: query,
-                memes: posts
-            })
+        })
+        res.render("tags", {
+            user: req.session.username,
+            tags: query,
+            memes: posts
         })
     } else {
         Tag.findTag(query).then((tag) => {
@@ -155,8 +165,6 @@ router.get("/search", function (req, res) {
             })
         })
     }
-
-
 })
 
 router.get("/more", function (req, res) {

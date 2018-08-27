@@ -156,7 +156,11 @@ exports.pullMeme = function (user, id) {
         }).then((updated) => {
             updated.update({
                 _id: id
-            }, {$pull : {"meme._id" : id}})
+            }, {
+                $pull: {
+                    "meme._id": id
+                }
+            })
             resolve(updated)
         }, (err) => {
             reject(err)

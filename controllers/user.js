@@ -33,7 +33,7 @@ router.post("/signup", (req, res) => {
         console.log("successful " + user)
         req.session.username = user.name
         req.session.limit = 3
-        res.cookie("user", newUser.email, { //default 1 day
+        res.cookie("user", user.email, { //default 1 day
             maxAge: 1000 * 60 * 60 * 24
         })
         Meme.getAll().then((memes) => {
@@ -131,7 +131,7 @@ router.get("/account", (req, res) => {
             user.memes.forEach((a) => {
                 if (a.type === "Public" || a.tagged.includes(req.cookies.user)) {
                     posts.push(a)
-                } 
+                }
             })
             if (req.session.username == null) {
                 res.render("sideProfile", {
