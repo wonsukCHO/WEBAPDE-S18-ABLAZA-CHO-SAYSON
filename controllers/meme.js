@@ -57,7 +57,7 @@ hbs.registerHelper('each_upto', function (ary, max, options) {
 // req.file.originalname = original name of the file from user's computer
 router.post("/postMeme", upload.single("img"), (req, res) => {
     console.log(req.body.title)
-    //    console.log(req.file.filename)
+    console.log(req.file.filename)
 
     if (req.session.username) {
         // multer saves the actual image, and we save the filepath into our DB
@@ -271,8 +271,8 @@ router.post("/like", function (req, res) {
                 res.redirect("/")
             }
        })
-    }else {
-        res.render("/", {
+    } else {
+        res.render("index", {
             signup_first: true
         })
     }
