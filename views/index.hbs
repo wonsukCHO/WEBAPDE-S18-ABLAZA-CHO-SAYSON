@@ -11,24 +11,39 @@
 
     <script>
         $(document).ready(() => {
-            {{#if register_error}}
-                $("#modalRegisterForm").modal("show"); 
-                $("#register_error").removeAttr("hidden");
-            {{/if}}
-            
-            {{#if login_error}}
-                $("#modalLoginForm").modal("show");
-                $("#login_error").removeAttr("hidden");
-            {{/if}}
-            
-            {{#if signup_first}}
-                $("#modalLoginForm").modal("show");
-            {{/if}}
-    
-        });
+                    {
+                        {#
+                            if register_error
+                        }
+                    }
+                    $("#modalRegisterForm").modal("show");
+                    $("#register_error").removeAttr("hidden"); {
+                        {
+                            /if}}
+
+                            {
+                                {#
+                                    if login_error
+                                }
+                            }
+                            $("#modalLoginForm").modal("show");
+                            $("#login_error").removeAttr("hidden"); {
+                                {
+                                    /if}}
+
+                                    {
+                                        {#
+                                            if signup_first
+                                        }
+                                    }
+                                    $("#modalLoginForm").modal("show"); {
+                                    {
+                                        /if}}
+
+                                    });
 
     </script>
-    
+
 </head>
 
 <body>
@@ -38,54 +53,52 @@
     <span class="navbar-toggler-icon"></span>
   </button>
         <ul class="navbar-nav mr-auto">
-            
-            </ul>
-         <form class="form-inline my-2 my-lg-0" action="../meme/search" method="get">
-                <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar" name="search_item">
-                <button class="btn btn-dark" id="search_btn"> 
+
+        </ul>
+        <form class="form-inline my-2 my-lg-0" action="../meme/search" method="get">
+            <input class="form-control mr-sm-2" placeholder="Search" aria-label="Search" id="searchbar" name="search_item">
+            <button class="btn btn-dark" id="search_btn"> 
                     <i class="fas fa-search"></i>
                 </button>
-        <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            
-            <form class="form-inline my-2 my-lg-0">
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalLoginForm">
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+
+                <form class="form-inline my-2 my-lg-0">
+                    <button type="button" class="btn btn-success" data-toggle="modal" data-target="#modalLoginForm">
                     <i class="fas fa-sign-in-alt"></i>
                     Login
                 </button>
-                <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalRegisterForm">
+                    <button type="button" class="btn btn-dark" data-toggle="modal" data-target="#modalRegisterForm">
                     <i class="fas fa-clipboard-list"></i>
                     Register
                 </button>
-            </form>
-        </div>
+                </form>
+            </div>
         </form>
     </nav>
-    
+
     <section id="section">
         <!--array block-->
-        {{#each_upto memes limit}}
-            {{#ifCond this.type "Public"}}
-            <div class="posts">
-                <a data-toggle="modal" data-target="#post{{_id}}" >
+        {{#each_upto memes limit}} {{#ifCond this.type "Public"}}
+        <div class="posts">
+            <a data-toggle="modal" data-target="#post{{_id}}">
                     {{title}}
                     <img src="../meme/photo/{{_id}}"/> <!--/image/-->
                 </a>
-            </div>
-            {{/ifCond}}
-        {{/each_upto}}
-        <a href="../meme/more"> 
-            <div class="more"> 
+        </div>
+        {{/ifCond}} {{/each_upto}}
+        <a href="../meme/more">
+            <div class="more">
                 <center> View More </center>
             </div>
         </a>
     </section>
-    
+
     <center>
         <div class="footer">
             © 2018 Memestagram | <a href="../about">About Us</a>
         </div>
     </center>
-    
+
     <!--MODALS-->
     <!--Post for Modals-->
     {{#each memes}}
@@ -95,25 +108,29 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
                 </div>
-                <div class="modal-body row">
+                <div class="modal-body">
                     <i> <a href="../user/account?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
-                    <img src="../meme/photo/{{_id}}"/>
+                    <img src="../meme/photo/{{_id}}" />
+                    <form action="../meme/like" method="post">
+                        <button type="submit" class="btn btn-primary btn-sm"><span class="fas fa-thumbs-up"> </span> Likes: {{upvotes}}</button>
+                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
+                        <!--So the form has an id-->
+                    </form>
+                    <div class="modal-footer">
                         <div class="tags">
-                            Tags:
-                    {{#each tags}}
+                            Tags: {{#each tags}}
                             <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
                         </div>
-                    {{/each}}
-                </div>
-                <div class="modal-footer">
-                    <form action="/upvoteMeme" method="post">
-                       <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-up"> </span>Upvotes: {{upvotes}}</button>
-                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
-                    </form>
-                    <form action="/downvoteMeme" method="post">
+                        {{/each}}
+
+                    </div>
+
+                    <!--
+                    <form action="../meme/downvoteMeme" method="post">
                         <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-down"></span>Downvotes: {{downvotes}}</button>
                         <input id="viewid" type="hidden" name="id" value="{{_id}}">
                     </form>
+-->
                 </div>
             </div>
         </div>
@@ -196,11 +213,11 @@
                               Optional
                             </small>
                         </div>
-                        
+
                         <div class="alert alert-danger" id="register_error" hidden>
                             Email already associated with another account
                         </div>
-                        
+
                     </div>
                     <div class="modal-footer d-flex justify-content-center">
                         <input class="btn btn-primary" type="submit" value="Sign up" />

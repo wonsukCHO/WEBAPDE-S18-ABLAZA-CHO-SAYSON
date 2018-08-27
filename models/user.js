@@ -27,6 +27,9 @@ var UserSchema = mongoose.Schema({
     },
     memes: {
         type: Array
+    }, 
+    liked :{
+        type: Array
     }
 })
 
@@ -139,6 +142,22 @@ exports.pushMeme = function (user, meme) {
         }, {
             $push: {
                 memes: meme
+            }
+        }).then((updated) => {
+            resolve(updated)
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
+
+exports.pushID = function (user, id) {
+    return new Promise(function (resolve, reject) {
+        User.findOneAndUpdate({
+            email: user
+        }, {
+            $push: {
+                liked: id
             }
         }).then((updated) => {
             resolve(updated)

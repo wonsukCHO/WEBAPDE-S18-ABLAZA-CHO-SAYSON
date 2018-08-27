@@ -68,7 +68,9 @@ exports.get = function (id) {
 
 exports.getAll = function () {
     return new Promise(function (resolve, reject) {
-        Meme.find().sort({_id : -1}).then((memes) => {
+        Meme.find().sort({
+            _id: -1
+        }).then((memes) => {
             resolve(memes)
         }, (err) => {
             reject(err)
@@ -80,7 +82,9 @@ exports.getUserMemes = function (email) {
     return new Promise(function (resolve, reject) {
         Meme.find({
             owner: email
-        }).sort({_id : -1}).then((memes) => {
+        }).sort({
+            _id: -1
+        }).then((memes) => {
             resolve(memes)
         }, (err) => {
             reject(err)
@@ -92,7 +96,9 @@ exports.getTagMemes = function (tag) {
     return new Promise(function (resolve, reject) {
         Meme.find({
             tags: tag
-        }).sort({_id : -1}).then((memes) => {
+        }).sort({
+            _id: -1
+        }).then((memes) => {
             resolve(memes)
         }, (err) => {
             reject(err)
@@ -122,6 +128,22 @@ exports.delete = function (id) {
             _id: id
         }).then((result) => {
             resolve(result)
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
+
+exports.like = function (id) {
+    return new Promise(function (resolve, reject) {
+        Meme.findOneAndUpdate({
+            _id: id
+        }, {
+            $inc: {
+                upvotes: 1
+            }
+        }).then((newMeme) => {
+            resolve(newMeme)
         }, (err) => {
             reject(err)
         })

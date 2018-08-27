@@ -98,24 +98,29 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-body row">
+             <div class="modal-body">
                     <i> <a href="../user/account?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
                     <img src="../meme/photo/{{_id}}" />
-                    <div class="tags">
-                        Tags: {{#each tags}}
-                        <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
+                    <form action="../meme/like" method="post">
+                        <button type="submit" class="btn btn-primary btn-sm"><span class="fas fa-thumbs-up"> </span> Likes: {{upvotes}}</button>
+                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
+                        <!--So the form has an id-->
+                    </form>
+                    <div class="modal-footer">
+                        <div class="tags">
+                            Tags: {{#each tags}}
+                            <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
+                        </div>
+                        {{/each}}
+
                     </div>
-                    {{/each}}
-                </div>
-                <div class="modal-footer">
-                    <form action="/upvoteMeme" method="post">
-                        <button type="submit" class="btn btn-outline-dark btn-m"><span class="fas fa-chevron-circle-up"> </span> Upvotes: {{upvotes}}</button>
+
+                    <!--
+                    <form action="../meme/downvoteMeme" method="post">
+                        <button type="submit" class="btn btn-basic btn-sm"><span class="fas fa-chevron-circle-down"></span>Downvotes: {{downvotes}}</button>
                         <input id="viewid" type="hidden" name="id" value="{{_id}}">
                     </form>
-                    <form action="/downvoteMeme" method="post">
-                        <button type="submit" class="btn btn-outline-dark btn-m"><span class="fas fa-chevron-circle-down"></span> Downvotes: {{downvotes}}</button>
-                        <input id="viewid" type="hidden" name="id" value="{{_id}}">
-                    </form>
+-->
                 </div>
             </div>
         </div>
@@ -153,7 +158,7 @@
                             <label data-error="wrong" data-success="right" for="orangeForm-pass">Share to your friends</label>
                             <input type="text" id="orangeForm-pass" class="form-control validate" name="users">
                             <small id="tagsHelpBlock" class="form-text text-muted">
-                            Put your friend's email address associated with M.F.T.W.S.
+                            Place your friend's Memestagram username. Separate usernames with a comma (,)
                             </small>
                         </div>
 

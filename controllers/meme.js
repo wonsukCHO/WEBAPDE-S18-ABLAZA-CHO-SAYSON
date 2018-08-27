@@ -67,6 +67,7 @@ router.post("/postMeme", upload.single("img"), (req, res) => {
             tags: (req.body.tags).replace(" ", "").split(","),
             type: req.body.type,
             tagged: (req.body.users).replace(" ", "").split(","),
+            upvotes: 0,
             filename: req.file.filename,
             originalfilename: req.file.original //multer needs this
         }
@@ -128,40 +129,40 @@ router.get("/search", function (req, res) {
     console.log("Search query = " + query)
 
     if (req.session.username) {
-//        query.forEach((doc) => {
-//            Tag.findTag(doc).then((tag) => {
-//                tag.memes.forEach((a) => {
-//                    if (a.type === "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
-//                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
-//                            posts.push(a)
-//                        }
-//                    }
-//                })
-//                res.render("tags", {
-//                    user: req.session.username,
-//                    tags: query,
-//                    memes: posts
-//                })
-//            })
-//        })
+        //        query.forEach((doc) => {
+        //            Tag.findTag(doc).then((tag) => {
+        //                tag.memes.forEach((a) => {
+        //                    if (a.type === "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
+        //                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
+        //                            posts.push(a)
+        //                        }
+        //                    }
+        //                })
+        //                res.render("tags", {
+        //                    user: req.session.username,
+        //                    tags: query,
+        //                    memes: posts
+        //                })
+        //            })
+        //        })
 
         //PLAN B
-                query.forEach((doc) => {
-                    Meme.getTagMemes(doc).then((memes) => {
-                        memes.forEach((meme) => {
-                            if (meme.type === "Public" || meme.tagged.includes(req.cookies.user) || meme.owner === req.cookies.user) {
-                                if ((posts.filter((post) => post.title == meme.title)).length == 0) {
-                                    posts.push(meme)
-                                }
-                            }
-                        })
-                        res.render("tags", {
-                            user: req.session.username,
-                            tags: query,
-                            memes: posts
-                        })
-                    })
+        query.forEach((doc) => {
+            Meme.getTagMemes(doc).then((memes) => {
+                memes.forEach((meme) => {
+                    if (meme.type === "Public" || meme.tagged.includes(req.cookies.user) || meme.owner === req.cookies.user) {
+                        if ((posts.filter((post) => post.title == meme.title)).length == 0) {
+                            posts.push(meme)
+                        }
+                    }
                 })
+                res.render("tags", {
+                    user: req.session.username,
+                    tags: query,
+                    memes: posts
+                })
+            })
+        })
     } else {
         query.forEach((doc) => {
             Tag.findTag(doc).then((tag) => {
@@ -254,6 +255,27 @@ router.post("/deleteMeme", urlencoder, function (req, res) {
     Meme.delete(req.body.id).then(() => {
         res.redirect("../user/profile")
     })
+
+})
+
+router.post("/like", function (req, res) {
+    if (req.session.username) {
+        User.getEmail(req.cookies.user).then((user) => {
+            if (!user.liked.includes(req.body.id)) {
+                Meme.like(req.body.id).then(() => {
+                    User.pushID(req.cookies.user, req.body.id).then(() => {
+                        res.redirect("/")
+                    })
+                })
+            } else {
+                res.redirect("/")
+            }
+       })
+    }else {
+        res.render("/", {
+            signup_first: true
+        })
+    }
 
 })
 //
