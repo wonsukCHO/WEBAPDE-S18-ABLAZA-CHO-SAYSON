@@ -43,25 +43,23 @@ router.get("/", function (req, res) {
     console.log("GET /")
     req.session.limit = 3 //15 in the final build
     var posts = []
-    if (req.cookies.user) {
-        User.getEmail(req.cookies.user).then((user) => {
-            req.session.username = user.name
-            Meme.getAll().then((memes) => {
-                memes.forEach((a) => {
-                    if (a.type == "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
-                        posts.push(a)
-                    }
-                }) //forEach
-                res.render("home", {
-                    //user: req.session.username,
-                    user: req.session.username,
-                    memes: posts,
-                    limit: req.session.limit
-                })
-            }) //Memes.getAll
-        })
 
-    } else {
+    User.getEmail(req.cookies.user).then((user) => {
+        req.session.username = user.name
+        Meme.getAll().then((memes) => {
+            memes.forEach((a) => {
+                if (a.type == "Public" || a.tagged.includes(req.cookies.user) || a.owner === req.cookies.user) {
+                    posts.push(a)
+                }
+            }) //forEach
+            res.render("home", {
+                //user: req.session.username,
+                user: req.session.username,
+                memes: posts,
+                limit: req.session.limit
+            })
+        }) //Memes.getAll
+    }, (err) => {
         Meme.getAll().then((memes) => {
             memes.forEach((a) => {
                 if (a.type == "Public") {
@@ -74,7 +72,7 @@ router.get("/", function (req, res) {
                 limit: req.session.limit
             })
         })
-    }
+    })
 })
 
 router.get("/about", function (req, res) {
