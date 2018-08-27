@@ -68,7 +68,7 @@ exports.get = function (id) {
 
 exports.getAll = function () {
     return new Promise(function (resolve, reject) {
-        Meme.find().then((memes) => {
+        Meme.find().sort({_id : -1}).then((memes) => {
             resolve(memes)
         }, (err) => {
             reject(err)
