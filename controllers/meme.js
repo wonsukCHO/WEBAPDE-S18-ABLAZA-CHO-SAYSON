@@ -164,17 +164,34 @@ router.get("/search", function (req, res) {
             })
         })
     } else {
+        //        query.forEach((doc) => {
+        //            Tag.findTag(doc).then((tag) => {
+        //                tag.memes.forEach((a) => {
+        //                    if (a.type === "Public") {
+        //                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
+        //                            posts.push(a)
+        //                        }
+        //                    }
+        //                })
+        //                res.render("tags", {
+        //                    user: "Guest",
+        //                    tags: query,
+        //                    memes: posts
+        //                })
+        //            })
+        //        })
+        //Plan B
         query.forEach((doc) => {
-            Tag.findTag(doc).then((tag) => {
-                tag.memes.forEach((a) => {
-                    if (a.type === "Public") {
-                        if ((posts.filter((post) => post.title == a.title)).length == 0) {
-                            posts.push(a)
+            Meme.getTagMemes(doc).then((memes) => {
+                memes.forEach((meme) => {
+                    if (meme.type === "Public") {
+                        if ((posts.filter((post) => post.title == meme.title)).length == 0) {
+                            posts.push(meme)
                         }
                     }
                 })
                 res.render("tags", {
-                    user: "Guest",
+                    user: req.session.username,
                     tags: query,
                     memes: posts
                 })
@@ -270,7 +287,7 @@ router.post("/like", function (req, res) {
             } else {
                 res.redirect("/")
             }
-       })
+        })
     } else {
         res.render("index", {
             signup_first: true

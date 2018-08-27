@@ -111,15 +111,15 @@ router.get("/logout", (req, res) => {
 router.get("/profile", (req, res) => {
     console.log("GET user/profile")
     if (req.session.username) {
-//        User.get(req.session.username).then((user) => {
-//            res.render("profile", {
-//                user: user.name,
-//                name: user.name,
-//                uname: user.email,
-//                bio: user.description,
-//                memes: user.memes
-//            })
-//        })
+        //        User.get(req.session.username).then((user) => {
+        //            res.render("profile", {
+        //                user: user.name,
+        //                name: user.name,
+        //                uname: user.email,
+        //                bio: user.description,
+        //                memes: user.memes
+        //            })
+        //        })
 
         //Plan B
         User.get(req.session.username).then((user) => {
@@ -143,35 +143,67 @@ router.get("/profile", (req, res) => {
 
 router.get("/account", (req, res) => {
     console.log("GET user/account")
+    var posts = []
     User.getEmail(req.query.other_user).then((user) => {
-        if (user.name == req.session.username) {
-            res.redirect("../user/profile")
-        } else {
-            var posts = []
-            user.memes.forEach((a) => {
-                if (a.type === "Public" || a.tagged.includes(req.cookies.user)) {
-                    posts.push(a)
+        Meme.getUserMemes(req.query.other_user).then((memes) => {
+            if (req.cookies.user == req.query.other_user) {
+                res.redirect("../user/profile")
+            } else {
+                memes.forEach((meme) => {
+                    if (meme.type == "Public" || meme.tagged.includes(req.cookies.user)) {
+                        posts.push(meme)
+                    }
+                })
+                if (req.session.username == null) {
+                    res.render("sideProfile", {
+                        user: "Guest",
+                        name: user.name,
+                        uname: user.email,
+                        bio: user.description,
+                        memes: posts
+                    })
+                } else if (user.name != req.session.username) {
+                    res.render("sideProfile", {
+                        user: req.session.username,
+                        name: user.name,
+                        uname: user.email,
+                        bio: user.description,
+                        memes: posts
+                    })
                 }
-            })
-            if (req.session.username == null) {
-                res.render("sideProfile", {
-                    user: "Guest",
-                    name: user.name,
-                    uname: user.email,
-                    bio: user.description,
-                    memes: posts
-                })
-            } else if (user.name != req.session.username) {
-                res.render("sideProfile", {
-                    user: req.session.username,
-                    name: user.name,
-                    uname: user.email,
-                    bio: user.description,
-                    memes: posts
-                })
             }
-        }
+        })
     })
+
+    //    User.getEmail(req.query.other_user).then((user) => {
+    //        if (user.name == req.session.username) {
+    //            res.redirect("../user/profile")
+    //        } else {
+    //            var posts = []
+    //            user.memes.forEach((a) => {
+    //                if (a.type === "Public" || a.tagged.includes(req.cookies.user)) {
+    //                    posts.push(a)
+    //                }
+    //            })
+    //            if (req.session.username == null) {
+    //                res.render("sideProfile", {
+    //                    user: "Guest",
+    //                    name: user.name,
+    //                    uname: user.email,
+    //                    bio: user.description,
+    //                    memes: posts
+    //                })
+    //            } else if (user.name != req.session.username) {
+    //                res.render("sideProfile", {
+    //                    user: req.session.username,
+    //                    name: user.name,
+    //                    uname: user.email,
+    //                    bio: user.description,
+    //                    memes: posts
+    //                })
+    //            }
+    //        }
+    //    })
 })
 // always remember to export the router for index.js
 module.exports = router
