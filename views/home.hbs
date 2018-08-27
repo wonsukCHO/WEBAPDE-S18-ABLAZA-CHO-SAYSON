@@ -87,15 +87,17 @@
                 <div class="modal-header">
                     <h5 class="modal-title" id="exampleModalLabel">{{title}}</h5>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body row">
                     <i> <a href="../user/account?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
                     <img src="../meme/photo/{{_id}}"/>
                         <div class="tags">
                             Tags:
+                    
                     {{#each tags}}
-                            <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
+                           <a href="../meme/search?search_item={{this}}" style="color:black">#{{this}}</a>
                         </div>
                     {{/each}}
+                    
                 </div>
                 <div class="modal-footer">
                     <form action="../meme/upvoteMeme" method="post">

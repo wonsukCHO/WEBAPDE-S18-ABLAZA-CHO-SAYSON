@@ -98,7 +98,7 @@
                         </div>
                     </div>
                 </div>
-                <div class="modal-body">
+                <div class="modal-body row">
                     <i> <a href="../user/account?other_user={{owner}}" style="color:black" class="user">@{{owner}}</a> </i>
                     <img src="../meme/photo/{{_id}}" />
                     <div class="tags">
@@ -185,7 +185,7 @@
 
     <!--Edit Meme-->
     {{#each memes}}
-    <form action="../meme/editMeme" method="post" >
+    <form action="../meme/editMeme" method="post">
         <div class="modal fade" id="edit{{_id}}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
             <input id="editid" type="hidden" name="id" value="{{_id}}">
             <div class="modal-dialog" role="document">
