@@ -32,7 +32,7 @@ router.post("/signup", (req, res) => {
     User.create(user).then((user) => {
         console.log("successful " + user)
         req.session.username = user.name
-        req.session.limit = 3
+        req.session.limit = 15
         res.cookie("user", user.email, { //default 1 day
             maxAge: 1000 * 60 * 60 * 24
         })
@@ -65,7 +65,7 @@ router.post("/login", (req, res) => {
         console.log("authenticate " + newUser)
         if (newUser) {
             req.session.username = newUser.name
-            req.session.limit = 3
+            req.session.limit = 15
             if (req.body.remember) {
                 res.cookie("user", newUser.email, {
                     maxAge: 1000 * 60 * 60 * 24 * 7 * 3
@@ -89,7 +89,7 @@ router.post("/login", (req, res) => {
     }, (error) => {
         res.render("index", {
             login_error: true,
-            limit: 3
+            limit: 15
         })
     })
 })
