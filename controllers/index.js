@@ -54,7 +54,6 @@ router.get("/", function (req, res) {
                     }
                 }) //forEach
                 res.render("home", {
-                    //user: req.session.username,
                     user: req.session.username,
                     memes: posts,
                     limit: req.session.limit

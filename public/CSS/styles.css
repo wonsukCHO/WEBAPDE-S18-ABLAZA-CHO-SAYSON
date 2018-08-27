@@ -112,3 +112,7 @@ div img {
 .dropdown-toggle::after {
     display: none;
 }
+
+.modal-body{
+    word-wrap: break-word;
+}
