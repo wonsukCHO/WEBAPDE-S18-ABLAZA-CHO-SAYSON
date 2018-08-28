@@ -263,6 +263,18 @@ router.post("/editMeme", function (req, res) {
         })
         res.redirect("../user/profile")
     })
+    
+// Array fix 
+//    Meme.edit(req.body.id, updatedMeme).then((meme) => { //Update the meme objects
+//        User.pullMeme(req.session.username, req.body.id).then(()=>{
+//            User.pushMeme(req.session.username, meme).then(()=>{
+//                
+//            })
+//        })
+//        res.redirect("../user/profile")
+//    })
+//    
+    
 })
 
 router.post("/deleteMeme", urlencoder, function (req, res) {

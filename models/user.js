@@ -150,6 +150,21 @@ exports.pushMeme = function (user, meme) {
         })
     })
 }
+exports.pushMeme = function (user, meme) {
+    return new Promise(function (resolve, reject) {
+        User.findOneAndUpdate({
+            name: user
+        }, {
+            $pull: {
+                memes: {"meme._id" : id}
+            }
+        }).then((updated) => {
+            resolve(updated)
+        }, (err) => {
+            reject(err)
+        })
+    })
+}
 
 exports.pushID = function (user, id) {
     return new Promise(function (resolve, reject) {
