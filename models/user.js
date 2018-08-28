@@ -150,7 +150,8 @@ exports.pushMeme = function (user, meme) {
         })
     })
 }
-exports.pushMeme = function (user, meme) {
+
+exports.pullMeme = function (user, id) {
     return new Promise(function (resolve, reject) {
         User.findOneAndUpdate({
             name: user

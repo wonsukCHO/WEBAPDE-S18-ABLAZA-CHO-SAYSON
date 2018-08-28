@@ -67,9 +67,9 @@ router.post("/postMeme", upload.single("img"), (req, res) => {
             tags: (req.body.tags).replace(" ", "").split(","),
             type: req.body.type,
             tagged: (req.body.users).replace(" ", "").split(","),
-            upvotes: 0,
             filename: req.file.filename,
-            originalfilename: req.file.original //multer needs this
+            originalfilename: req.file.original, //multer needs this
+            upvotes: 0
         }
 
 
