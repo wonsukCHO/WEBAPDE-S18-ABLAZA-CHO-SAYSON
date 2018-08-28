@@ -34,13 +34,13 @@ app.use(session({
 }))
 
 mongoose.Promise = global.Promise
-mongoose.connect("mongodb://localhost:27017/userdata", {
-    useNewUrlParser: true
-})
-
-//mongoose.connect("mongodb://angelo:webapde4@ds131942.mlab.com:31942/userdata", {
+//mongoose.connect("mongodb://localhost:27017/userdata", {
 //    useNewUrlParser: true
 //})
+
+mongoose.connect("mongodb://angelo:webapde4@ds131942.mlab.com:31942/userdata", {
+    useNewUrlParser: true
+})
 
 app.use(require("./controllers"))
 
